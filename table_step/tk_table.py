@@ -3,9 +3,9 @@
 
 import molssi_workflow
 import molssi_util.molssi_widgets as mw
-import table_step
 import Pmw
 import pprint  # nopep8
+import table_step
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -18,7 +18,7 @@ class TkTable(molssi_workflow.TkNode):
     node_class = table_step.Table
 
     def __init__(self, tk_workflow=None, node=None, canvas=None,
-                 x=None, y=None, w=None, h=None):
+                 x=120, y=20, w=200, h=50):
         '''Initialize a node
 
         Keyword arguments:
@@ -42,34 +42,53 @@ class TkTable(molssi_workflow.TkNode):
         # self._widget, which is inherited from the base class, is
         # a place to store the pointers to the widgets so that we can access
         # them later. We'll set up a short hand 'w' just to keep lines short
+
         w = self._widget
         frame = ttk.Frame(self.dialog.interior())
         frame.pack(expand=tk.YES, fill=tk.BOTH)
         w['frame'] = frame
+
         # Set the first parameter -- which will be exactly matched
         method_label = ttk.Label(
-            frame, text='Example value'
+            frame, text='Operation:'
         )
         w['method_label'] = method_label
 
         method = ttk.Combobox(
-            frame, state='readonly', values=['is', 'from variable'],
+            frame, state='readonly',
+            values=table_step.methods,
             justify=tk.RIGHT, width=15
         )
         method.set(self.node.method)
         w['method'] = method
 
-        # Unit entry field for example
-        example = mw.UnitEntry(frame, width=15)
-        example.set(self.node.example)
-        w['example'] = example
+        # Name of table
+        name_label = ttk.Label(
+            frame, text=' table named '
+        )
+        w['name_label'] = name_label
 
-        # Variable for example
-        example_variable = ttk.Entry(frame, width=15)
-        example_variable.insert(0, self.node.example_variable)
-        w['example_variable'] = example_variable
+        name = ttk.Entry(frame, width=15)
+        name.insert(0, self.node.name)
+        w['name'] = name
+
+        # Filename
+        filename_label = ttk.Label(
+            frame, text=' from file:'
+        )
+        w['filename_label'] = filename_label
+
+        filename = ttk.Entry(frame, width=15)
+        filename.insert(0, self.node.filename)
+        w['filename'] = filename
+
+        w['file_selector'] = ttk.Label(
+            frame, text='...'
+        )
 
         self.reset_dialog()
+
+        w['method'].bind("<<ComboboxSelected>>", self.reset_dialog)
 
     def reset_dialog(self, widget=None):
         # set up our shorthand for the widgets
@@ -89,13 +108,28 @@ class TkTable(molssi_workflow.TkNode):
         row = 0
         w['method_label'].grid(row=row, column=0, sticky=tk.E)
         w['method'].grid(row=row, column=1, sticky=tk.EW)
-        if method == 'is':
-            w['example'].grid(row=row, column=2, sticky=tk.W)
-        elif 'variable' in method:
-            w['example_variable'].grid(row=row, column=1, sticky=tk.W)
+
+        if method == 'create':
+            w['name_label'].grid(row=row, column=2, sticky=tk.W)
+            w['name'].grid(row=row, column=3, sticky=tk.W)
+        elif method == 'read':
+            w['name_label'].grid(row=row, column=2, sticky=tk.W)
+            w['name'].grid(row=row, column=3, sticky=tk.W)
+            row += 1
+            w['filename_label'].grid(row=row, column=1, sticky=tk.W)
+            w['filename'].grid(row=row, column=2, sticky=tk.W)
+            w['file_selector'].grid(row=row, column=3, sticky=tk.W)
+        elif method == 'save':
+            raise RuntimeError("Table 'save' not implemented yet")
+        elif method == 'print':
+            w['name_label'].grid(row=row, column=2, sticky=tk.W)
+            w['name'].grid(row=row, column=3, sticky=tk.W)
+        elif method == 'add row':
+            raise RuntimeError("Table 'add row' not implemented yet")
         else:
-            raise RuntimeError(
-                "Don't recognize the method {}".format(method))
+            raise RuntimeError('The table method must be one of ' +
+                               ', '.join(table_step.methods) +
+                               'not "' + method + '"')
         row += 1
 
     def right_click(self, event):
@@ -103,7 +137,7 @@ class TkTable(molssi_workflow.TkNode):
         """
 
         super().right_click(event)
-        self.popup_menu.add_command(label="Edit..", command=self.edit)
+        self.popup_menu.add_command(label="Edit...", command=self.edit)
 
         self.popup_menu.tk_popup(event.x_root, event.y_root, 0)
 
@@ -116,7 +150,7 @@ class TkTable(molssi_workflow.TkNode):
         self.dialog.activate(geometry='centerscreenfirst')
 
     def handle_dialog(self, result):
-        if result == 'Cancel':
+        if result is None or result == 'Cancel':
             self.dialog.deactivate(result)
             return
 
@@ -136,16 +170,25 @@ class TkTable(molssi_workflow.TkNode):
         # and get the method, which in this example tells
         # whether to use the value ditrectly or get it from
         # a variable in the workflow
+
         method = w['method'].get()
 
         self.node.method = method
-        if method == 'is':
-            self.node.example = w['example'].get()
-        elif 'variable' in method:
-            self.node.example_variable = w['example_variable'].get()
+        if method == 'create':
+            self.node.name = w['name'].get()
+        elif method == 'read':
+            self.node.name = w['name'].get()
+            self.node.filename = w['filename'].get()
+        elif method == 'save':
+            raise RuntimeError("Table 'save' not implemented yet")
+        elif method == 'print':
+            self.node.name = w['name'].get()
+        elif method == 'add row':
+            raise RuntimeError("Table 'add row' not implemented yet")
         else:
-            raise RuntimeError(
-                "Don't recognize the method {}".format(method))
+            raise RuntimeError('The table method must be one of ' +
+                               ', '.join(table_step.methods) +
+                               'not "' + method + '"')
 
     def handle_help(self):
         """Not implemented yet ... you'll need to fill this out!"""

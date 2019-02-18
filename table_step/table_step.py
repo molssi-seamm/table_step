@@ -10,8 +10,8 @@ import table_step
 class TableStep(object):
     my_description = {
         'description':
-        'An interface for Table',
-        'group': 'Simulations',
+        'An interface for Pandas tables',
+        'group': 'Data',
         'name': 'Table'
     }
 
