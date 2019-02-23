@@ -48,43 +48,73 @@ class TkTable(molssi_workflow.TkNode):
         frame.pack(expand=tk.YES, fill=tk.BOTH)
         w['frame'] = frame
 
+        w['method_frame'] = ttk.Frame(frame)
         # Set the first parameter -- which will be exactly matched
-        method_label = ttk.Label(
-            frame, text='Operation:'
+        w['method_label'] = ttk.Label(
+            w['method_frame'], text='Operation:'
         )
-        w['method_label'] = method_label
 
-        method = ttk.Combobox(
-            frame, state='readonly',
+        w['method'] = ttk.Combobox(
+            w['method_frame'], state='readonly',
             values=table_step.methods,
             justify=tk.RIGHT, width=15
         )
-        method.set(self.node.method)
-        w['method'] = method
+        w['method'].set(self.node.method)
 
         # Name of table
-        name_label = ttk.Label(
-            frame, text=' table named '
+        w['name_label'] = ttk.Label(
+            w['method_frame'], text=' table named '
         )
-        w['name_label'] = name_label
 
-        name = ttk.Entry(frame, width=15)
-        name.insert(0, self.node.name)
-        w['name'] = name
+        w['name'] = ttk.Entry(w['method_frame'], width=15)
+        w['name'].insert(0, self.node.name)
 
         # Filename
-        filename_label = ttk.Label(
-            frame, text=' from file:'
+        w['filename_label'] = ttk.Label(
+            w['frame'], text=' from file:'
         )
-        w['filename_label'] = filename_label
 
-        filename = ttk.Entry(frame, width=15)
-        filename.insert(0, self.node.filename)
-        w['filename'] = filename
+        w['filename'] = ttk.Entry(w['frame'], width=15)
+        w['filename'].insert(0, self.node.filename)
 
         w['file_selector'] = ttk.Label(
-            frame, text='...'
+            w['frame'], text='...'
         )
+
+        # Index column
+        w['index_column_label'] = ttk.Label(
+            w['frame'], text=' index column:'
+        )
+        w['index_column'] = ttk.Entry(w['frame'], width=15)
+        w['index_column'].insert(0, self.node.index_column)
+
+        # area for columns
+        w['columns'] = ttk.Frame(frame, height=300)
+
+        # Information for getting and setting values
+        w['row_index_label'] = ttk.Label(
+            w['frame'], text=' row index:'
+        )
+        w['row_index'] = ttk.Entry(w['frame'], width=15)
+        w['row_index'].insert(0, self.node.row_index)
+
+        w['column_index_label'] = ttk.Label(
+            w['frame'], text=' column index:'
+        )
+        w['column_index'] = ttk.Entry(w['frame'], width=15)
+        w['column_index'].insert(0, self.node.column_index)
+
+        w['value_label'] = ttk.Label(
+            w['frame'], text=' value:'
+        )
+        w['value'] = ttk.Entry(w['frame'], width=50)
+        w['value'].insert(0, self.node.value)
+
+        w['variable_name_label'] = ttk.Label(
+            w['frame'], text=' variable:'
+        )
+        w['variable_name'] = ttk.Entry(w['frame'], width=15)
+        w['variable_name'].insert(0, self.node.variable_name)
 
         self.reset_dialog()
 
@@ -106,26 +136,63 @@ class TkTable(molssi_workflow.TkNode):
         # keep track of the row in a variable, so that the layout is flexible
         # if e.g. rows are skipped to control such as 'method' here
         row = 0
+        w['method_frame'].grid(row=row, column=0, columnspan=9, sticky=tk.W)
         w['method_label'].grid(row=row, column=0, sticky=tk.E)
-        w['method'].grid(row=row, column=1, sticky=tk.EW)
+        w['method'].grid(row=row, column=1, sticky=tk.W)
+        w['name_label'].grid(row=row, column=2, sticky=tk.W)
+        w['name'].grid(row=row, column=3, sticky=tk.W)
 
         if method == 'create':
-            w['name_label'].grid(row=row, column=2, sticky=tk.W)
-            w['name'].grid(row=row, column=3, sticky=tk.W)
-        elif method == 'read':
-            w['name_label'].grid(row=row, column=2, sticky=tk.W)
-            w['name'].grid(row=row, column=3, sticky=tk.W)
             row += 1
-            w['filename_label'].grid(row=row, column=1, sticky=tk.W)
-            w['filename'].grid(row=row, column=2, sticky=tk.W)
-            w['file_selector'].grid(row=row, column=3, sticky=tk.W)
+            w['index_column_label'].grid(row=row, column=0, sticky=tk.E)
+            w['index_column'].grid(row=row, column=1, sticky=tk.EW)
+            row += 1
+            w['columns'].grid(row=row, column=0, sticky=tk.NSEW)
+            self.layout_columns_for_editing(first=True)
+        elif method == 'read':
+            row += 1
+            w['filename_label'].grid(row=row, column=0, sticky=tk.E)
+            w['filename'].grid(row=row, column=1, sticky=tk.EW)
+            w['file_selector'].grid(row=row, column=2, sticky=tk.W)
+            row += 1
+            w['index_column_label'].grid(row=row, column=0, sticky=tk.E)
+            w['index_column'].grid(row=row, column=1, sticky=tk.EW)
         elif method == 'save':
             raise RuntimeError("Table 'save' not implemented yet")
         elif method == 'print':
-            w['name_label'].grid(row=row, column=2, sticky=tk.W)
-            w['name'].grid(row=row, column=3, sticky=tk.W)
-        elif method == 'add row':
-            raise RuntimeError("Table 'add row' not implemented yet")
+            pass
+        elif method == 'append row':
+            row += 1
+            w['columns'].grid(row=row, column=0, sticky=tk.NSEW)
+            self.layout_columns_for_add_row(first=True)
+        elif method == 'add columns':
+            row += 1
+            w['columns'].grid(row=row, column=0, sticky=tk.NSEW)
+            self.layout_columns_for_editing(first=True)
+        elif method == 'get element':
+            row += 1
+            w['row_index_label'].grid(row=row, column=0, sticky=tk.E)
+            w['row_index'].grid(row=row, column=1, sticky=tk.W)
+
+            row += 1
+            w['column_index_label'].grid(row=row, column=0, sticky=tk.E)
+            w['column_index'].grid(row=row, column=1, sticky=tk.W)
+
+            row += 1
+            w['variable_name_label'].grid(row=row, column=0, sticky=tk.E)
+            w['variable_name'].grid(row=row, column=1, sticky=tk.W)
+        elif method == 'set element':
+            row += 1
+            w['row_index_label'].grid(row=row, column=0, sticky=tk.E)
+            w['row_index'].grid(row=row, column=1, sticky=tk.W)
+
+            row += 1
+            w['column_index_label'].grid(row=row, column=0, sticky=tk.E)
+            w['column_index'].grid(row=row, column=1, sticky=tk.W)
+
+            row += 1
+            w['value_label'].grid(row=row, column=0, sticky=tk.E)
+            w['value'].grid(row=row, column=1, sticky=tk.W)
         else:
             raise RuntimeError('The table method must be one of ' +
                                ', '.join(table_step.methods) +
@@ -175,16 +242,30 @@ class TkTable(molssi_workflow.TkNode):
 
         self.node.method = method
         if method == 'create':
+            self.save_column_data()
             self.node.name = w['name'].get()
+            self.node.index_column = w['index_column'].get()
         elif method == 'read':
             self.node.name = w['name'].get()
             self.node.filename = w['filename'].get()
+            self.node.index_column = w['index_column'].get()
         elif method == 'save':
-            raise RuntimeError("Table 'save' not implemented yet")
+            pass
         elif method == 'print':
             self.node.name = w['name'].get()
-        elif method == 'add row':
-            raise RuntimeError("Table 'add row' not implemented yet")
+        elif method == 'append row':
+            self.save_column_data()
+        elif method == 'add columns':
+            # Save any changes!
+            self.save_column_data()
+        elif method == 'get element':
+            self.node.row_index = w['row_index'].get()
+            self.node.column_index = w['column_index'].get()
+            self.node.variable_name = w['variable_name'].get()
+        elif method == 'set element':
+            self.node.row_index = w['row_index'].get()
+            self.node.column_index = w['column_index'].get()
+            self.node.value = w['value'].get()
         else:
             raise RuntimeError('The table method must be one of ' +
                                ', '.join(table_step.methods) +
@@ -193,3 +274,203 @@ class TkTable(molssi_workflow.TkNode):
     def handle_help(self):
         """Not implemented yet ... you'll need to fill this out!"""
         print('Help!')
+
+    def layout_columns_for_editing(self, first=False):
+        """Layout the table of columns for adding, editing, etc.
+        """
+
+        w = self._widget
+        frame = w['columns']
+
+        # Save any changes!
+        if not first:
+            self.save_column_data()
+
+        # Unpack any widgets
+        for slave in frame.grid_slaves():
+            slave.destroy()
+
+        row = 0
+        w = ttk.Label(frame, text='Name')
+        w.grid(row=row, column=1)
+        w = ttk.Label(frame, text='Type')
+        w.grid(row=row, column=2)
+        w = ttk.Label(frame, text='Default')
+        w.grid(row=row, column=3)
+
+        for d in self.node.tmp_columns:
+            row += 1
+            widgets = d['widgets'] = {}
+
+            col = 0
+            # The button to remove a row...
+            w = widgets['remove'] = ttk.Button(
+                frame,
+                text='-',
+                width=5,
+                command=lambda row=row: self.remove_column_for_add_row(row),
+                takefocus=False,
+            )
+            w.grid(row=row, column=col, sticky=tk.W)
+            col += 1
+            widgets['remove'] = w
+
+            # the name of the keyword
+            w = ttk.Entry(frame,
+                          width=30,
+                          takefocus=False,
+                          )
+            w.insert(0, d['name'])
+            widgets['name'] = w
+            w.grid(row=row, column=col, stick=tk.EW)
+            col += 1
+
+            # the type of the column
+            w = ttk.Combobox(
+                frame,
+                state='readonly',
+                values=('string', 'boolean', 'integer', 'float')
+            )
+            if 'type' not in d:
+                d['type'] = 'float'
+            w.set(d['type'])
+            w.grid(row=row, column=col, stick=tk.EW)
+            col += 1
+            widgets['type'] = w
+
+            # the default
+            w = ttk.Entry(frame,
+                          width=30,
+                          takefocus=False,
+                          )
+            w.insert(0, d['default'])
+            widgets['default'] = w
+            w.grid(row=row, column=col, stick=tk.EW)
+            col += 1
+
+        # The button to add a row...
+        row += 1
+        w = self._widget['add column'] = ttk.Button(
+            frame,
+            text='+',
+            width=5,
+            command=self.add_column,
+            takefocus=False,
+        )
+        w.grid(row=row, column=0, sticky=tk.W)
+
+    def layout_columns_for_add_row(self, first=False):
+        """Layout the table of columns for adding a row
+        """
+
+        w = self._widget
+        frame = w['columns']
+
+        # Save any changes!
+        if not first:
+            self.save_column_data()
+
+        # Unpack any widgets
+        for slave in frame.grid_slaves():
+            slave.destroy()
+
+        row = 0
+        w = ttk.Label(frame, text='Name')
+        w.grid(row=row, column=1)
+        w = ttk.Label(frame, text='Value')
+        w.grid(row=row, column=2)
+
+        for d in self.node.tmp_columns:
+            row += 1
+            widgets = d['widgets'] = {}
+
+            col = 0
+            # The button to remove a row...
+            w = widgets['remove'] = ttk.Button(
+                frame,
+                text='-',
+                width=5,
+                command=lambda row=row: self.remove_column(row),
+                takefocus=False,
+            )
+            w.grid(row=row, column=col, sticky=tk.W)
+            col += 1
+            widgets['remove'] = w
+
+            # the name of the column
+            w = ttk.Entry(frame,
+                          width=30,
+                          takefocus=False,
+                          )
+            w.insert(0, d['name'])
+            widgets['name'] = w
+            w.grid(row=row, column=col, stick=tk.EW)
+            col += 1
+
+            # the value
+            w = ttk.Entry(frame,
+                          width=30,
+                          takefocus=False,
+                          )
+            w.insert(0, d['value'])
+            widgets['value'] = w
+            w.grid(row=row, column=col, stick=tk.EW)
+            col += 1
+
+        # The button to add a row...
+        row += 1
+        w = self._widget['add column'] = ttk.Button(
+            frame,
+            text='+',
+            width=5,
+            command=self.add_column_for_add_row,
+            takefocus=False,
+        )
+        w.grid(row=row, column=0, sticky=tk.W)
+
+    def remove_column(self, row=None):
+        """Remove a column from the list of columns"""
+        del self.node.tmp_columns[row]
+        self.layout_columns_for_editing()
+
+    def add_column(self):
+        """Add entries for another column in the displayed table
+        """
+        self.node.tmp_columns.append({
+            'widgets': {},
+            'type': 'float',
+            'name': '',
+            'default': ''
+        })
+        self.layout_columns_for_editing()
+
+    def remove_column_for_add_row(self, row=None):
+        """Remove a column from the list of columns"""
+        del self.node.tmp_columns[row]
+        self.layout_columns_for_add_row()
+
+    def add_column_for_add_row(self):
+        """Add entries for another column in the displayed table
+        """
+        self.node.tmp_columns.append({
+            'widgets': {},
+            'name': '',
+            'value': ''
+        })
+        self.layout_columns_for_add_row()
+
+    def save_column_data(self):
+        """Get the data from the widgets when the table information is
+        changed in the GUI.
+        """
+        for d in self.node.tmp_columns:
+            w = d['widgets']
+            if 'name' in w:
+                d['name'] = w['name'].get()
+            if 'type' in w:
+                d['type'] = w['type'].get()
+            if 'default' in w:
+                d['default'] = w['default'].get()
+            if 'value' in w:
+                d['value'] = w['value'].get()
+            del d['widgets']
