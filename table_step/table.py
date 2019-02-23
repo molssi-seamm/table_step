@@ -4,11 +4,21 @@
 import logging
 import molssi_workflow
 from molssi_workflow import units, Q_, data  # nopep8
-import table_step
+import numpy as np
 import pandas
+import table_step
 
 logger = logging.getLogger(__name__)
-methods = ['create', 'read', 'save', 'print', 'add row']
+methods = [
+    'create',
+    'read',
+    'save',
+    'print',
+    'append row',
+    'add columns',
+    'set element',
+    'get element'
+]
 
 
 class Table(molssi_workflow.Node):
@@ -22,11 +32,24 @@ class Table(molssi_workflow.Node):
         '''
         logger.debug('Creating Table {}'.format(self))
 
+        # What are we doing?
         self._method = 'create'
-        self.name = 'table1'
-        self.column_names = []
-        self.filename = ''
 
+        # Information about the table
+        self.name = 'table1'
+        self.filename = ''
+        self.index_column = 'default'
+
+        # Used for editing and adding columns
+        self.tmp_columns = []
+
+        # For getting and setting individual values
+        self.column_index = ''
+        self.row_index = ''
+        self.value = ''
+        self.variable_name = ''
+
+        # Initialize our parent class
         super().__init__(
             workflow=workflow,
             title='Table',
@@ -46,30 +69,257 @@ class Table(molssi_workflow.Node):
                                'not "' + value + '"')
 
     def run(self):
-        """Run a Table step.
+        """Do what we need for the table, as dictated by the 'method'
         """
+
+        tablename = self.get_value(self.name)
+
         if self.method == 'create':
-            pass
+            table = pandas.DataFrame()
+            defaults = {}
+            for d in self.tmp_columns:
+                column_name = self.get_value(d['name'])
+                if column_name not in table.columns:
+                    if d['type'] == 'boolean':
+                        if d['default'] == '':
+                            default = False
+                        else:
+                            default = bool(d['default'])
+                    elif d['type'] == 'integer':
+                        if d['default'] == '':
+                            default = 0
+                        else:
+                            default = int(d['default'])
+                    elif d['type'] == 'float':
+                        if d['default'] == '':
+                            default = np.nan
+                        else:
+                            default = float(d['default'])
+                    elif d['type'] == 'string':
+                        default = d['default']
+
+                    table[column_name] = default
+                    defaults[column_name] = default
+            if self.index_column != 'default':
+                index_column = self.get_value(self.index_column)
+                try:
+                    index_column = table.columns[int(index_column)]
+                except ValueError:
+                    if index_column not in table.columns:
+                        raise RuntimeError(
+                            "Table create: column '{}'".format(index_column)
+                            + ' for index does not exist'
+                        )
+                table.set_index(
+                    index_column, inplace=True, verify_integrity=True
+                )
+                    
+            logger.info("Creating table '{}'".format(tablename))
+            self.set_variable(
+                tablename, {
+                    'type': 'pandas',
+                    'table': table,
+                    'defaults': defaults,
+                }
+            )
         elif self.method == 'read':
-            logger.debug('  read table from {}'.format(self.filename))
-            table = pandas.read_csv(self.filename)
-            logger.debug('  setting up dict in {}'.format(self.name))
-            # tmp['type'] = 'pandas'
-            # tmp['table'] = table
-            # tmp['filename'] = self.filename
-            molssi_workflow.workflow_variables[self.name] = {
-                'type': 'pandas',
-                'filename': self.filename,
-                'table': table
-            }
-            logger.info('Succesfully read table from {}'.format(self.filename))
+            filename = self.get_value(self.filename)
+
+            logger.debug('  read table from {}'.format(filename))
+
+            table = pandas.read_csv(filename)
+
+            if self.index_column != 'default':
+                index_column = self.get_value(self.index_column)
+                try:
+                    index_column = table.columns[int(index_column)]
+                except ValueError:
+                    if index_column not in table.columns:
+                        raise RuntimeError(
+                            "Table create: column '{}'".format(index_column)
+                            + ' for index does not exist'
+                        )
+                table.set_index(
+                    index_column, inplace=True, verify_integrity=True
+                )
+
+            logger.debug('  setting up dict in {}'.format(tablename))
+            self.set_variable(
+                tablename, {
+                    'type': 'pandas',
+                    'filename': filename,
+                    'format': 'csv',
+                    'table': table,
+                    'defaults': {}
+                }
+            )
+            
+            logger.info('Succesfully read table from {}'.format(filename))
         elif self.method == 'save':
-            raise RuntimeError("Table 'save' not implemented yet")
+            if not self.variable_exists(tablename):
+                raise RuntimeError(
+                    "Table save: table '{}' does not exist.".format(tablename)
+                )
+            table_handle = self.get_variable(tablename)
+            if 'filename' not in table_handle:
+                raise RuntimeError(
+                    "Table save: table '{}' has no associated filename"
+                    .format(tablename)
+                )
+            if 'format' in table_handle:
+                file_format = table_handle['format']
+            else:
+                file_format = 'csv'
+
+            if file_format == 'csv':
+                table_handle['table'].to_csv(filename)
+            elif file_format == 'json':
+                table_handle['table'].to_json(filename)
+            elif file_format == 'json':
+                with open(filename, 'w') as fd:
+                    fd.write(table_handle['table'].to_json())
+            elif file_format == 'excel':
+                table_handle['table'].to_excel(filename)
+            else:
+                raise RuntimeError(
+                    "Table save: cannot handle format '" + file_format
+                    + "' for file '" + filename
+                )
         elif self.method == 'print':
-            print("Table '{}':".format(self.name))
-            print(molssi_workflow.workflow_variables[self.name]['table'])
-        elif self.method == 'add row':
-            raise RuntimeError("Table 'add row' not implemented yet")
+            print("Table '{}':".format(tablename))
+            print(self.get_variable(tablename)['table'])
+        elif self.method == 'append row':
+            if not self.variable_exists(tablename):
+                raise RuntimeError(
+                    "Table save: table '{}' does not exist.".format(tablename)
+                )
+            table_handle = self.get_variable(tablename)
+            if 'defaults' in table_handle:
+                defaults = table_handle['defaults']
+            else:
+                defaults = {}
+            table = table_handle['table']
+            column_types = {}
+            for column_name, column_type in zip(table.columns, table.dtypes):
+                if column_type == 'object':
+                    column_types[column_name] = 'string'
+                elif column_type == 'bool':
+                    column_types[column_name] = 'boolean'
+                elif column_type == 'int64':
+                    column_types[column_name] = 'integer'
+                elif column_type == 'float64':
+                    column_types[column_name] = 'float'
+
+            new_row = {}
+
+            for d in self.tmp_columns:
+                column_name = self.get_value(d['name'])
+                value = self.get_value(d['value'])
+                column_type = column_types[column_name]
+                if value == 'default':
+                    if column_name in defaults:
+                        value = defaults[column_name]
+                    else:
+                        if column_type == 'boolean':
+                            value = False
+                        elif column_type == 'integer':
+                            value = 0
+                        elif column_type == 'float':
+                            value = np.nan
+                        elif column_type == 'string':
+                            value = ''
+                new_row[column_name] = value
+
+            table = table.append(new_row, ignore_index=True)
+            molssi_workflow.workflow_variables[tablename]['table'] = table
+        elif self.method == 'add columns':
+            if not self.variable_exists(tablename):
+                raise RuntimeError(
+                    "Table save: table '{}' does not exist.".format(tablename)
+                )
+            table_handle = self.get_variable(tablename)
+            table = table_handle['table']
+            for d in self.tmp_columns:
+                column_name = self.get_value(d['name'])
+                if column_name in table.columns:
+                    # Need to check if this is an error
+                    pass
+                else:
+                    if d['type'] == 'boolean':
+                        if d['default'] == '':
+                            default = False
+                        else:
+                            default = bool(d['default'])
+                    elif d['type'] == 'integer':
+                        if d['default'] == '':
+                            default = 0
+                        else:
+                            default = int(d['default'])
+                    elif d['type'] == 'float':
+                        if d['default'] == '':
+                            default = np.nan
+                        else:
+                            default = float(d['default'])
+                    elif d['type'] == 'string':
+                        default = d['default']
+                    table[d['name']] = default
+        elif self.method == 'get element':
+            if not self.variable_exists(tablename):
+                raise RuntimeError(
+                    "Table get element: table '{}' does not exist."
+                    .format(tablename)
+                )
+            if self.column_index is None:
+                raise RuntimeError(
+                    "Table get element: the column index must be given"
+                )
+            if self.row_index is None:
+                raise RuntimeError(
+                    "Table get element: the row index must be given"
+                )
+            if self.variable_name is None:
+                raise RuntimeError(
+                    "Table get element: the name of the variable to "
+                    "set to the value must be given"
+                )
+                
+            table_handle = self.get_variable(tablename)
+            table = table_handle['table']
+            
+            variable_name = self.get_value(self.variable_name)
+            column_index = self.get_value(self.column_index)
+            row_index = self.get_value(self.row_index)
+
+            value = table.at[row_index, column_index]
+            self.set_variable(variable_name, value)
+        elif self.method == 'set element':
+            if not self.variable_exists(tablename):
+                raise RuntimeError(
+                    "Table get element: table '{}' does not exist."
+                    .format(tablename)
+                )
+            if self.column_index is None:
+                raise RuntimeError(
+                    "Table get element: the column index must be given"
+                )
+            if self.row_index is None:
+                raise RuntimeError(
+                    "Table get element: the row index must be given"
+                )
+            if self.value is None:
+                raise RuntimeError(
+                    "Table get element: the name of the variable to "
+                    "set to the value must be given"
+                )
+                
+            table_handle = self.get_variable(tablename)
+            table = table_handle['table']
+            
+            value = self.get_value(self.value)
+            column_index = self.get_value(self.column_index)
+            row_index = self.get_value(self.row_index)
+
+            table.at[row_index, column_index] = value
         else:
             raise RuntimeError('The table method must be one of ' +
                                ', '.join(table_step.methods) +
