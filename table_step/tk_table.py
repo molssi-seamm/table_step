@@ -158,7 +158,7 @@ class TkTable(molssi_workflow.TkNode):
             w['index_column_label'].grid(row=row, column=0, sticky=tk.E)
             w['index_column'].grid(row=row, column=1, sticky=tk.EW)
         elif method == 'save':
-            raise RuntimeError("Table 'save' not implemented yet")
+            pass
         elif method == 'print':
             pass
         elif method == 'append row':
