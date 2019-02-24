@@ -166,6 +166,8 @@ class Table(molssi_workflow.Node):
                     "Table save: table '{}' has no associated filename"
                     .format(tablename)
                 )
+            filename = table_handle['filename']
+            
             if 'format' in table_handle:
                 file_format = table_handle['format']
             else:
