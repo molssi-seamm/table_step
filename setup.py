@@ -12,10 +12,13 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
+    'logging',
     'molssi_workflow>=0.1',
     'molssi_util>=0.1',
+    'numpy',
     'pandas',
     'Pmw',
+    'pprint',
 ]
 
 setup_requirements = [
