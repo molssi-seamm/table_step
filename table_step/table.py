@@ -3,7 +3,7 @@
 
 import logging
 import molssi_workflow
-from molssi_workflow import units, Q_, data  # nopep8
+from molssi_workflow import ureg, Q_, data  # nopep8
 import numpy as np
 import pandas
 import table_step
