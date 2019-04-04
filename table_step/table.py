@@ -189,7 +189,12 @@ class Table(molssi_workflow.Node):
                 )
         elif self.method == 'print':
             print("Table '{}':".format(tablename))
-            print(self.get_variable(tablename)['table'])
+            with pandas.option_context(
+                    'display.max_rows', None,
+                    'display.max_columns', None,
+                    'display.width', None,
+            ):
+                print(self.get_variable(tablename)['table'])
         elif self.method == 'append row':
             if not self.variable_exists(tablename):
                 raise RuntimeError(
