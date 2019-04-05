@@ -188,13 +188,26 @@ class Table(molssi_workflow.Node):
                     + "' for file '" + filename
                 )
         elif self.method == 'print':
-            print("Table '{}':".format(tablename))
-            with pandas.option_context(
-                    'display.max_rows', None,
-                    'display.max_columns', None,
-                    'display.width', None,
-            ):
-                print(self.get_variable(tablename)['table'])
+            table_handle = self.get_variable(tablename)
+            table = table_handle['table']
+            if 'loop index' in table_handle and table_handle['loop index']:
+                index = table_handle['current index']
+                index = table.index.get_loc(index)
+                lines = table.to_string(header=True).splitlines()
+                if index == 0:
+                    print('\n{}'.format(tablename))
+                    print('\n'.join(lines[0:3]))
+                else:
+                    print(lines[index+2])
+            else:
+                print('\n{}'.format(tablename))
+                with pandas.option_context(
+                        'display.max_rows', None,
+                        'display.max_columns', None,
+                        'display.width', None,
+                ):
+                    print(table)
+
         elif self.method == 'append row':
             if not self.variable_exists(tablename):
                 raise RuntimeError(
