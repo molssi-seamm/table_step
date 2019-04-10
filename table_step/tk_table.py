@@ -165,6 +165,8 @@ class TkTable(molssi_workflow.TkNode):
             row += 1
             w['columns'].grid(row=row, column=0, sticky=tk.NSEW)
             self.layout_columns_for_add_row(first=True)
+        elif method == 'next row':
+            pass
         elif method == 'add columns':
             row += 1
             w['columns'].grid(row=row, column=0, sticky=tk.NSEW)
@@ -196,7 +198,7 @@ class TkTable(molssi_workflow.TkNode):
         else:
             raise RuntimeError('The table method must be one of ' +
                                ', '.join(table_step.methods) +
-                               'not "' + method + '"')
+                               ', not  "' + method + '"')
         row += 1
 
     def right_click(self, event):
@@ -241,20 +243,21 @@ class TkTable(molssi_workflow.TkNode):
         method = w['method'].get()
 
         self.node.method = method
+        self.node.name = w['name'].get()
         if method == 'create':
             self.save_column_data()
-            self.node.name = w['name'].get()
             self.node.index_column = w['index_column'].get()
         elif method == 'read':
-            self.node.name = w['name'].get()
             self.node.filename = w['filename'].get()
             self.node.index_column = w['index_column'].get()
         elif method == 'save':
             pass
         elif method == 'print':
-            self.node.name = w['name'].get()
+            pass
         elif method == 'append row':
             self.save_column_data()
+        elif method == 'next row':
+            pass
         elif method == 'add columns':
             # Save any changes!
             self.save_column_data()
@@ -269,7 +272,7 @@ class TkTable(molssi_workflow.TkNode):
         else:
             raise RuntimeError('The table method must be one of ' +
                                ', '.join(table_step.methods) +
-                               'not "' + method + '"')
+                               ', not "' + method + '"')
 
     def handle_help(self):
         """Not implemented yet ... you'll need to fill this out!"""

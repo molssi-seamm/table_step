@@ -5,6 +5,7 @@ import logging
 import molssi_workflow
 from molssi_workflow import ureg, Q_, data  # nopep8
 import numpy as np
+import os.path
 import pandas
 import table_step
 
@@ -15,6 +16,7 @@ methods = [
     'save',
     'print',
     'append row',
+    'next row',
     'add columns',
     'set element',
     'get element'
@@ -162,10 +164,13 @@ class Table(molssi_workflow.Node):
                 )
             table_handle = self.get_variable(tablename)
             if 'filename' not in table_handle:
-                raise RuntimeError(
-                    "Table save: table '{}' has no associated filename"
-                    .format(tablename)
+                table_handle['filename'] = os.path.join(
+                    self.workflow.root_directory, tablename + '.csv'
                 )
+                # raise RuntimeError(
+                #     "Table save: table '{}' has no associated filename"
+                #     .format(tablename)
+                # )
             filename = table_handle['filename']
             
             if 'format' in table_handle:
@@ -252,6 +257,14 @@ class Table(molssi_workflow.Node):
 
             table = table.append(new_row, ignore_index=True)
             molssi_workflow.workflow_variables[tablename]['table'] = table
+        elif self.method == 'next row':
+            if not self.variable_exists(tablename):
+                raise RuntimeError(
+                    "Table save: table '{}' does not exist.".format(tablename)
+                )
+            table_handle = self.get_variable(tablename)
+            table_handle['current index'] += 1
+
         elif self.method == 'add columns':
             if not self.variable_exists(tablename):
                 raise RuntimeError(
