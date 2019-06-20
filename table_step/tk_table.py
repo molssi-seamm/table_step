@@ -161,6 +161,8 @@ class TkTable(molssi_workflow.TkNode):
             pass
         elif method == 'print':
             pass
+        elif method == 'print current row':
+            pass
         elif method == 'append row':
             row += 1
             w['columns'].grid(row=row, column=0, sticky=tk.NSEW)
