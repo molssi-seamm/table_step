@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Non-graphical part of the Table step in a MolSSI workflow"""
+"""Non-graphical part of the Table step in SEAMM"""
 
 import logging
-import molssi_workflow
-from molssi_workflow import ureg, Q_, data  # nopep8
+import seamm
+from seamm import ureg, Q_, data  # nopep8
 import numpy as np
 import os.path
 import pandas
@@ -24,15 +24,14 @@ methods = [
 ]
 
 
-class Table(molssi_workflow.Node):
+class Table(seamm.Node):
     def __init__(self,
-                 workflow=None,
+                 flowchart=None,
                  extension=None):
-        '''Setup the non-graphical part of the Table step in a
-        MolSSI workflow.
+        """Setup the non-graphical part of the Table step in SEAMM.
 
         Keyword arguments:
-        '''
+        """
         logger.debug('Creating Table {}'.format(self))
 
         # What are we doing?
@@ -54,7 +53,7 @@ class Table(molssi_workflow.Node):
 
         # Initialize our parent class
         super().__init__(
-            workflow=workflow,
+            flowchart=flowchart,
             title='Table',
             extension=extension)
 
@@ -166,7 +165,7 @@ class Table(molssi_workflow.Node):
             table_handle = self.get_variable(tablename)
             if 'filename' not in table_handle:
                 table_handle['filename'] = os.path.join(
-                    self.workflow.root_directory, tablename + '.csv'
+                    self.flowchart.root_directory, tablename + '.csv'
                 )
                 # raise RuntimeError(
                 #     "Table save: table '{}' has no associated filename"
@@ -264,8 +263,8 @@ class Table(molssi_workflow.Node):
                 new_row[column_name] = value
 
             table = table.append(new_row, ignore_index=True)
-            molssi_workflow.workflow_variables[tablename]['table'] = table
-            molssi_workflow.workflow_variables[tablename]['current index'] = (
+            seamm.flowchart_variables[tablename]['table'] = table
+            seamm.flowchart_variables[tablename]['current index'] = (
                 table.shape[0] - 1
             )
         elif self.method == 'next row':
