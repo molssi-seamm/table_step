@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """The graphical part of a Table step"""
 
-import molssi_workflow
-import molssi_util.molssi_widgets as mw
+import seamm
 import Pmw
 import pprint  # nopep8
 import table_step
@@ -10,14 +9,14 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
-class TkTable(molssi_workflow.TkNode):
+class TkTable(seamm.TkNode):
     """The node_class is the class of the 'real' node that this
     class is the Tk graphics partner for
     """
 
     node_class = table_step.Table
 
-    def __init__(self, tk_workflow=None, node=None, canvas=None,
+    def __init__(self, tk_flowchart=None, node=None, canvas=None,
                  x=120, y=20, w=200, h=50):
         '''Initialize a node
 
@@ -25,7 +24,7 @@ class TkTable(molssi_workflow.TkNode):
         '''
         self.dialog = None
 
-        super().__init__(tk_workflow=tk_workflow, node=node,
+        super().__init__(tk_flowchart=tk_flowchart, node=node,
                          canvas=canvas, x=x, y=y, w=w, h=h)
 
     def create_dialog(self):
@@ -239,8 +238,8 @@ class TkTable(molssi_workflow.TkNode):
         # set up our shorthand for the widgets
         w = self._widget
         # and get the method, which in this example tells
-        # whether to use the value ditrectly or get it from
-        # a variable in the workflow
+        # whether to use the value directly or get it from
+        # a variable in the flowchart
 
         method = w['method'].get()
 
