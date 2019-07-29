@@ -3,7 +3,7 @@
 
 import logging
 import seamm
-from seamm import ureg, Q_, data  # nopep8
+from seamm_util import ureg, Q_, units_class  # noqa: F401
 import numpy as np
 import os.path
 import pandas
