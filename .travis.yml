@@ -24,7 +24,7 @@ install:
 - conda activate test
 - python setup.py develop --no-deps
 script:
-- pytest -v --cov=table_step table_step/tests/
+- pytest -v --cov=table_step tests/
 notifications:
   email: false
 after_success:
