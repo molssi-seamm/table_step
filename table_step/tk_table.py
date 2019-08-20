@@ -3,7 +3,7 @@
 
 import seamm
 import Pmw
-import pprint  # nopep8
+import pprint  # noqa: F401
 import table_step
 import tkinter as tk
 import tkinter.ttk as ttk

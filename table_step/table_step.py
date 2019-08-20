@@ -1,19 +1,28 @@
 # -*- coding: utf-8 -*-
-"""Helper class needed for the stevedore integration. Needs to provide
-a description() method that returns a dict containing a description of
-this node, and a factory() method for creating the graphical and non-graphical
-nodes."""
+"""Helper class needed for the stevedore integration.
+
+This must provide a description() method that returns a dict containing a
+description of this node, and create_node() and create_tk_node() methods for
+creating the graphical and non-graphical nodes.
+"""
 
 import table_step
 
 
 class TableStep(object):
     my_description = {
-        'description':
-        'An interface for Pandas tables',
+        'description': 'An interface for Pandas tables',
         'group': 'Data',
         'name': 'Table'
     }
+    """The description needs three fields:
+        description: A human-readable description of this step. It can be
+            several lines long, and needs to be clear to non-expert users.
+        group: Which group in the menus to put this step. If the group does
+            not exist it will be created. Common groups are 'Building',
+            'Calculations', 'Control' and 'Data'.
+        name: The name of this step, to be displayed in the menus.
+    """
 
     def __init__(self, flowchart=None, gui=None):
         """Initialize this helper class, which is used by

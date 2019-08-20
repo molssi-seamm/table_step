@@ -3,7 +3,5 @@
 
 """Tests for `table_step` package."""
 
-import pytest  # nopep8
-
-
-from table_step import table_step  # nopep8
+import pytest  # noqa: F401
+import table_step  # noqa: F401

@@ -1,27 +1,30 @@
 ==========
-Table Step
-==========
+table Step
+=====_____
 
 
-.. image:: https://img.shields.io/pypi/v/table_step.svg
-        :target: https://pypi.python.org/pypi/table_step
+.. image:: https://img.shields.io/travis/molssi-seamm/table_step.svg
+   :target: https://travis-ci.org/molssi-seamm/table_step
+.. image:: https://pyup.io/repos/github/molssi-seamm/table_step/shield.svg
+   :target: https://pyup.io/repos/github/molssi-seamm/table_step/
+      :alt: Updates
 
-.. image:: https://img.shields.io/travis/paulsaxe/table_step.svg
-        :target: https://travis-ci.org/paulsaxe/table_step
+
+.. image:: https://codecov.io/gh/molssi-seamm/table_step/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/molssi-seamm/table_step
 
 .. image:: https://readthedocs.org/projects/table-step/badge/?version=latest
-        :target: https://table-step.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+   :target: https://table-step.readthedocs.io/en/latest/?badge=latest
+      :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/paulsaxe/table_step/shield.svg
-     :target: https://pyup.io/repos/github/paulsaxe/table_step/
-     :alt: Updates
-
-
-Tables handle tabular data for input and output
+.. image:: https://img.shields.io/pypi/v/table_step.svg
+   :target: https://pypi.python.org/pypi/table_step
 
 
-* Free software: BSD license
+A step for data tables in a SEAMM flowchart
+
+
+* Free software: BSD-3-Clause
 * Documentation: https://table-step.readthedocs.io.
 
 
@@ -33,8 +36,8 @@ Features
 Credits
 ---------
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+This package was created with Cookiecutter_ and the `molssi-seamm/cookiecutter-seamm-plugin`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _`molssi-seamm/cookiecutter-seamm-plugin`: https://github.com/molssi-seamm/cookiecutter-seamm-plugin
 
