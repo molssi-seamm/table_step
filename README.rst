@@ -1,6 +1,6 @@
 ==========
 table Step
-=====_____
+==========
 
 
 .. image:: https://img.shields.io/travis/molssi-seamm/table_step.svg
