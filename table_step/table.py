@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """Non-graphical part of the Table step in SEAMM"""
 
 import logging
@@ -21,13 +22,12 @@ methods = [
     'add columns',
     'set element',
     'get element'
-]
+]  # yapf: disable
 
 
 class Table(seamm.Node):
-    def __init__(self,
-                 flowchart=None,
-                 extension=None):
+
+    def __init__(self, flowchart=None, extension=None):
         """Setup the non-graphical part of the Table step in SEAMM.
 
         Keyword arguments:
@@ -53,9 +53,8 @@ class Table(seamm.Node):
 
         # Initialize our parent class
         super().__init__(
-            flowchart=flowchart,
-            title='Table',
-            extension=extension)
+            flowchart=flowchart, title='Table', extension=extension
+        )
 
     @property
     def method(self):
@@ -66,9 +65,10 @@ class Table(seamm.Node):
         if value in table_step.methods:
             self._method = value
         else:
-            raise RuntimeError('The table method must one of ' +
-                               ', '.join(table_step.methods) +
-                               'not "' + value + '"')
+            raise RuntimeError(
+                'The table method must one of ' +
+                ', '.join(table_step.methods) + 'not "' + value + '"'
+            )
 
     def run(self):
         """Do what we need for the table, as dictated by the 'method'
@@ -109,13 +109,13 @@ class Table(seamm.Node):
                 except ValueError:
                     if index_column not in table.columns:
                         raise RuntimeError(
-                            "Table create: column '{}'".format(index_column)
-                            + ' for index does not exist'
+                            "Table create: column '{}'".format(index_column) +
+                            ' for index does not exist'
                         )
                 table.set_index(
                     index_column, inplace=True, verify_integrity=True
                 )
-                    
+
             logger.info("Creating table '{}'".format(tablename))
             self.set_variable(
                 tablename, {
@@ -138,8 +138,8 @@ class Table(seamm.Node):
                 except ValueError:
                     if index_column not in table.columns:
                         raise RuntimeError(
-                            "Table create: column '{}'".format(index_column)
-                            + ' for index does not exist'
+                            "Table create: column '{}'".format(index_column) +
+                            ' for index does not exist'
                         )
                 table.set_index(
                     index_column, inplace=True, verify_integrity=True
@@ -155,7 +155,7 @@ class Table(seamm.Node):
                     'defaults': {}
                 }
             )
-            
+
             logger.info('Succesfully read table from {}'.format(filename))
         elif self.method == 'save':
             if not self.variable_exists(tablename):
@@ -172,7 +172,7 @@ class Table(seamm.Node):
                 #     .format(tablename)
                 # )
             filename = table_handle['filename']
-            
+
             if 'format' in table_handle:
                 file_format = table_handle['format']
             else:
@@ -189,8 +189,8 @@ class Table(seamm.Node):
                 table_handle['table'].to_excel(filename)
             else:
                 raise RuntimeError(
-                    "Table save: cannot handle format '" + file_format
-                    + "' for file '" + filename
+                    "Table save: cannot handle format '" + file_format +
+                    "' for file '" + filename
                 )
         elif self.method == 'print':
             table_handle = self.get_variable(tablename)
@@ -200,7 +200,7 @@ class Table(seamm.Node):
                     'display.max_rows', None,
                     'display.max_columns', None,
                     'display.width', None,
-            ):
+            ):  # yapf: disable
                 print(table)
 
         elif self.method == 'print current row':
@@ -218,7 +218,7 @@ class Table(seamm.Node):
                 print('\n{}'.format(tablename))
                 print('\n'.join(lines[0:3]))
             else:
-                print(lines[index+1])
+                print(lines[index + 1])
 
         elif self.method == 'append row':
             if not self.variable_exists(tablename):
@@ -325,10 +325,10 @@ class Table(seamm.Node):
                     "Table get element: the name of the variable to "
                     "set to the value must be given"
                 )
-                
+
             table_handle = self.get_variable(tablename)
             table = table_handle['table']
-            
+
             variable_name = self.get_value(self.variable_name)
             column_index = self.get_value(self.column_index)
             row_index = self.get_value(self.row_index)
@@ -354,18 +354,19 @@ class Table(seamm.Node):
                     "Table get element: the name of the variable to "
                     "set to the value must be given"
                 )
-                
+
             table_handle = self.get_variable(tablename)
             table = table_handle['table']
-            
+
             value = self.get_value(self.value)
             column_index = self.get_value(self.column_index)
             row_index = self.get_value(self.row_index)
 
             table.at[row_index, column_index] = value
         else:
-            raise RuntimeError('The table method must be one of ' +
-                               ', '.join(table_step.methods) +
-                               'not "' + self.method + '"')
+            raise RuntimeError(
+                'The table method must be one of ' +
+                ', '.join(table_step.methods) + 'not "' + self.method + '"'
+            )
 
         return super().run()

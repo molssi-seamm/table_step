@@ -1,0 +1,19 @@
+name: test
+channels:
+dependencies:
+    # Base depends
+  - python
+  - pip
+  - numpy
+  - pandas
+
+    # Testing
+  - pytest
+  - pytest-cov
+
+    # Pip-only installs
+  - pip:
+    - codecov
+    - seamm
+    - seamm-util
+    - seamm-widgets

@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+
 """The graphical part of a Table step"""
 
 import seamm
 import Pmw
-import pprint  # nopep8
+import pprint  # noqa: F401
 import table_step
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -16,16 +17,31 @@ class TkTable(seamm.TkNode):
 
     node_class = table_step.Table
 
-    def __init__(self, tk_flowchart=None, node=None, canvas=None,
-                 x=120, y=20, w=200, h=50):
+    def __init__(
+        self,
+        tk_flowchart=None,
+        node=None,
+        canvas=None,
+        x=120,
+        y=20,
+        w=200,
+        h=50
+    ):
         '''Initialize a node
 
         Keyword arguments:
         '''
         self.dialog = None
 
-        super().__init__(tk_flowchart=tk_flowchart, node=node,
-                         canvas=canvas, x=x, y=y, w=w, h=h)
+        super().__init__(
+            tk_flowchart=tk_flowchart,
+            node=node,
+            canvas=canvas,
+            x=x,
+            y=y,
+            w=w,
+            h=h
+        )
 
     def create_dialog(self):
         """Create the dialog!"""
@@ -35,7 +51,8 @@ class TkTable(seamm.TkNode):
             defaultbutton='OK',
             master=self.toplevel,
             title='Edit Table step',
-            command=self.handle_dialog)
+            command=self.handle_dialog
+        )
         self.dialog.withdraw()
 
         # self._widget, which is inherited from the base class, is
@@ -49,41 +66,33 @@ class TkTable(seamm.TkNode):
 
         w['method_frame'] = ttk.Frame(frame)
         # Set the first parameter -- which will be exactly matched
-        w['method_label'] = ttk.Label(
-            w['method_frame'], text='Operation:'
-        )
+        w['method_label'] = ttk.Label(w['method_frame'], text='Operation:')
 
         w['method'] = ttk.Combobox(
-            w['method_frame'], state='readonly',
+            w['method_frame'],
+            state='readonly',
             values=table_step.methods,
-            justify=tk.RIGHT, width=15
+            justify=tk.RIGHT,
+            width=15
         )
         w['method'].set(self.node.method)
 
         # Name of table
-        w['name_label'] = ttk.Label(
-            w['method_frame'], text=' table named '
-        )
+        w['name_label'] = ttk.Label(w['method_frame'], text=' table named ')
 
         w['name'] = ttk.Entry(w['method_frame'], width=15)
         w['name'].insert(0, self.node.name)
 
         # Filename
-        w['filename_label'] = ttk.Label(
-            w['frame'], text=' from file:'
-        )
+        w['filename_label'] = ttk.Label(w['frame'], text=' from file:')
 
         w['filename'] = ttk.Entry(w['frame'], width=15)
         w['filename'].insert(0, self.node.filename)
 
-        w['file_selector'] = ttk.Label(
-            w['frame'], text='...'
-        )
+        w['file_selector'] = ttk.Label(w['frame'], text='...')
 
         # Index column
-        w['index_column_label'] = ttk.Label(
-            w['frame'], text=' index column:'
-        )
+        w['index_column_label'] = ttk.Label(w['frame'], text=' index column:')
         w['index_column'] = ttk.Entry(w['frame'], width=15)
         w['index_column'].insert(0, self.node.index_column)
 
@@ -91,27 +100,19 @@ class TkTable(seamm.TkNode):
         w['columns'] = ttk.Frame(frame, height=300)
 
         # Information for getting and setting values
-        w['row_index_label'] = ttk.Label(
-            w['frame'], text=' row index:'
-        )
+        w['row_index_label'] = ttk.Label(w['frame'], text=' row index:')
         w['row_index'] = ttk.Entry(w['frame'], width=15)
         w['row_index'].insert(0, self.node.row_index)
 
-        w['column_index_label'] = ttk.Label(
-            w['frame'], text=' column index:'
-        )
+        w['column_index_label'] = ttk.Label(w['frame'], text=' column index:')
         w['column_index'] = ttk.Entry(w['frame'], width=15)
         w['column_index'].insert(0, self.node.column_index)
 
-        w['value_label'] = ttk.Label(
-            w['frame'], text=' value:'
-        )
+        w['value_label'] = ttk.Label(w['frame'], text=' value:')
         w['value'] = ttk.Entry(w['frame'], width=50)
         w['value'].insert(0, self.node.value)
 
-        w['variable_name_label'] = ttk.Label(
-            w['frame'], text=' variable:'
-        )
+        w['variable_name_label'] = ttk.Label(w['frame'], text=' variable:')
         w['variable_name'] = ttk.Entry(w['frame'], width=15)
         w['variable_name'].insert(0, self.node.variable_name)
 
@@ -197,9 +198,10 @@ class TkTable(seamm.TkNode):
             w['value_label'].grid(row=row, column=0, sticky=tk.E)
             w['value'].grid(row=row, column=1, sticky=tk.W)
         else:
-            raise RuntimeError('The table method must be one of ' +
-                               ', '.join(table_step.methods) +
-                               ', not  "' + method + '"')
+            raise RuntimeError(
+                'The table method must be one of ' +
+                ', '.join(table_step.methods) + ', not  "' + method + '"'
+            )
         row += 1
 
     def right_click(self, event):
@@ -231,7 +233,8 @@ class TkTable(seamm.TkNode):
         if result != "OK":
             self.dialog.deactivate(result)
             raise RuntimeError(
-                "Don't recognize dialog result '{}'".format(result))
+                "Don't recognize dialog result '{}'".format(result)
+            )
 
         self.dialog.deactivate(result)
 
@@ -271,9 +274,10 @@ class TkTable(seamm.TkNode):
             self.node.column_index = w['column_index'].get()
             self.node.value = w['value'].get()
         else:
-            raise RuntimeError('The table method must be one of ' +
-                               ', '.join(table_step.methods) +
-                               ', not "' + method + '"')
+            raise RuntimeError(
+                'The table method must be one of ' +
+                ', '.join(table_step.methods) + ', not "' + method + '"'
+            )
 
     def handle_help(self):
         """Not implemented yet ... you'll need to fill this out!"""
@@ -320,10 +324,11 @@ class TkTable(seamm.TkNode):
             widgets['remove'] = w
 
             # the name of the keyword
-            w = ttk.Entry(frame,
-                          width=30,
-                          takefocus=False,
-                          )
+            w = ttk.Entry(
+                frame,
+                width=30,
+                takefocus=False,
+            )
             w.insert(0, d['name'])
             widgets['name'] = w
             w.grid(row=row, column=col, stick=tk.EW)
@@ -343,10 +348,11 @@ class TkTable(seamm.TkNode):
             widgets['type'] = w
 
             # the default
-            w = ttk.Entry(frame,
-                          width=30,
-                          takefocus=False,
-                          )
+            w = ttk.Entry(
+                frame,
+                width=30,
+                takefocus=False,
+            )
             w.insert(0, d['default'])
             widgets['default'] = w
             w.grid(row=row, column=col, stick=tk.EW)
@@ -402,20 +408,22 @@ class TkTable(seamm.TkNode):
             widgets['remove'] = w
 
             # the name of the column
-            w = ttk.Entry(frame,
-                          width=30,
-                          takefocus=False,
-                          )
+            w = ttk.Entry(
+                frame,
+                width=30,
+                takefocus=False,
+            )
             w.insert(0, d['name'])
             widgets['name'] = w
             w.grid(row=row, column=col, stick=tk.EW)
             col += 1
 
             # the value
-            w = ttk.Entry(frame,
-                          width=30,
-                          takefocus=False,
-                          )
+            w = ttk.Entry(
+                frame,
+                width=30,
+                takefocus=False,
+            )
             w.insert(0, d['value'])
             widgets['value'] = w
             w.grid(row=row, column=col, stick=tk.EW)
@@ -440,12 +448,14 @@ class TkTable(seamm.TkNode):
     def add_column(self):
         """Add entries for another column in the displayed table
         """
-        self.node.tmp_columns.append({
-            'widgets': {},
-            'type': 'float',
-            'name': '',
-            'default': ''
-        })
+        self.node.tmp_columns.append(
+            {
+                'widgets': {},
+                'type': 'float',
+                'name': '',
+                'default': ''
+            }
+        )
         self.layout_columns_for_editing()
 
     def remove_column_for_add_row(self, row=None):
@@ -456,11 +466,7 @@ class TkTable(seamm.TkNode):
     def add_column_for_add_row(self):
         """Add entries for another column in the displayed table
         """
-        self.node.tmp_columns.append({
-            'widgets': {},
-            'name': '',
-            'value': ''
-        })
+        self.node.tmp_columns.append({'widgets': {}, 'name': '', 'value': ''})
         self.layout_columns_for_add_row()
 
     def save_column_data(self):

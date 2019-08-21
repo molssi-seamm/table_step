@@ -1,5 +1,5 @@
-Welcome to Table Step's documentation!
-======================================
+Welcome to the documentation for the Table Step
+===============================================
 
 Contents:
 
