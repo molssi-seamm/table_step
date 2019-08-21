@@ -1,5 +1,5 @@
 numpy==1.17.0
-pandas==0.24.2
+pandas==0.25.0
 Pmw==2.0.1
 seamm==0.2.0
 seamm-util==0.2.1
