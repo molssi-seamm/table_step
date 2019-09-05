@@ -256,7 +256,7 @@ class Table(seamm.Node):
                 printer.job("\nTable '{}':".format(tablename))
                 printer.job('\n'.join(lines[0:3]))
             else:
-                printer.job(lines[index + 1])
+                printer.job(lines[index + 2])
 
         elif self.method == 'append row':
             if not self.variable_exists(tablename):
