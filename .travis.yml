@@ -32,6 +32,7 @@ after_success:
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
+  skip_existing: true
   user: seamm
   password:
     secure: SEUOaOhGxZ9fEzBzker0J349d4sp5KgU5RBTW4UILIusYc+IoNfUWZ2+TB26ZZkgDiHpWkflz7T4Y0tJql0IRFFbfV2D102B4PrwYeLXbiYgmk5rv2FGO22e3UQrEbBDHHXsZHLQMrMu0sBwxPpJlX8s4k+GoUz6vLa9sBncmYOBLd7HAsNNFxZjmMcE/1GKo1OMM5z101dWw7ep1ijBAe8nd0ha1RYHEJZc3z3rqN3snTeqNc1ZSmGMWK1vkxsL7JAYrt4NzZXOPhXSBcb5xihqpJbPlKnHxaQB59hVJWk9kLtEgwDjtzicojQdwzTM+yEO8tqohg3IfrQOWQByhDStVdFLxmvhUg55pZSo6OtBQHCCqjDSO0OVS/aF6T5IMT/JHKgOqjMdTC10GQhj/UocClKiStxx9DsVtuEwtsNukVLqm1/gz5sFndgGuC4mrrdcxNYt4icPpo9Tv8PnNXgTNzNjLIDnmIpMCENmZxiBMWiYJYFZ7z1HnkSk6iSnY/npZFNRkqWu7atF1qJyoQny+PZJrHdzfPB6ZiBRe3Zy+wz3UG573pe51MteQSSvzGHnQf+1j8PuaueEj7eL8+AXJBQGRm8BYJVgMk9gXWK4hCpVISReW+cNcd8Il49t3lmAj2iX6wav3sny3u8XeYgd13CqgP0FHCcvZhHNOnQ=
@@ -39,3 +40,4 @@ deploy:
     tags: true
     repo: molssi-seamm/table_step
     condition: "$TRAVIS_OS_NAME = linux"
+    condition: "$PYTHON_VER = 3.7"
