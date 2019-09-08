@@ -105,7 +105,7 @@ class Table(seamm.Node):
         text = ''
         text += '{method} table'
         return self.header + '\n' + __(
-            text, method=self.method, indent=4*' '
+            text, method=self.method, indent=4 * ' '
         ).__str__()
 
     def run(self):
