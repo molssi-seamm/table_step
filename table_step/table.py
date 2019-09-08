@@ -4,6 +4,8 @@
 
 import logging
 import seamm
+import seamm_util.printing as printing
+from seamm_util.printing import FormattedText as __
 from seamm_util import ureg, Q_, units_class  # noqa: F401
 import numpy as np
 import os.path
@@ -11,6 +13,9 @@ import pandas
 import table_step
 
 logger = logging.getLogger(__name__)
+job = printing.getPrinter()
+printer = printing.getPrinter('table')
+
 methods = [
     'create',
     'read',
@@ -57,6 +62,18 @@ class Table(seamm.Node):
         )
 
     @property
+    def version(self):
+        """The semantic version of this module.
+        """
+        return table_step.__version__
+
+    @property
+    def git_revision(self):
+        """The git version of this module.
+        """
+        return table_step.__git_revision__
+
+    @property
     def method(self):
         return self._method
 
@@ -69,6 +86,27 @@ class Table(seamm.Node):
                 'The table method must one of ' +
                 ', '.join(table_step.methods) + 'not "' + value + '"'
             )
+
+    def description_text(self, P=None):
+        """Return a short description of this step.
+
+        Return a nicely formatted string describing what this step will
+        do.
+
+        Keyword arguments:
+            P: a dictionary of parameter values, which may be variables
+                or final values. If None, then the parameters values will
+                be used as is.
+        """
+
+        # if not P:
+        #     P = self.parameters.values_to_dict()
+
+        text = ''
+        text += '{method} table'
+        return self.header + '\n' + __(
+            text, method=self.method, indent=4 * ' '
+        ).__str__()
 
     def run(self):
         """Do what we need for the table, as dictated by the 'method'
@@ -195,13 +233,13 @@ class Table(seamm.Node):
         elif self.method == 'print':
             table_handle = self.get_variable(tablename)
             table = table_handle['table']
-            print('\n{}'.format(tablename))
+            printer.job("\nTable '{}':".format(tablename))
             with pandas.option_context(
                     'display.max_rows', None,
                     'display.max_columns', None,
                     'display.width', None,
             ):  # yapf: disable
-                print(table)
+                printer.job(table)
 
         elif self.method == 'print current row':
             table_handle = self.get_variable(tablename)
@@ -210,15 +248,15 @@ class Table(seamm.Node):
             index = table.index.get_loc(index)
             lines = table.to_string(header=True).splitlines()
 
-            # print('index = {}'.format(index))
-            # print(lines)
-            # print('-----')
+            # printer.job('index = {}'.format(index))
+            # printer.job(lines)
+            # printer.job('-----')
 
             if index == 0:
-                print('\n{}'.format(tablename))
-                print('\n'.join(lines[0:3]))
+                printer.job("\nTable '{}':".format(tablename))
+                printer.job('\n'.join(lines[0:3]))
             else:
-                print(lines[index + 1])
+                printer.job(lines[index + 2])
 
         elif self.method == 'append row':
             if not self.variable_exists(tablename):

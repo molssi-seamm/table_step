@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """Helper class needed for the stevedore integration.
 
 This must provide a description() method that returns a dict containing a
