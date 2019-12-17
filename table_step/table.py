@@ -2,6 +2,7 @@
 
 """Non-graphical part of the Table step in SEAMM"""
 
+import configargparse
 import logging
 import seamm
 import seamm_util.printing as printing
@@ -55,6 +56,43 @@ class Table(seamm.Node):
         self.row_index = ''
         self.value = ''
         self.variable_name = ''
+
+        # Argument/config parsing
+        self.parser = configargparse.ArgParser(
+            auto_env_var_prefix='',
+            default_config_files=[
+                '/etc/seamm/table.ini',
+                '/etc/seamm/table_step.ini',
+                '/etc/seamm/seamm.ini',
+                '~/.seamm/table.ini',
+                '~/.seamm/table_step.ini',
+                '~/.seamm/seamm.ini',
+            ]
+        )
+
+        self.parser.add_argument(
+            '--seamm-configfile',
+            is_config_file=True,
+            default=None,
+            help='a configuration file to override others'
+        )
+
+        # Options for this plugin
+        self.parser.add_argument(
+            "--table-log-level",
+            default=configargparse.SUPPRESS,
+            choices=[
+                'CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG', 'NOTSET'
+            ],
+            type=lambda string: string.upper(),
+            help="the logging level for the Table step"
+        )
+
+        self.options, self.unknown = self.parser.parse_known_args()
+
+        # Set the logging level for this module if requested
+        if 'table_log_level' in self.options:
+            logger.setLevel(self.options.table_log_level)
 
         # Initialize our parent class
         super().__init__(
@@ -245,18 +283,19 @@ class Table(seamm.Node):
             table_handle = self.get_variable(tablename)
             table = table_handle['table']
             index = table_handle['current index']
+            logger.debug('index = {}'.format(index))
             index = table.index.get_loc(index)
-            lines = table.to_string(header=True).splitlines()
+            logger.debug('  --> {}'.format(index))
+            lines = table.to_string(header=True, index_names=False)
 
-            # printer.job('index = {}'.format(index))
-            # printer.job(lines)
-            # printer.job('-----')
+            logger.debug(lines)
+            logger.debug('-----')
 
             if index == 0:
                 printer.job("\nTable '{}':".format(tablename))
-                printer.job('\n'.join(lines[0:3]))
+                printer.job('\n'.join(lines.splitlines()[0:2]))
             else:
-                printer.job(lines[index + 2])
+                printer.job(lines.splitlines()[index + 1])
 
         elif self.method == 'append row':
             if not self.variable_exists(tablename):
