@@ -1,7 +1,7 @@
 name: test
 
 channels:
-  -default
+  - default
   
 dependencies:
     # Base depends
