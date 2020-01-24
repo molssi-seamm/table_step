@@ -1,5 +1,8 @@
 name: test
+
 channels:
+  -default
+  
 dependencies:
     # Base depends
   - python
@@ -8,12 +11,19 @@ dependencies:
   - pandas
 
     # Testing
+  - coverage
+  - flake8
   - pytest
   - pytest-cov
+  - pytest-runner
 
     # Pip-only installs
   - pip:
     - codecov
-    - seamm
-    - seamm-util
-    - seamm-widgets
+    - Pmw
+    - seamm>=0.7
+    - seamm-util>=0.7
+    - seamm-widgets>=0.7
+    
+      # Testing
+    - yapf
