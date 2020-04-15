@@ -21,9 +21,9 @@ dependencies:
   - pip:
     - codecov
     - Pmw
-    - seamm>=0.7
-    - seamm-util>=0.7
-    - seamm-widgets>=0.7
+    - seamm>=0.9
+    - seamm-util>=0.9
+    - seamm-widgets>=0.9
     
       # Testing
     - yapf
