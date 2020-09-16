@@ -273,6 +273,8 @@ class TkTable(seamm.TkNode):
             self.node.row_index = w['row_index'].get()
             self.node.column_index = w['column_index'].get()
             self.node.value = w['value'].get()
+        elif method == 'print current row':
+            pass
         else:
             raise RuntimeError(
                 'The table method must be one of ' +
