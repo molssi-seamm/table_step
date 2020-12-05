@@ -1,7 +1,7 @@
 name: test
 
 channels:
-  - default
+  - conda-forge
   
 dependencies:
     # Base depends
@@ -10,20 +10,18 @@ dependencies:
   - numpy
   - pandas
 
-    # Testing
-  - coverage
+  # molsystem requires, and only available via Conda.
+  - openbabel
+
+  # Testing
+  - codecov
   - flake8
   - pytest
   - pytest-cov
-  - pytest-runner
 
     # Pip-only installs
   - pip:
-    - codecov
-    - Pmw
-    - seamm>=0.9
-    - seamm-util>=0.9
-    - seamm-widgets>=0.9
+    - seamm
     
-      # Testing
+    # Testing
     - yapf
