@@ -1,6 +1,6 @@
-==========
-Table Step
-==========
+===================
+SEAMM Table Plug-in
+===================
 
 .. image:: https://img.shields.io/github/issues-pr-raw/molssi-seamm/table_step
    :target: https://github.com/molssi-seamm/table_step/pulls
@@ -30,19 +30,27 @@ Table Step
    :target: https://pypi.python.org/pypi/table_step
    :alt: PyPi VERSION
 
-A step for data tables in a SEAMM flowchart
+A SEAMM plug-in for data tables in a flowchart.
 
 * Free software: BSD-3-Clause
 * Documentation: https://molssi-seamm.github.io/table_step/index.html
+* Code: https://github.com/molssi-seamm/table_step
 
 
 Features
 --------
 
-* TODO
+* Creation of datatables with named, typed columns.
+* Reading and writing data to the table.
+* Printing and saving to CSV files.
+* Accessible in custom_ scripts.
+* Can loop_ over the rows in a flowchart.
 
-Credits
--------
+.. _custom: https://molssi-seamm.github.io/custom_step/index.html
+.. _loop: https://molssi-seamm.github.io/loop_step/index.html
+
+Acknowledgements
+----------------
 
 This package was created with Cookiecutter_ and the `molssi-seamm/cookiecutter-seamm-plugin`_ project template.
 
