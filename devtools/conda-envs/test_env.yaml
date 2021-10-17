@@ -4,14 +4,14 @@ channels:
   - conda-forge
   
 dependencies:
-    # Base depends
+  # Base depends
   - python
   - pip
+
+  # Specific dependencies
   - numpy
   - pandas
-
-  # molsystem requires, and only available via Conda.
-  - openbabel
+  - seamm
 
   # Testing
   - codecov
@@ -21,8 +21,6 @@ dependencies:
 
     # Pip-only installs
   - pip:
-    - seamm
-    
     # Testing
     - yapf
 
