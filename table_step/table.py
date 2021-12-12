@@ -170,21 +170,23 @@ class Table(seamm.Node):
 
             self.logger.debug('  read table from {}'.format(filename))
 
-            table = pandas.read_csv(filename)
+            if self.index_column == 'default':
+                table = pandas.read_csv(filename)
+            else:
+                table = pandas.read_csv(filename, index_col=self.index_column)
 
-            if self.index_column != 'default':
-                index_column = self.get_value(self.index_column)
-                try:
-                    index_column = table.columns[int(index_column)]
-                except ValueError:
-                    if index_column not in table.columns:
-                        raise RuntimeError(
-                            "Table create: column '{}'".format(index_column) +
-                            ' for index does not exist'
-                        )
-                table.set_index(
-                    index_column, inplace=True, verify_integrity=True
-                )
+                # index_column = self.get_value(self.index_column)
+                # try:
+                #     index_column = table.columns[int(index_column)]
+                # except ValueError:
+                #     if index_column not in table.columns:
+                #         raise RuntimeError(
+                #             "Table create: column '{}'".format(index_column) +
+                #             ' for index does not exist'
+                #         )
+                # table.set_index(
+                #     index_column, inplace=True, verify_integrity=True
+                # )
 
             self.logger.debug('  setting up dict in {}'.format(tablename))
             self.set_variable(
