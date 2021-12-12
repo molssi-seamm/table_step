@@ -13,9 +13,9 @@ import table_step
 
 class TableStep(object):
     my_description = {
-        'description': 'An interface for Pandas tables',
-        'group': 'Data',
-        'name': 'Table'
+        "description": "An interface for Pandas tables",
+        "group": "Data",
+        "name": "Table",
     }
     """The description needs three fields:
 
@@ -39,8 +39,7 @@ class TableStep(object):
         pass
 
     def description(self):
-        """Return a description of what this extension does
-        """
+        """Return a description of what this extension does"""
         return TableStep.my_description
 
     def create_node(self, flowchart=None, **kwargs):
