@@ -9,9 +9,7 @@ A step for data tables in a SEAMM flowchart
 # the table_step package.
 
 from table_step.table import Table  # noqa: F401
-from table_step.table import methods  # noqa: F401
-
-# from table_step.table_parameters import TableParameters  # noqa: F401
+from table_step.table_parameters import TableParameters  # noqa: F401
 from table_step.table_step import TableStep  # noqa: F401
 from table_step.tk_table import TkTable  # noqa: F401
 

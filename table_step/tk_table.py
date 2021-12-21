@@ -2,12 +2,17 @@
 
 """The graphical part of a Table step"""
 
-import seamm
-import Pmw
+import copy
+import logging
 import pprint  # noqa: F401
-import table_step
 import tkinter as tk
 import tkinter.ttk as ttk
+
+import seamm
+import seamm_widgets as sw
+import table_step
+
+logger = logging.getLogger(__name__)
 
 
 class TkTable(seamm.TkNode):
@@ -18,181 +23,147 @@ class TkTable(seamm.TkNode):
     node_class = table_step.Table
 
     def __init__(
-        self, tk_flowchart=None, node=None, canvas=None, x=120, y=20, w=200, h=50
+        self,
+        tk_flowchart=None,
+        node=None,
+        canvas=None,
+        x=120,
+        y=20,
+        w=200,
+        h=50,
+        my_logger=logger,
     ):
         """Initialize a node
 
         Keyword arguments:
         """
-        self.dialog = None
+        self._columns = {}
 
         super().__init__(
-            tk_flowchart=tk_flowchart, node=node, canvas=canvas, x=x, y=y, w=w, h=h
+            tk_flowchart=tk_flowchart,
+            node=node,
+            node_type="table",
+            canvas=canvas,
+            x=x,
+            y=y,
+            w=w,
+            h=h,
+            my_logger=my_logger,
         )
 
     def create_dialog(self):
         """Create the dialog!"""
-        self.dialog = Pmw.Dialog(
-            self.toplevel,
-            buttons=("OK", "Help", "Cancel"),
-            defaultbutton="OK",
-            master=self.toplevel,
-            title="Edit Table step",
-            command=self.handle_dialog,
-        )
-        self.dialog.withdraw()
+        frame = super().create_dialog(title="Edit Loop Step")
 
-        # self._widget, which is inherited from the base class, is
-        # a place to store the pointers to the widgets so that we can access
-        # them later. We'll set up a short hand 'w' just to keep lines short
+        # Create the widgets and grid them in
+        P = self.node.parameters
+        for key in P:
+            if key != "columns":
+                self[key] = P[key].widget(frame)
 
-        w = self._widget
-        frame = ttk.Frame(self.dialog.interior())
-        frame.pack(expand=tk.YES, fill=tk.BOTH)
-        w["frame"] = frame
-
-        w["method_frame"] = ttk.Frame(frame)
-        # Set the first parameter -- which will be exactly matched
-        w["method_label"] = ttk.Label(w["method_frame"], text="Operation:")
-
-        w["method"] = ttk.Combobox(
-            w["method_frame"],
-            state="readonly",
-            values=table_step.methods,
-            justify=tk.RIGHT,
-            width=15,
-        )
-        w["method"].set(self.node.method)
-
-        # Name of table
-        w["name_label"] = ttk.Label(w["method_frame"], text=" table named ")
-
-        w["name"] = ttk.Entry(w["method_frame"], width=15)
-        w["name"].insert(0, self.node.name)
-
-        # Filename
-        w["filename_label"] = ttk.Label(w["frame"], text=" from file:")
-
-        w["filename"] = ttk.Entry(w["frame"], width=15)
-        w["filename"].insert(0, self.node.filename)
-
-        w["file_selector"] = ttk.Label(w["frame"], text="...")
-
-        # Index column
-        w["index_column_label"] = ttk.Label(w["frame"], text=" index column:")
-        w["index_column"] = ttk.Entry(w["frame"], width=15)
-        w["index_column"].insert(0, self.node.index_column)
+        self._columns = copy.deepcopy(self.node.parameters["columns"].value)
 
         # area for columns
-        w["columns"] = ttk.Frame(frame, height=300)
-
-        # Information for getting and setting values
-        w["row_index_label"] = ttk.Label(w["frame"], text=" row index:")
-        w["row_index"] = ttk.Entry(w["frame"], width=15)
-        w["row_index"].insert(0, self.node.row_index)
-
-        w["column_index_label"] = ttk.Label(w["frame"], text=" column index:")
-        w["column_index"] = ttk.Entry(w["frame"], width=15)
-        w["column_index"].insert(0, self.node.column_index)
-
-        w["value_label"] = ttk.Label(w["frame"], text=" value:")
-        w["value"] = ttk.Entry(w["frame"], width=50)
-        w["value"].insert(0, self.node.value)
-
-        w["variable_name_label"] = ttk.Label(w["frame"], text=" variable:")
-        w["variable_name"] = ttk.Entry(w["frame"], width=15)
-        w["variable_name"].insert(0, self.node.variable_name)
+        self["columns"] = ttk.Frame(frame, height=300)
 
         self.reset_dialog()
 
-        w["method"].bind("<<ComboboxSelected>>", self.reset_dialog)
+        self["method"].bind("<<ComboboxSelected>>", self.reset_dialog)
 
     def reset_dialog(self, widget=None):
-        # set up our shorthand for the widgets
-        w = self._widget
+        """Layout the dialog based on the current values"""
+
+        frame = self["frame"]
+
+        # Remove any sizing info
+        columns, rows = frame.grid_size()
+        for column in range(columns):
+            frame.columnconfigure(column, weight=0, minsize=0)
+        for row in range(rows):
+            frame.rowconfigure(row, weight=0, minsize=0)
+
+        # Remove any widgets previously packed
+        for slave in frame.grid_slaves():
+            slave.grid_forget()
 
         # and get the method, which in this example controls
         # how the widgets are laid out.
-        method = w["method"].get()
-
-        # Remove any widgets previously packed
-        frame = w["frame"]
-        for slave in frame.grid_slaves():
-            slave.grid_forget()
+        method = self["method"].get()
 
         # keep track of the row in a variable, so that the layout is flexible
         # if e.g. rows are skipped to control such as 'method' here
         row = 0
-        w["method_frame"].grid(row=row, column=0, columnspan=9, sticky=tk.W)
-        w["method_label"].grid(row=row, column=0, sticky=tk.E)
-        w["method"].grid(row=row, column=1, sticky=tk.W)
-        w["name_label"].grid(row=row, column=2, sticky=tk.W)
-        w["name"].grid(row=row, column=3, sticky=tk.W)
+        self["method"].grid(row=row, column=0, columnspan=2, sticky=tk.EW)
+        self["table name"].grid(row=row, column=2, sticky=tk.EW)
+        row += 1
 
-        if method == "create":
+        if method == "Create":
+            self["columns"].grid(row=row, column=0, columnspan=5, sticky=tk.NSEW)
+            frame.rowconfigure(row, weight=1)
+            frame.columnconfigure(5, weight=1)
+            self.layout_columns(first=True)
             row += 1
-            w["index_column_label"].grid(row=row, column=0, sticky=tk.E)
-            w["index_column"].grid(row=row, column=1, sticky=tk.EW)
+            self["index column"].grid(row=row, column=0, columnspan=2, sticky=tk.EW)
             row += 1
-            w["columns"].grid(row=row, column=0, sticky=tk.NSEW)
-            self.layout_columns_for_editing(first=True)
-        elif method == "read":
+        elif method == "Read":
+            self["filename"].grid(row=row, column=1, columnspan=2, sticky=tk.EW)
             row += 1
-            w["filename_label"].grid(row=row, column=0, sticky=tk.E)
-            w["filename"].grid(row=row, column=1, sticky=tk.EW)
-            w["file_selector"].grid(row=row, column=2, sticky=tk.W)
+            self["file type"].grid(row=row, column=1, columnspan=2, sticky=tk.EW)
             row += 1
-            w["index_column_label"].grid(row=row, column=0, sticky=tk.E)
-            w["index_column"].grid(row=row, column=1, sticky=tk.EW)
-        elif method == "save":
+            self["index column"].grid(row=row, column=1, columnspan=2, sticky=tk.EW)
+            row += 1
+            sw.align_labels([self["filename"], self["file type"], self["index column"]])
+        elif method == "Save":
+            self["file type"].grid(row=row, column=1, sticky=tk.EW)
+            row += 1
+        elif method == "Save as":
+            self["filename"].grid(row=row, column=1, sticky=tk.EW)
+            row += 1
+            self["file type"].grid(row=row, column=1, sticky=tk.EW)
+            row += 1
+            sw.align_labels([self["filename"], self["file type"]])
+        elif method == "Print":
             pass
-        elif method == "print":
+        elif method == "Print the current row of":
             pass
-        elif method == "print current row":
-            pass
-        elif method == "append row":
+        elif method == "Append a row to":
+            self["columns"].grid(row=row, column=0, columnspan=4, sticky=tk.NSEW)
+            frame.rowconfigure(row, weight=1)
+            frame.columnconfigure(4, weight=1)
             row += 1
-            w["columns"].grid(row=row, column=0, sticky=tk.NSEW)
             self.layout_columns_for_add_row(first=True)
-        elif method == "next row":
+        elif method == "Go to the next row of":
             pass
-        elif method == "add columns":
+        elif method == "Add columns to":
+            self["columns"].grid(row=row, column=0, columnspan=4, sticky=tk.NSEW)
             row += 1
-            w["columns"].grid(row=row, column=0, sticky=tk.NSEW)
-            self.layout_columns_for_editing(first=True)
-        elif method == "get element":
+            self.layout_columns(first=True)
+        elif method == "Get element of":
+            self["row"].grid(row=row, column=1, columnspan=2, sticky=tk.EW)
             row += 1
-            w["row_index_label"].grid(row=row, column=0, sticky=tk.E)
-            w["row_index"].grid(row=row, column=1, sticky=tk.W)
-
+            self["column"].grid(row=row, column=1, columnspan=2, sticky=tk.EW)
             row += 1
-            w["column_index_label"].grid(row=row, column=0, sticky=tk.E)
-            w["column_index"].grid(row=row, column=1, sticky=tk.W)
-
+            self["variable name"].grid(row=row, column=1, columnspan=2, sticky=tk.EW)
             row += 1
-            w["variable_name_label"].grid(row=row, column=0, sticky=tk.E)
-            w["variable_name"].grid(row=row, column=1, sticky=tk.W)
-        elif method == "set element":
+            sw.align_labels([self["row"], self["column"], self["variable name"]])
+        elif method == "Set element of":
+            self["row"].grid(row=row, column=1, columnspan=2, sticky=tk.EW)
             row += 1
-            w["row_index_label"].grid(row=row, column=0, sticky=tk.E)
-            w["row_index"].grid(row=row, column=1, sticky=tk.W)
-
+            self["column"].grid(row=row, column=1, columnspan=2, sticky=tk.EW)
             row += 1
-            w["column_index_label"].grid(row=row, column=0, sticky=tk.E)
-            w["column_index"].grid(row=row, column=1, sticky=tk.W)
-
+            self["value"].grid(row=row, column=1, columnspan=2, sticky=tk.EW)
             row += 1
-            w["value_label"].grid(row=row, column=0, sticky=tk.E)
-            w["value"].grid(row=row, column=1, sticky=tk.W)
+            sw.align_labels([self["row"], self["column"], self["value"]])
         else:
+            methods = ", ".join(self.parameters["method"].enumeration)
             raise RuntimeError(
-                "The table method must be one of "
-                + ", ".join(table_step.methods)
-                + ', not  "'
-                + method
-                + '"'
+                f"The table method must be one of {methods}, not '{method}'."
             )
         row += 1
+
+        frame.columnconfigure(0, minsize=50)
+
+        return row
 
     def right_click(self, event):
         """Probably need to add our dialog..."""
@@ -201,13 +172,6 @@ class TkTable(seamm.TkNode):
         self.popup_menu.add_command(label="Edit...", command=self.edit)
 
         self.popup_menu.tk_popup(event.x_root, event.y_root, 0)
-
-    def edit(self):
-        """Present a dialog for editing the Table input"""
-        if self.dialog is None:
-            self.create_dialog()
-
-        self.dialog.activate(geometry="centerscreenfirst")
 
     def handle_dialog(self, result):
         if result is None or result == "Cancel":
@@ -222,63 +186,50 @@ class TkTable(seamm.TkNode):
             self.dialog.deactivate(result)
             raise RuntimeError("Don't recognize dialog result '{}'".format(result))
 
-        self.dialog.deactivate(result)
+        super().handle_dialog(result)
 
-        # set up our shorthand for the widgets
-        w = self._widget
         # and get the method, which in this example tells
         # whether to use the value directly or get it from
         # a variable in the flowchart
 
-        method = w["method"].get()
+        method = self["method"].get()
 
-        self.node.method = method
-        self.node.name = w["name"].get()
-        if method == "create":
+        if method == "Create":
             self.save_column_data()
-            self.node.index_column = w["index_column"].get()
-        elif method == "read":
-            self.node.filename = w["filename"].get()
-            self.node.index_column = w["index_column"].get()
-        elif method == "save":
+            self.node.parameters["columns"].value = copy.deepcopy(self._columns)
+        elif method == "Read":
             pass
-        elif method == "print":
+        elif method == "Save":
             pass
-        elif method == "append row":
+        elif method == "Save as":
+            pass
+        elif method == "Print":
+            pass
+        elif method == "Print the current row of":
+            pass
+        elif method == "Append a row to":
             self.save_column_data()
-        elif method == "next row":
+            self.node.parameters["columns"].value = copy.deepcopy(self._columns)
+        elif method == "Go to the next row of":
             pass
-        elif method == "add columns":
+        elif method == "Add columns to":
             # Save any changes!
             self.save_column_data()
-        elif method == "get element":
-            self.node.row_index = w["row_index"].get()
-            self.node.column_index = w["column_index"].get()
-            self.node.variable_name = w["variable_name"].get()
-        elif method == "set element":
-            self.node.row_index = w["row_index"].get()
-            self.node.column_index = w["column_index"].get()
-            self.node.value = w["value"].get()
-        elif method == "print current row":
+            self.node.parameters["columns"].value = copy.deepcopy(self._columns)
+        elif method == "Get element of":
+            pass
+        elif method == "Set element of":
             pass
         else:
+            methods = ", ".join(self.parameters["method"].enumeration)
             raise RuntimeError(
-                "The table method must be one of "
-                + ", ".join(table_step.methods)
-                + ', not "'
-                + method
-                + '"'
+                f"The table method must be one of {methods}, not '{method}'."
             )
 
-    def handle_help(self):
-        """Not implemented yet ... you'll need to fill this out!"""
-        print("Help!")
-
-    def layout_columns_for_editing(self, first=False):
+    def layout_columns(self, first=False):
         """Layout the table of columns for adding, editing, etc."""
 
-        w = self._widget
-        frame = w["columns"]
+        frame = self["columns"]
 
         # Save any changes!
         if not first:
@@ -289,24 +240,24 @@ class TkTable(seamm.TkNode):
             slave.destroy()
 
         row = 0
-        w = ttk.Label(frame, text="Name")
+        w = ttk.Label(frame, text="Name", width=30)
         w.grid(row=row, column=1)
-        w = ttk.Label(frame, text="Type")
+        w = ttk.Label(frame, text="Type", width=30)
         w.grid(row=row, column=2)
-        w = ttk.Label(frame, text="Default")
+        w = ttk.Label(frame, text="Default", width=30)
         w.grid(row=row, column=3)
 
-        for d in self.node.tmp_columns:
+        for d in self._columns:
             row += 1
             widgets = d["widgets"] = {}
 
             col = 0
             # The button to remove a row...
-            w = widgets["remove"] = ttk.Button(
+            w = ttk.Button(
                 frame,
                 text="-",
                 width=5,
-                command=lambda row=row: self.remove_column_for_add_row(row),
+                command=lambda row=row: self.remove_column(row - 1),
                 takefocus=False,
             )
             w.grid(row=row, column=col, sticky=tk.W)
@@ -350,7 +301,7 @@ class TkTable(seamm.TkNode):
 
         # The button to add a row...
         row += 1
-        w = self._widget["add column"] = ttk.Button(
+        w = ttk.Button(
             frame,
             text="+",
             width=5,
@@ -362,8 +313,7 @@ class TkTable(seamm.TkNode):
     def layout_columns_for_add_row(self, first=False):
         """Layout the table of columns for adding a row"""
 
-        w = self._widget
-        frame = w["columns"]
+        frame = self["columns"]
 
         # Save any changes!
         if not first:
@@ -379,17 +329,17 @@ class TkTable(seamm.TkNode):
         w = ttk.Label(frame, text="Value")
         w.grid(row=row, column=2)
 
-        for d in self.node.tmp_columns:
+        for d in self._columns:
             row += 1
             widgets = d["widgets"] = {}
 
             col = 0
             # The button to remove a row...
-            w = widgets["remove"] = ttk.Button(
+            w = ttk.Button(
                 frame,
                 text="-",
                 width=5,
-                command=lambda row=row: self.remove_column(row),
+                command=lambda row=row: self.remove_column_for_add_row(row - 1),
                 takefocus=False,
             )
             w.grid(row=row, column=col, sticky=tk.W)
@@ -420,7 +370,7 @@ class TkTable(seamm.TkNode):
 
         # The button to add a row...
         row += 1
-        w = self._widget["add column"] = ttk.Button(
+        w = ttk.Button(
             frame,
             text="+",
             width=5,
@@ -431,31 +381,33 @@ class TkTable(seamm.TkNode):
 
     def remove_column(self, row=None):
         """Remove a column from the list of columns"""
-        del self.node.tmp_columns[row]
-        self.layout_columns_for_editing()
+        if row < len(self._columns):
+            del self._columns[row]
+        self.layout_columns()
 
     def add_column(self):
         """Add entries for another column in the displayed table"""
-        self.node.tmp_columns.append(
+        self._columns.append(
             {"widgets": {}, "type": "float", "name": "", "default": ""}
         )
-        self.layout_columns_for_editing()
+        self.layout_columns()
 
     def remove_column_for_add_row(self, row=None):
         """Remove a column from the list of columns"""
-        del self.node.tmp_columns[row]
+        if row < len(self._columns):
+            del self._columns[row]
         self.layout_columns_for_add_row()
 
     def add_column_for_add_row(self):
         """Add entries for another column in the displayed table"""
-        self.node.tmp_columns.append({"widgets": {}, "name": "", "value": ""})
+        self._columns.append({"widgets": {}, "name": "", "value": ""})
         self.layout_columns_for_add_row()
 
     def save_column_data(self):
         """Get the data from the widgets when the table information is
         changed in the GUI.
         """
-        for d in self.node.tmp_columns:
+        for d in self._columns:
             w = d["widgets"]
             if "name" in w:
                 d["name"] = w["name"].get()
@@ -465,4 +417,6 @@ class TkTable(seamm.TkNode):
                 d["default"] = w["default"].get()
             if "value" in w:
                 d["value"] = w["value"].get()
+            for name in w:
+                w[name].destroy()
             del d["widgets"]
