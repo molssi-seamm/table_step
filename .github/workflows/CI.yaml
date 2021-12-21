@@ -78,8 +78,12 @@ jobs:
     - name: Run tests
       shell: bash -l {0}
       run: |
-        pytest -v --cov=table_step --cov-report=xml --color=yes tests/
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          pytest -v --cov=table_step --cov-report=xml --color=yes --integration tests/
+        else:
+          pytest -v --cov=table_step --cov-report=xml --color=yes tests/
     - name: CodeCov
+      if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
       uses: codecov/codecov-action@v2
       with:
         file: ./coverage.xml
