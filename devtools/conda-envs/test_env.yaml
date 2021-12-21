@@ -22,6 +22,10 @@ dependencies:
 
     # Pip-only installs
   - pip:
+    # Integration testing
+    - custom-step
+    - loop-step
+    
     # Documentation
     - rinohtype
     - pygments
