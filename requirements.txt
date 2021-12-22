@@ -1,4 +1,5 @@
 numpy==1.19.4
+openpyxl
 pandas==1.1.4
 seamm==2020.12.4
 

@@ -10,6 +10,7 @@ dependencies:
 
   # Specific dependencies
   - numpy
+  - openpyxl
   - pandas
   - seamm
 
