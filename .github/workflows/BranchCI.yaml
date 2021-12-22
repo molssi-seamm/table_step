@@ -4,7 +4,9 @@ on:
   push:
     branches-ignore:
       - 'main'
-
+  pull_request:
+    branches-ignore:
+      - 'main'
 jobs:
   light-ci:
     name: Lint ubuntu-latest Py3.9
