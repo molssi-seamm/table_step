@@ -1,4 +1,4 @@
--r requirements_install.txt
+-r requirements.txt
 
 coverage
 flake8
