@@ -50,30 +50,52 @@ clean-test: ## remove test and coverage artifacts
 	find . -name '.pytype' -exec rm -fr {} +
 
 lint: ## check style with flake8
+	black --extend-exclude '_version.py' --check --diff $(MODULE) tests
 	flake8 $(MODULE) tests
-	yapf --diff --recursive  $(MODULE) tests
 
 format: ## reformat with with yapf and isort
-	yapf --recursive --in-place $(MODULE) tests
+	black --extend-exclude '_version.py' $(MODULE) tests
 
 typing: ## check typing
 	pytype $(MODULE)
 
 test: ## run tests quickly with the default Python
-	py.test
+	py.test -rP
+
+test-all: ## run all the tests
+	py.test -rP --integration --timing
+
+test-integration: ## run the integration tests
+	py.test -rP --no-unit --integration
+
+test-timing: ## run the timing tests
+	py.test -rP --no-unit --timing
 
 dependencies:
 	pur -r requirements_dev.txt
 	pip install -r requirements_dev.txt
 
-test-all: ## run tests on every Python version with tox
-	tox
-
-coverage: ## check code coverage quickly with the default Python
-	coverage run --source $(MODULE) -m pytest
-	coverage report -m
-	coverage html
+coverage: ## code coverage using only the unit tests (fast!)
+	pytest --cov-report term --cov-report html:htmlcov --cov $(MODULE)  tests/
 	$(BROWSER) htmlcov/index.html
+
+coverage-all: ## code coverage using all tests (slow)
+	pytest --cov-report term --cov-report html:htmlcov --cov $(MODULE)  --integration --timing tests/
+	$(BROWSER) htmlcov/index.html
+
+coverage-integration: ## code coverage using only the integration tests
+	pytest --cov-report term --cov-report html:htmlcov --cov $(MODULE)  --no-unit --integration tests/
+	$(BROWSER) htmlcov/index.html
+
+coverage-report: ## code coverage using only the unit tests (fast!) with only a text report
+	pytest --cov-report term --cov $(MODULE)  tests/
+
+coverage-all-report: ## code coverage using all tests (slow) with only a text report
+	pytest --cov-report term --cov $(MODULE)  --integration --timing tests/
+
+coverage-integration-report: ## code coverage using only the integration tests with only a text report
+	pytest --cov-report term --cov $(MODULE)  --no-unit --integration tests/
+
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/developer/$(MODULE).rst

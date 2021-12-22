@@ -10,10 +10,12 @@ dependencies:
 
   # Specific dependencies
   - numpy
+  - openpyxl
   - pandas
   - seamm
 
   # Testing
+  - black
   - codecov
   - flake8
   - pytest
@@ -21,9 +23,10 @@ dependencies:
 
     # Pip-only installs
   - pip:
-    # Testing
-    - yapf
-
+    # Integration testing
+    - custom-step
+    - loop-step
+    
     # Documentation
     - rinohtype
     - pygments

@@ -4,7 +4,9 @@ on:
   push:
     branches-ignore:
       - 'main'
-
+  pull_request:
+    branches-ignore:
+      - 'main'
 jobs:
   light-ci:
     name: Lint ubuntu-latest Py3.9
@@ -35,12 +37,12 @@ jobs:
     - name: Run linters
       shell: bash -l {0}
       run: |
+        black --extend-exclude '_version.py' --check --diff table_step tests
         flake8 table_step tests
-        yapf --diff --recursive table_step tests
     - name: Run tests
       shell: bash -l {0}
       run: |
-        pytest -v --cov=table_step --cov-report=xml --color=yes tests/
+        pytest -v --cov=table_step --cov-report=xml --color=yes --integration tests/
     - name: CodeCov
       uses: codecov/codecov-action@v2
       with:

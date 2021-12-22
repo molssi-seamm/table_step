@@ -1,4 +1,4 @@
-numpy==1.19.4
-pandas==1.1.4
-seamm==2020.12.4
-
+numpy
+openpyxl
+pandas
+seamm
