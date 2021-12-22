@@ -60,16 +60,16 @@ typing: ## check typing
 	pytype $(MODULE)
 
 test: ## run tests quickly with the default Python
-	py.test
+	py.test -rP
 
 test-all: ## run all the tests
-	py.test --integration --timing
+	py.test -rP --integration --timing
 
 test-integration: ## run the integration tests
-	py.test --no-unit --integration
+	py.test -rP --no-unit --integration
 
 test-timing: ## run the timing tests
-	py.test --no-unit --timing
+	py.test -rP --no-unit --timing
 
 dependencies:
 	pur -r requirements_dev.txt
