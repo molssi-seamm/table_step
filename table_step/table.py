@@ -437,9 +437,9 @@ class Table(seamm.Node):
                             value = np.nan
                         elif column_type == "string":
                             value = ""
-                new_row[column_name] = value
-
-            table = table.append(new_row, ignore_index=True)
+                new_row[column_name] = [value]
+            new_row = pandas.DataFrame.from_dict(new_row)
+            table = pandas.concat([table, new_row], ignore_index=True)
             seamm.flowchart_variables[tablename]["table"] = table
             seamm.flowchart_variables[tablename]["current index"] = table.shape[0] - 1
         elif P["method"] == "Go to the next row of":
