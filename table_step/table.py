@@ -252,6 +252,8 @@ class Table(seamm.Node):
                     "table": table,
                     "defaults": defaults,
                     "index column": index,
+                    "loop index": False,
+                    "current index": 0,
                 },
             )
         elif P["method"] == "Read":
@@ -305,6 +307,8 @@ class Table(seamm.Node):
                     "table": table,
                     "defaults": {},
                     "index column": index,
+                    "loop index": False,
+                    "current index": 0,
                 },
             )
 
