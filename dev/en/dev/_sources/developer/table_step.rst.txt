@@ -1,0 +1,45 @@
+table\_step package
+===================
+
+Submodules
+----------
+
+table\_step.table module
+------------------------
+
+.. automodule:: table_step.table
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+table\_step.table\_parameters module
+------------------------------------
+
+.. automodule:: table_step.table_parameters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+table\_step.table\_step module
+------------------------------
+
+.. automodule:: table_step.table_step
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+table\_step.tk\_table module
+----------------------------
+
+.. automodule:: table_step.tk_table
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: table_step
+   :members:
+   :undoc-members:
+   :show-inheritance:
