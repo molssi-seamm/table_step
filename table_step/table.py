@@ -507,12 +507,15 @@ class Table(seamm.Node):
             index = table_handle["index column"]
             table = table_handle["table"]
 
-            if index is None:
-                row = int(row)
+            if row == "current":
+                row = table_handle["current index"]
             else:
-                if table.index.dtype.kind == "i":
+                if index is None:
                     row = int(row)
-                row = table.index.get_loc(int(row))
+                else:
+                    if table.index.dtype.kind == "i":
+                        row = int(row)
+                    row = table.index.get_loc(int(row))
             try:
                 column = int(column)
             except Exception:
@@ -539,12 +542,15 @@ class Table(seamm.Node):
             index = table_handle["index column"]
             table = table_handle["table"]
 
-            if index is None:
-                row = int(row)
+            if row == "current":
+                row = table_handle["current index"]
             else:
-                if table.index.dtype.kind == "i":
+                if index is None:
                     row = int(row)
-                row = table.index.get_loc(row)
+                else:
+                    if table.index.dtype.kind == "i":
+                        row = int(row)
+                    row = table.index.get_loc(row)
             try:
                 column = int(column)
             except Exception:
