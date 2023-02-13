@@ -195,11 +195,13 @@ class TkTable(seamm.TkNode):
         method = self["method"].get()
 
         if method == "Create":
-            self.tables = [self["table name"].get()]
+            tablename = self["table name"].get()
+            self.node.tables = [tablename]
             self.save_column_data()
             self.node.parameters["columns"].value = copy.deepcopy(self._columns)
         elif method == "Read":
-            self.tables = [self["table name"].get()]
+            tablename = self["table name"].get()
+            self.node.tables = [tablename]
             pass
         elif method == "Save":
             pass
