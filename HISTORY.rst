@@ -2,6 +2,8 @@
 History
 =======
 
+2023.2.13 -- Fixed bug with access rows of tables with non-integer indexes.
+
 2021.2.12 (12 February 2021)
 ----------------------------
 
