@@ -2,6 +2,20 @@
 History
 =======
 
+2023.2.15 -- Bugs fixes and documentation
+    * Restructured documentation and moved to new theme
+    * Fixed bug with access rows of tables with non-integer indexes as well as "current"
+      index 
+    * Added support for lists of tables in pulldowns in the GUI
+      
+2021.12.22 -- Improved the handling of index columns, added formats.
+    * Improved the handling of the index column
+    * Added Save as
+    * Added Excel and JSON formats.
+
+2021.10.14 -- Updated for Python
+    * Now supporting Python 3.8 and 3.9
+      
 2021.2.12 (12 February 2021)
 ----------------------------
 

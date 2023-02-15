@@ -1,6 +1,9 @@
 MODULE := table_step
-.PHONY: clean clean-test clean-pyc clean-build docs help
+.PHONY: help clean clean-build clean-docs clean-pyc clean-test lint format typing test
+.PHONY: dependencies test-all coverage html docs servedocs release check-release
+.PHONY: dist install uninstall
 .DEFAULT_GOAL := help
+
 define BROWSER_PYSCRIPT
 import os, webbrowser, sys
 try:
@@ -10,6 +13,7 @@ except:
 
 webbrowser.open("file://" + pathname2url(os.path.abspath(sys.argv[1])))
 endef
+
 export BROWSER_PYSCRIPT
 
 define PRINT_HELP_PYSCRIPT
@@ -21,7 +25,9 @@ for line in sys.stdin:
 		target, help = match.groups()
 		print("%-20s %s" % (target, help))
 endef
+
 export PRINT_HELP_PYSCRIPT
+
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
 help:
@@ -49,80 +55,52 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	find . -name '.pytype' -exec rm -fr {} +
 
-lint: ## check style with flake8
+lint: ## check style with black and flake8
 	black --extend-exclude '_version.py' --check --diff $(MODULE) tests
-	flake8 $(MODULE) tests
+	flake8 --color never $(MODULE) tests
 
 format: ## reformat with with yapf and isort
 	black --extend-exclude '_version.py' $(MODULE) tests
 
-typing: ## check typing
-	pytype $(MODULE)
-
 test: ## run tests quickly with the default Python
-	py.test -rP
+	pytest tests/
 
-test-all: ## run all the tests
-	py.test -rP --integration --timing
+coverage: ## check code coverage quickly with the default Python
+	pytest -v --cov=$(MODULE) --cov-report term --color=yes tests/
 
-test-integration: ## run the integration tests
-	py.test -rP --no-unit --integration
-
-test-timing: ## run the timing tests
-	py.test -rP --no-unit --timing
-
-dependencies:
-	pur -r requirements_dev.txt
-	pip install -r requirements_dev.txt
-
-coverage: ## code coverage using only the unit tests (fast!)
-	pytest --cov-report term --cov-report html:htmlcov --cov $(MODULE)  tests/
+coverage-html: ## check code coverage quickly with the default Python, showing as html
+	pytest -v --cov=$(MODULE) --cov-report=html:htmlcov --cov-report term --color=yes tests/
 	$(BROWSER) htmlcov/index.html
 
-coverage-all: ## code coverage using all tests (slow)
-	pytest --cov-report term --cov-report html:htmlcov --cov $(MODULE)  --integration --timing tests/
-	$(BROWSER) htmlcov/index.html
-
-coverage-integration: ## code coverage using only the integration tests
-	pytest --cov-report term --cov-report html:htmlcov --cov $(MODULE)  --no-unit --integration tests/
-	$(BROWSER) htmlcov/index.html
-
-coverage-report: ## code coverage using only the unit tests (fast!) with only a text report
-	pytest --cov-report term --cov $(MODULE)  tests/
-
-coverage-all-report: ## code coverage using all tests (slow) with only a text report
-	pytest --cov-report term --cov $(MODULE)  --integration --timing tests/
-
-coverage-integration-report: ## code coverage using only the integration tests with only a text report
-	pytest --cov-report term --cov $(MODULE)  --no-unit --integration tests/
-
-
-docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/developer/$(MODULE).rst
-	rm -f docs/developer/modules.rst
-	sphinx-apidoc -o docs/developer $(MODULE)
+clean-docs: ## remove files associated with building the docs
+	rm -f docs/api/$(MODULE).rst
+	rm -f docs/api/modules.rst
 	$(MAKE) -C docs clean
+
+html: clean-docs ## generate Sphinx HTML documentation, including API docs
+	sphinx-apidoc -o docs/api $(MODULE)
 	$(MAKE) -C docs html
+	rm -f docs/api/$(MODULE).rst
+	rm -f docs/api/modules.rst
+
+docs: html ## Make the html docs and show in the browser
 	$(BROWSER) docs/_build/html/index.html
 
 servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
-release: clean ## package and upload a release
-	python setup.py sdist bdist_wheel
+release: dist ## package and upload a release
 	python -m twine upload dist/*
 
-check-release: clean ## check the release for errors
-	python setup.py sdist bdist_wheel
+check-release: dist ## check the release for errors
 	python -m twine check dist/*
 
 dist: clean ## builds source and wheel package
-	python setup.py sdist
-	python setup.py bdist_wheel
+	python -m build
 	ls -l dist
 
 install: uninstall ## install the package to the active Python's site-packages
-	python setup.py install
+	pip install .
 
 uninstall: clean ## uninstall the package
 	pip uninstall --yes $(MODULE)
