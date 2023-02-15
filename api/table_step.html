@@ -1,0 +1,1039 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>table_step package &#8212; SEAMM Table Plug-in 2023.2.15 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PQXXTJ2');</script>
+<!-- End Google Tag Manager -->
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/table_step';</script>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Development Team" href="../authors.html" />
+    <link rel="prev" title="table_step" href="modules.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../index.html">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <img src="../_static/SEAMM logo.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/SEAMM Inverted 288x181.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+    <p class="title logo__title">Table Step</p>
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../developer_guide/index.html">
+                        Developer Documentation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        API Documentation
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../authors.html">
+                        Development Team
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../history.html">
+                        History
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://molssi-seamm.github.io">
+                    SEAMM Documentation
+                  </a>
+                </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://molssi.org">
+                    MolSSI
+                  </a>
+                </li>
+                
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/molssi-seamm/table_step" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/MolSSI_NSF" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-square-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User Guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../developer_guide/index.html">
+                        Developer Documentation
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="index.html">
+                        API Documentation
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../authors.html">
+                        Development Team
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../history.html">
+                        History
+                      </a>
+                    </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://molssi-seamm.github.io">
+                    SEAMM Documentation
+                  </a>
+                </li>
+                
+
+                <li class="nav-item">
+                  <a class="nav-link nav-external" href="https://molssi.org">
+                    MolSSI
+                  </a>
+                </li>
+                
+                </div>
+            </div>
+            
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/molssi-seamm/table_step" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/MolSSI_NSF" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-toggle="tooltip"><span><i class="fa-brands fa-square-twitter"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Section navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">
+    Section Navigation
+  </p>
+  <div class="bd-toc-item navbar-nav">
+    <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">table_step</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">table_step package</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <section id="table-step-package">
+<h1>table_step package<a class="headerlink" href="#table-step-package" title="Permalink to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-table_step.table">
+<span id="table-step-table-module"></span><h2>table_step.table module<a class="headerlink" href="#module-table_step.table" title="Permalink to this heading">#</a></h2>
+<p>Non-graphical part of the Table step in SEAMM</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="table_step.table.Table">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.table.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowchart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table.html#Table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table.Table" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.table.Table.description_text">
+<span class="sig-name descname"><span class="pre">description_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table.html#Table.description_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table.Table.description_text" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a short description of this step.</p>
+<p>Return a nicely formatted string describing what this step will
+do.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>P</strong> – a dictionary of parameter values, which may be variables
+or final values. If None, then the parameters values will
+be used as is.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="table_step.table.Table.git_revision">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">git_revision</span></span><a class="headerlink" href="#table_step.table.Table.git_revision" title="Permalink to this definition">#</a></dt>
+<dd><p>The git version of this module.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.table.Table.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table.html#Table.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table.Table.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Do what we need for the table, as dictated by the ‘method’</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="table_step.table.Table.version">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">version</span></span><a class="headerlink" href="#table_step.table.Table.version" title="Permalink to this definition">#</a></dt>
+<dd><p>The semantic version of this module.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-table_step.table_parameters">
+<span id="table-step-table-parameters-module"></span><h2>table_step.table_parameters module<a class="headerlink" href="#module-table_step.table_parameters" title="Permalink to this heading">#</a></h2>
+<p>Control parameters for loops</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="table_step.table_parameters.TableParameters">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.table_parameters.</span></span><span class="sig-name descname"><span class="pre">TableParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_parameters.html#TableParameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_parameters.TableParameters" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Parameters</span></code></p>
+<p>The control parameters for tables</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="table_step.table_parameters.TableParameters.parameters">
+<span class="sig-name descname"><span class="pre">parameters</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'column':</span> <span class="pre">{'default':</span> <span class="pre">'current',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Column:',</span> <span class="pre">'enumeration':</span> <span class="pre">('c',</span> <span class="pre">'u',</span> <span class="pre">'r',</span> <span class="pre">'r',</span> <span class="pre">'e',</span> <span class="pre">'n',</span> <span class="pre">'t'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">column</span> <span class="pre">to</span> <span class="pre">access',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'columns':</span> <span class="pre">{'default':</span> <span class="pre">[],</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'columns',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">column</span> <span class="pre">definitions.',</span> <span class="pre">'kind':</span> <span class="pre">'list'},</span> <span class="pre">'file</span> <span class="pre">type':</span> <span class="pre">{'default':</span> <span class="pre">'from</span> <span class="pre">extension',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'File</span> <span class="pre">type:',</span> <span class="pre">'enumeration':</span> <span class="pre">('from</span> <span class="pre">extension',</span> <span class="pre">'.csv',</span> <span class="pre">'.json',</span> <span class="pre">'.xlsx',</span> <span class="pre">'.txt'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">type</span> <span class="pre">of</span> <span class="pre">file</span> <span class="pre">to</span> <span class="pre">read/write.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'filename':</span> <span class="pre">{'default':</span> <span class="pre">'',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'File</span> <span class="pre">name:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">file</span> <span class="pre">name</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">table,</span> <span class="pre">which</span> <span class="pre">may</span> <span class="pre">include</span> <span class="pre">a</span> <span class="pre">path.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'index</span> <span class="pre">column':</span> <span class="pre">{'default':</span> <span class="pre">'--none--',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Index</span> <span class="pre">column:',</span> <span class="pre">'enumeration':</span> <span class="pre">('-',</span> <span class="pre">'-',</span> <span class="pre">'n',</span> <span class="pre">'o',</span> <span class="pre">'n',</span> <span class="pre">'e',</span> <span class="pre">'-',</span> <span class="pre">'-'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">column</span> <span class="pre">to</span> <span class="pre">index</span> <span class="pre">the</span> <span class="pre">table.</span> <span class="pre">Values</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">unique.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'method':</span> <span class="pre">{'default':</span> <span class="pre">'Create',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'',</span> <span class="pre">'enumeration':</span> <span class="pre">('Create',</span> <span class="pre">'Read',</span> <span class="pre">'Save',</span> <span class="pre">'Save</span> <span class="pre">as',</span> <span class="pre">'Print',</span> <span class="pre">'Print</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">row</span> <span class="pre">of',</span> <span class="pre">'Append</span> <span class="pre">a</span> <span class="pre">row</span> <span class="pre">to',</span> <span class="pre">'Go</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">next</span> <span class="pre">row</span> <span class="pre">of',</span> <span class="pre">'Add</span> <span class="pre">columns</span> <span class="pre">to',</span> <span class="pre">'Set</span> <span class="pre">element</span> <span class="pre">of',</span> <span class="pre">'Get</span> <span class="pre">element</span> <span class="pre">of'),</span> <span class="pre">'format_string':</span> <span class="pre">'s',</span> <span class="pre">'help_text':</span> <span class="pre">'What</span> <span class="pre">to</span> <span class="pre">do</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">tables',</span> <span class="pre">'kind':</span> <span class="pre">'enumeration'},</span> <span class="pre">'row':</span> <span class="pre">{'default':</span> <span class="pre">'current',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Row:',</span> <span class="pre">'enumeration':</span> <span class="pre">('c',</span> <span class="pre">'u',</span> <span class="pre">'r',</span> <span class="pre">'r',</span> <span class="pre">'e',</span> <span class="pre">'n',</span> <span class="pre">'t'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">row</span> <span class="pre">to</span> <span class="pre">access',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'table</span> <span class="pre">name':</span> <span class="pre">{'default':</span> <span class="pre">'table1',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'</span> <span class="pre">table</span> <span class="pre">',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'value':</span> <span class="pre">{'default':</span> <span class="pre">'',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Value:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">value</span> <span class="pre">to</span> <span class="pre">put</span> <span class="pre">into</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'variable</span> <span class="pre">name':</span> <span class="pre">{'default':</span> <span class="pre">'',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Variable</span> <span class="pre">name:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">variable</span> <span class="pre">for</span> <span class="pre">storing</span> <span class="pre">the</span> <span class="pre">value</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'string'}}</span></em><a class="headerlink" href="#table_step.table_parameters.TableParameters.parameters" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-table_step.table_step">
+<span id="table-step-table-step-module"></span><h2>table_step.table_step module<a class="headerlink" href="#module-table_step.table_step" title="Permalink to this heading">#</a></h2>
+<p>Helper class needed for the stevedore integration.</p>
+<p>This must provide a description() method that returns a dict containing a
+description of this node, and create_node() and create_tk_node() methods for
+creating the graphical and non-graphical nodes.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="table_step.table_step.TableStep">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.table_step.</span></span><span class="sig-name descname"><span class="pre">TableStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowchart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.table_step.TableStep.create_node">
+<span class="sig-name descname"><span class="pre">create_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowchart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep.create_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep.create_node" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the new node object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.table_step.TableStep.create_tk_node">
+<span class="sig-name descname"><span class="pre">create_tk_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">canvas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep.create_tk_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep.create_tk_node" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the graphical Tk node object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.table_step.TableStep.description">
+<span class="sig-name descname"><span class="pre">description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep.description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep.description" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a description of what this extension does</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="table_step.table_step.TableStep.my_description">
+<span class="sig-name descname"><span class="pre">my_description</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">'An</span> <span class="pre">interface</span> <span class="pre">for</span> <span class="pre">Pandas</span> <span class="pre">tables',</span> <span class="pre">'group':</span> <span class="pre">'Data',</span> <span class="pre">'name':</span> <span class="pre">'Table'}</span></em><a class="headerlink" href="#table_step.table_step.TableStep.my_description" title="Permalink to this definition">#</a></dt>
+<dd><p>The description needs three fields:</p>
+<dl class="simple">
+<dt>description:</dt><dd><p>A human-readable description of this step. It can be
+several lines long, and needs to be clear to non-expert users.</p>
+</dd>
+<dt>group:</dt><dd><p>Which group in the menus to put this step. If the group does
+not exist it will be created. Common groups are ‘Building’,
+‘Calculations’, ‘Control’ and ‘Data’.</p>
+</dd>
+<dt>name:</dt><dd><p>The name of this step, to be displayed in the menus.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-table_step.tk_table">
+<span id="table-step-tk-table-module"></span><h2>table_step.tk_table module<a class="headerlink" href="#module-table_step.tk_table" title="Permalink to this heading">#</a></h2>
+<p>The graphical part of a Table step</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.tk_table.</span></span><span class="sig-name descname"><span class="pre">TkTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tk_flowchart=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canvas=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x=120</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y=20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w=200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h=50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_logger=&lt;Logger</span> <span class="pre">table_step.tk_table</span> <span class="pre">(WARNING)&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TkNode</span></code></p>
+<p>The node_class is the class of the ‘real’ node that this
+class is the Tk graphics partner for</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.add_column">
+<span class="sig-name descname"><span class="pre">add_column</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.add_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.add_column" title="Permalink to this definition">#</a></dt>
+<dd><p>Add entries for another column in the displayed table</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.add_column_for_add_row">
+<span class="sig-name descname"><span class="pre">add_column_for_add_row</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.add_column_for_add_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.add_column_for_add_row" title="Permalink to this definition">#</a></dt>
+<dd><p>Add entries for another column in the displayed table</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.create_dialog">
+<span class="sig-name descname"><span class="pre">create_dialog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.create_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.create_dialog" title="Permalink to this definition">#</a></dt>
+<dd><p>Create the dialog!</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.handle_dialog">
+<span class="sig-name descname"><span class="pre">handle_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.handle_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.handle_dialog" title="Permalink to this definition">#</a></dt>
+<dd><p>Do the right thing when the dialog is closed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.layout_columns">
+<span class="sig-name descname"><span class="pre">layout_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.layout_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.layout_columns" title="Permalink to this definition">#</a></dt>
+<dd><p>Layout the table of columns for adding, editing, etc.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.layout_columns_for_add_row">
+<span class="sig-name descname"><span class="pre">layout_columns_for_add_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.layout_columns_for_add_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.layout_columns_for_add_row" title="Permalink to this definition">#</a></dt>
+<dd><p>Layout the table of columns for adding a row</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.node_class">
+<span class="sig-name descname"><span class="pre">node_class</span></span><a class="headerlink" href="#table_step.tk_table.TkTable.node_class" title="Permalink to this definition">#</a></dt>
+<dd><p>alias of <a class="reference internal" href="#table_step.table.Table" title="table_step.table.Table"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.remove_column">
+<span class="sig-name descname"><span class="pre">remove_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.remove_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.remove_column" title="Permalink to this definition">#</a></dt>
+<dd><p>Remove a column from the list of columns</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.remove_column_for_add_row">
+<span class="sig-name descname"><span class="pre">remove_column_for_add_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.remove_column_for_add_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.remove_column_for_add_row" title="Permalink to this definition">#</a></dt>
+<dd><p>Remove a column from the list of columns</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.reset_dialog">
+<span class="sig-name descname"><span class="pre">reset_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.reset_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.reset_dialog" title="Permalink to this definition">#</a></dt>
+<dd><p>Layout the dialog based on the current values</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.right_click">
+<span class="sig-name descname"><span class="pre">right_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.right_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.right_click" title="Permalink to this definition">#</a></dt>
+<dd><p>Probably need to add our dialog…</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="table_step.tk_table.TkTable.save_column_data">
+<span class="sig-name descname"><span class="pre">save_column_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.save_column_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.save_column_data" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the data from the widgets when the table information is
+changed in the GUI.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-table_step">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-table_step" title="Permalink to this heading">#</a></h2>
+<p>table_step
+A step for data tables in a SEAMM flowchart</p>
+</section>
+</section>
+
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="modules.html" title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">table_step</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="../authors.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Development Team</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#submodules">
+   Submodules
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-table_step.table">
+   table_step.table module
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#table_step.table.Table">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Table
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.table.Table.description_text">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         Table.description_text()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.table.Table.git_revision">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         Table.git_revision
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.table.Table.run">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         Table.run()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.table.Table.version">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         Table.version
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-table_step.table_parameters">
+   table_step.table_parameters module
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#table_step.table_parameters.TableParameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       TableParameters
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.table_parameters.TableParameters.parameters">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TableParameters.parameters
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-table_step.table_step">
+   table_step.table_step module
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#table_step.table_step.TableStep">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       TableStep
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.table_step.TableStep.create_node">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TableStep.create_node()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.table_step.TableStep.create_tk_node">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TableStep.create_tk_node()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.table_step.TableStep.description">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TableStep.description()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.table_step.TableStep.my_description">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TableStep.my_description
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-table_step.tk_table">
+   table_step.tk_table module
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#table_step.tk_table.TkTable">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       TkTable
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.add_column">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.add_column()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.add_column_for_add_row">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.add_column_for_add_row()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.create_dialog">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.create_dialog()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.handle_dialog">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.handle_dialog()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.layout_columns">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.layout_columns()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.layout_columns_for_add_row">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.layout_columns_for_add_row()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.node_class">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.node_class
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.remove_column">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.remove_column()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.remove_column_for_add_row">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.remove_column_for_add_row()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.reset_dialog">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.reset_dialog()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.right_click">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.right_click()
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#table_step.tk_table.TkTable.save_column_data">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         TkTable.save_column_data()
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-table_step">
+   Module contents
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+<div class="toc-item">
+  
+<div class="tocsection sourcelink">
+    <a href="../_sources/api/table_step.rst.txt">
+        <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+</div>
+
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+          </div>
+        </footer>
+        
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  <footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    
+  
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+<div class="row h-10">
+    <div class="col-2">
+        <a href="https://molssi.org/" target="_blank" title="Go to MolSSI in a new tab">
+            <img src="../_static/molssi_main_logo.png" class="logo__image only-light footer_logo" alt="Logo image">
+            <img src="../_static/molssi_main_logo_inverted_white.png" class="logo__image only-dark footer_logo" alt="Logo image">
+        </a>
+    </div>
+    <div class="col-8">
+        <p> &copy; Copyright 2019-2023 <a href="https://molssi.org/">The Molecular Sciences Software Institute</a></p>
+        <p>Funded by the National Science Foundation 
+          <a href="https://nsf.gov/awardsearch/showAward?AWD_ID=1547580">OAC-1547580</a> and 
+          <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2136142">CHE-2136142.</a></p>
+ 
+        
+
+    </div>
+    <div class="col-2">
+        <a href="https://nsf.gov/" target="_blank" title="Go to the NSF in a new tab">
+            <img src="../_static/nsf.png" class="footer_logo" alt="The NSF">
+          </a>
+    </div>
+</div>
+  </div>
+  
+</div>
+  </footer>
+  </body>
+</html>

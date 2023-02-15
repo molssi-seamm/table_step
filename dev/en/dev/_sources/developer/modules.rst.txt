@@ -1,7 +1,0 @@
-table_step
-==========
-
-.. toctree::
-   :maxdepth: 4
-
-   table_step
