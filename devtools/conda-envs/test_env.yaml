@@ -22,14 +22,16 @@ dependencies:
   - pytest
   - pytest-cov
 
-    # Pip-only installs
+  # Documentation
+  - pydata-sphinx-theme
+  - sphinx-design
+
+  # Pip-only installs
   - pip:
     # Integration testing
     - custom-step
     - loop-step
-    
     # Documentation
-    - rinohtype
-    - pygments
-    - sphinx-rtd-theme
-    - pystemmer
+    - sphinx-copybutton
+    - sphinxnotes-strike
+
