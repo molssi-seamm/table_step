@@ -2,6 +2,11 @@
 History
 =======
 
+2023.7.25 -- Bug fix and Enhancements
+    * Fixed bug with reading table using a variable for the filename, but asking for the
+      type from the extension.
+    * Add ability to save tables with a frequency of other than ever call.
+      
 2023.2.15 -- Bugs fixes and documentation
     * Restructured documentation and moved to new theme
     * Fixed bug with access rows of tables with non-integer indexes as well as "current"

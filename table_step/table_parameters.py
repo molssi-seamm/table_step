@@ -75,6 +75,15 @@ class TableParameters(seamm.Parameters):
             "description": "File type:",
             "help_text": "The type of file to read/write.",
         },
+        "frequency": {
+            "default": 1,
+            "kind": "integer",
+            "default_units": "",
+            "enumeration": tuple(),
+            "format_string": "",
+            "description": "Frequency:",
+            "help_text": "Number of calls before saving the table.",
+        },
         "index column": {
             "default": "--none--",
             "kind": "string",
