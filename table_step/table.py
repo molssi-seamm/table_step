@@ -88,22 +88,23 @@ class Table(seamm.Node):
             filename = P["filename"]
             file_type = P["file type"]
             if file_type == "from extension":
-                if self.is_expr(filename):
+                if isinstance(filename, str) and self.is_expr(filename):
                     lines.append(
                         f"        File: from variable '{filename}' with type from the "
                         "extension"
                     )
-                file_type = PurePath(filename).suffix
-                if file_type not in self.parameters["file type"].enumeration:
-                    types = "', '".join(self.parameters["file type"].enumeration)
-                    raise RuntimeError(
-                        f"Cannot handle files of type '{file_type}' when reading "
-                        f"table '{tablename}'.\nKnown types: '{types}'"
+                else:
+                    file_type = PurePath(filename).suffix
+                    if file_type not in self.parameters["file type"].enumeration:
+                        types = "', '".join(self.parameters["file type"].enumeration)
+                        raise RuntimeError(
+                            f"Cannot handle files of type '{file_type}' when reading "
+                            f"table '{tablename}'.\nKnown types: '{types}'"
+                        )
+                    lines.append(
+                        f"         File: '{filename}' with type '{file_type}' from the "
+                        "extension."
                     )
-                lines.append(
-                    f"         File: '{filename}' with type '{file_type}' from the "
-                    "extension."
-                )
             else:
                 lines.append(f"         File: '{filename}' with type '{file_type}'")
         elif method == "Save":
