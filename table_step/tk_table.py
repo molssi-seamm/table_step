@@ -116,12 +116,17 @@ class TkTable(seamm.TkNode):
         elif method == "Save":
             self["file type"].grid(row=row, column=1, sticky=tk.EW)
             row += 1
+            self["frequency"].grid(row=row, column=1, sticky=tk.EW)
+            row += 1
+            sw.align_labels([self["filename"], self["frequency"]])
         elif method == "Save as":
             self["filename"].grid(row=row, column=1, sticky=tk.EW)
             row += 1
             self["file type"].grid(row=row, column=1, sticky=tk.EW)
             row += 1
-            sw.align_labels([self["filename"], self["file type"]])
+            self["frequency"].grid(row=row, column=1, sticky=tk.EW)
+            row += 1
+            sw.align_labels([self["filename"], self["file type"], self["frequency"]])
         elif method == "Print":
             pass
         elif method == "Print the current row of":

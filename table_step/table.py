@@ -35,6 +35,7 @@ class Table(seamm.Node):
 
         # This needs to be after initializing subclasses...
         self.parameters = table_step.TableParameters()
+        self.calls = 0
 
     @property
     def version(self):
@@ -87,6 +88,11 @@ class Table(seamm.Node):
             filename = P["filename"]
             file_type = P["file type"]
             if file_type == "from extension":
+                if self.is_expr(filename):
+                    lines.append(
+                        f"        File: from variable '{filename}' with type from the "
+                        "extension"
+                    )
                 file_type = PurePath(filename).suffix
                 if file_type not in self.parameters["file type"].enumeration:
                     types = "', '".join(self.parameters["file type"].enumeration)
@@ -314,62 +320,64 @@ class Table(seamm.Node):
 
             self.logger.info("Successfully read table from {}".format(filename))
         elif P["method"] == "Save" or P["method"] == "Save as":
-            if not self.variable_exists(tablename):
-                raise RuntimeError(
-                    "Table save: table '{}' does not exist.".format(tablename)
-                )
-            file_type = P["file type"]
-            table_handle = self.get_variable(tablename)
-            table = table_handle["table"]
-            if P["method"] == "Save as":
-                filename = P["filename"]
-                table_handle["filename"] = filename
-            else:
-                if "filename" not in table_handle:
-                    if file_type == "from extension":
-                        file_type = ".csv"
-                    table_handle["filename"] = os.path.join(
-                        self.flowchart.root_directory, tablename + file_type
+            self.calls += 1
+            if self.calls % P["frequency"] == 0:
+                if not self.variable_exists(tablename):
+                    raise RuntimeError(
+                        "Table save: table '{}' does not exist.".format(tablename)
                     )
-                filename = table_handle["filename"]
+                file_type = P["file type"]
+                table_handle = self.get_variable(tablename)
+                table = table_handle["table"]
+                if P["method"] == "Save as":
+                    filename = P["filename"]
+                    table_handle["filename"] = filename
+                else:
+                    if "filename" not in table_handle:
+                        if file_type == "from extension":
+                            file_type = ".csv"
+                        table_handle["filename"] = os.path.join(
+                            self.flowchart.root_directory, tablename + file_type
+                        )
+                    filename = table_handle["filename"]
 
-            index = table_handle["index column"]
+                index = table_handle["index column"]
 
-            if file_type == "from extension":
-                file_type = PurePath(filename).suffix
-                if file_type not in self.parameters["file type"].enumeration:
+                if file_type == "from extension":
+                    file_type = PurePath(filename).suffix
+                    if file_type not in self.parameters["file type"].enumeration:
+                        types = "', '".join(self.parameters["file type"].enumeration)
+                        raise RuntimeError(
+                            f"Cannot handle files of type '{file_type}' when writing "
+                            f"table '{tablename}'.\nKnown types: '{types}'"
+                        )
+                if file_type == ".csv":
+                    if index is None:
+                        table.to_csv(filename, index=False)
+                    else:
+                        table.to_csv(filename, index=True, header=True)
+                elif file_type == ".json":
+                    if index is None:
+                        table.to_json(filename, indent=4, orient="table", index=False)
+                    else:
+                        table.to_json(filename, indent=4, orient="table", index=True)
+                elif file_type == ".xlsx":
+                    if index is None:
+                        table.to_excel(filename, index=False)
+                    else:
+                        table.to_excel(filename, index=True)
+                elif file_type == ".txt":
+                    with open(filename, "w") as fd:
+                        if index is None:
+                            fd.write(table.to_string(header=True, index=False))
+                        else:
+                            fd.write(table.to_string(header=True, index=True))
+                else:
                     types = "', '".join(self.parameters["file type"].enumeration)
                     raise RuntimeError(
-                        f"Cannot handle files of type '{file_type}' when writing "
-                        f"table '{tablename}'.\nKnown types: '{types}'"
+                        f"Table save: cannot handle format '{file_type}' for file "
+                        f"'{filename}'\nKnown types: '{types}'"
                     )
-            if file_type == ".csv":
-                if index is None:
-                    table.to_csv(filename, index=False)
-                else:
-                    table.to_csv(filename, index=True, header=True)
-            elif file_type == ".json":
-                if index is None:
-                    table.to_json(filename, indent=4, orient="table", index=False)
-                else:
-                    table.to_json(filename, indent=4, orient="table", index=True)
-            elif file_type == ".xlsx":
-                if index is None:
-                    table.to_excel(filename, index=False)
-                else:
-                    table.to_excel(filename, index=True)
-            elif file_type == ".txt":
-                with open(filename, "w") as fd:
-                    if index is None:
-                        fd.write(table.to_string(header=True, index=False))
-                    else:
-                        fd.write(table.to_string(header=True, index=True))
-            else:
-                types = "', '".join(self.parameters["file type"].enumeration)
-                raise RuntimeError(
-                    f"Table save: cannot handle format '{file_type}' for file "
-                    f"'{filename}'\nKnown types: '{types}'"
-                )
         elif P["method"] == "Print":
             table_handle = self.get_variable(tablename)
             table = table_handle["table"]
