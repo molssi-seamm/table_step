@@ -1,6 +1,8 @@
 =======
 History
 =======
+2023.10.30 -- Cleaned up output
+    * Nothing large, just made the output properly indented, etc.
 
 2023.7.25 -- Bug fix and Enhancements
     * Fixed bug with reading table using a variable for the filename, but asking for the
