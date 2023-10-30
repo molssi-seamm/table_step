@@ -383,11 +383,14 @@ class Table(seamm.Node):
             table_handle = self.get_variable(tablename)
             table = table_handle["table"]
             index = table_handle["index column"]
-            printer.job("\nTable '{}':".format(tablename))
             if index is None:
-                printer.job(table.to_string(header=True, index=False))
+                text = table.to_string(header=True, index=False)
             else:
-                printer.job(table.to_string(header=True, index=True))
+                text = table.to_string(header=True, index=True)
+
+            for line in text.splitlines():
+                printer.normal(4 * " " + line)
+            printer.normal("")
 
         elif P["method"] == "Print the current row of":
             table_handle = self.get_variable(tablename)
@@ -405,10 +408,10 @@ class Table(seamm.Node):
             self.logger.debug("-----")
 
             if index == 0:
-                printer.job("\nTable '{}':".format(tablename))
-                printer.job("\n".join(lines.splitlines()[0:2]))
+                printer.normal("\n    Table '{}':".format(tablename))
+                printer.normal("\n    ".join(lines.splitlines()[0:2]))
             else:
-                printer.job(lines.splitlines()[index + 1])
+                printer.normal(4 * " " + lines.splitlines()[index + 1])
 
         elif P["method"] == "Append a row to":
             if not self.variable_exists(tablename):
