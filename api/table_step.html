@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 
 
@@ -7,9 +6,9 @@
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>table_step package &#8212; SEAMM Table Plug-in 2023.7.25 documentation</title>
+    <title>table_step package &#8212; SEAMM Table Plug-in 2023.10.30 documentation</title>
   
   
   
@@ -19,24 +18,25 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=c224919a" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -46,12 +46,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PQXXTJ2');</script>
 <!-- End Google Tag Manager -->
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/design-tabs.js"></script>
+    <script src="../_static/documentation_options.js?v=ad917fda"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/table_step';</script>
 
     <link rel="index" title="Index" href="../genindex.html" />
@@ -68,6 +68,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -108,7 +117,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <span class="fa-solid fa-bars"></span>
   </label>
   
-  <div class="navbar-header-items__start">
+  
+  <div class="col-lg-3 navbar-header-items__start">
     
       <div class="navbar-item">
   
@@ -118,13 +128,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   
+  
     
     
       
     
     
-    <img src="../_static/SEAMM logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/SEAMM Inverted 288x181.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../_static/SEAMM logo.png" class="logo__image only-light" alt=""/>
+    <script>document.write(`<img src="../_static/SEAMM Inverted 288x181.png" class="logo__image only-dark" alt=""/>`);</script>
   
   
     <p class="title logo__title">Table Step</p>
@@ -132,7 +143,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </a></div>
     
   </div>
-  
   
   <div class="col-lg-9 navbar-header-items">
     
@@ -174,41 +184,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                       </a>
                     </li>
                 
-            <div class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links">
                     More
                 </button>
-                <div class="dropdown-menu">
+                <ul id="pst-nav-more-links" class="dropdown-menu">
                     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../authors.html">
+                      <a class="nav-link dropdown-item nav-internal" href="../authors.html">
                         Development Team
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../history.html">
+                      <a class="nav-link dropdown-item nav-internal" href="../history.html">
                         History
                       </a>
                     </li>
                 
 
                 <li class="nav-item">
-                  <a class="nav-link nav-external" href="https://molssi-seamm.github.io">
+                  <a class="nav-link dropdown-item nav-external" href="https://molssi-seamm.github.io">
                     SEAMM Documentation
                   </a>
                 </li>
                 
 
                 <li class="nav-item">
-                  <a class="nav-link nav-external" href="https://molssi.org">
+                  <a class="nav-link dropdown-item nav-external" href="https://molssi.org">
                     MolSSI
                   </a>
                 </li>
                 
-                </div>
-            </div>
+                </ul>
+            </li>
             
   </ul>
 </nav></div>
@@ -220,23 +230,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       
         <div class="navbar-item navbar-persistent--container">
           
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
         </div>
       
       
         <div class="navbar-item">
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -252,8 +264,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/molssi-seamm/table_step" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/molssi-seamm/table_step" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -264,8 +276,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/MolSSI_NSF" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-twitter"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/MolSSI_NSF" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
 </ul></div>
       
@@ -275,18 +287,20 @@ document.write(`
   
   
     <div class="navbar-persistent--mobile">
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
     </div>
   
 
   
-    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
       <span class="fa-solid fa-outdent"></span>
     </label>
   
@@ -342,41 +356,41 @@ document.write(`
                       </a>
                     </li>
                 
-            <div class="nav-item dropdown">
-                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-controls="pst-nav-more-links-2">
                     More
                 </button>
-                <div class="dropdown-menu">
+                <ul id="pst-nav-more-links-2" class="dropdown-menu">
                     
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../authors.html">
+                      <a class="nav-link dropdown-item nav-internal" href="../authors.html">
                         Development Team
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../history.html">
+                      <a class="nav-link dropdown-item nav-internal" href="../history.html">
                         History
                       </a>
                     </li>
                 
 
                 <li class="nav-item">
-                  <a class="nav-link nav-external" href="https://molssi-seamm.github.io">
+                  <a class="nav-link dropdown-item nav-external" href="https://molssi-seamm.github.io">
                     SEAMM Documentation
                   </a>
                 </li>
                 
 
                 <li class="nav-item">
-                  <a class="nav-link nav-external" href="https://molssi.org">
+                  <a class="nav-link dropdown-item nav-external" href="https://molssi.org">
                     MolSSI
                   </a>
                 </li>
                 
-                </div>
-            </div>
+                </ul>
+            </li>
             
   </ul>
 </nav></div>
@@ -390,10 +404,10 @@ document.write(`
           <div class="navbar-item">
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script></div>
@@ -409,8 +423,8 @@ document.write(`
           
           
           
-          <a href="https://github.com/molssi-seamm/table_step" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/molssi-seamm/table_step" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
           
@@ -421,8 +435,8 @@ document.write(`
           
           
           
-          <a href="https://twitter.com/MolSSI_NSF" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-twitter"></i></span>
-            <label class="sr-only">Twitter</label></a>
+          <a href="https://twitter.com/MolSSI_NSF" title="Twitter" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-twitter fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Twitter</span></a>
         </li>
 </ul></div>
         
@@ -468,8 +482,8 @@ document.write(`
 
 
 
-<nav aria-label="Breadcrumbs">
-  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
     
     <li class="breadcrumb-item breadcrumb-home">
       <a href="../index.html" class="nav-link" aria-label="Home">
@@ -500,20 +514,20 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="table-step-package">
-<h1>table_step package<a class="headerlink" href="#table-step-package" title="Permalink to this heading">#</a></h1>
+<h1>table_step package<a class="headerlink" href="#table-step-package" title="Link to this heading">#</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-table_step.table">
-<span id="table-step-table-module"></span><h2>table_step.table module<a class="headerlink" href="#module-table_step.table" title="Permalink to this heading">#</a></h2>
+<span id="table-step-table-module"></span><h2>table_step.table module<a class="headerlink" href="#module-table_step.table" title="Link to this heading">#</a></h2>
 <p>Non-graphical part of the Table step in SEAMM</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="table_step.table.Table">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.table.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowchart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table.html#Table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table.Table" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.table.</span></span><span class="sig-name descname"><span class="pre">Table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowchart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table.html#Table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table.Table" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.table.Table.description_text">
-<span class="sig-name descname"><span class="pre">description_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table.html#Table.description_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table.Table.description_text" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">description_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table.html#Table.description_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table.Table.description_text" title="Link to this definition">#</a></dt>
 <dd><p>Return a short description of this step.</p>
 <p>Return a nicely formatted string describing what this step will
 do.</p>
@@ -528,19 +542,19 @@ be used as is.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="table_step.table.Table.git_revision">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">git_revision</span></span><a class="headerlink" href="#table_step.table.Table.git_revision" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">git_revision</span></span><a class="headerlink" href="#table_step.table.Table.git_revision" title="Link to this definition">#</a></dt>
 <dd><p>The git version of this module.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.table.Table.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table.html#Table.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table.Table.run" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table.html#Table.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table.Table.run" title="Link to this definition">#</a></dt>
 <dd><p>Do what we need for the table, as dictated by the ‘method’</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="table_step.table.Table.version">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">version</span></span><a class="headerlink" href="#table_step.table.Table.version" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">version</span></span><a class="headerlink" href="#table_step.table.Table.version" title="Link to this definition">#</a></dt>
 <dd><p>The semantic version of this module.</p>
 </dd></dl>
 
@@ -548,52 +562,52 @@ be used as is.</p>
 
 </section>
 <section id="module-table_step.table_parameters">
-<span id="table-step-table-parameters-module"></span><h2>table_step.table_parameters module<a class="headerlink" href="#module-table_step.table_parameters" title="Permalink to this heading">#</a></h2>
+<span id="table-step-table-parameters-module"></span><h2>table_step.table_parameters module<a class="headerlink" href="#module-table_step.table_parameters" title="Link to this heading">#</a></h2>
 <p>Control parameters for loops</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="table_step.table_parameters.TableParameters">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.table_parameters.</span></span><span class="sig-name descname"><span class="pre">TableParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_parameters.html#TableParameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_parameters.TableParameters" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.table_parameters.</span></span><span class="sig-name descname"><span class="pre">TableParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_parameters.html#TableParameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_parameters.TableParameters" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Parameters</span></code></p>
 <p>The control parameters for tables</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="table_step.table_parameters.TableParameters.parameters">
-<span class="sig-name descname"><span class="pre">parameters</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'column':</span> <span class="pre">{'default':</span> <span class="pre">'current',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Column:',</span> <span class="pre">'enumeration':</span> <span class="pre">('c',</span> <span class="pre">'u',</span> <span class="pre">'r',</span> <span class="pre">'r',</span> <span class="pre">'e',</span> <span class="pre">'n',</span> <span class="pre">'t'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">column</span> <span class="pre">to</span> <span class="pre">access',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'columns':</span> <span class="pre">{'default':</span> <span class="pre">[],</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'columns',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">column</span> <span class="pre">definitions.',</span> <span class="pre">'kind':</span> <span class="pre">'list'},</span> <span class="pre">'file</span> <span class="pre">type':</span> <span class="pre">{'default':</span> <span class="pre">'from</span> <span class="pre">extension',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'File</span> <span class="pre">type:',</span> <span class="pre">'enumeration':</span> <span class="pre">('from</span> <span class="pre">extension',</span> <span class="pre">'.csv',</span> <span class="pre">'.json',</span> <span class="pre">'.xlsx',</span> <span class="pre">'.txt'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">type</span> <span class="pre">of</span> <span class="pre">file</span> <span class="pre">to</span> <span class="pre">read/write.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'filename':</span> <span class="pre">{'default':</span> <span class="pre">'',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'File</span> <span class="pre">name:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">file</span> <span class="pre">name</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">table,</span> <span class="pre">which</span> <span class="pre">may</span> <span class="pre">include</span> <span class="pre">a</span> <span class="pre">path.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'frequency':</span> <span class="pre">{'default':</span> <span class="pre">1,</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Frequency:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'Number</span> <span class="pre">of</span> <span class="pre">calls</span> <span class="pre">before</span> <span class="pre">saving</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'integer'},</span> <span class="pre">'index</span> <span class="pre">column':</span> <span class="pre">{'default':</span> <span class="pre">'--none--',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Index</span> <span class="pre">column:',</span> <span class="pre">'enumeration':</span> <span class="pre">('-',</span> <span class="pre">'-',</span> <span class="pre">'n',</span> <span class="pre">'o',</span> <span class="pre">'n',</span> <span class="pre">'e',</span> <span class="pre">'-',</span> <span class="pre">'-'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">column</span> <span class="pre">to</span> <span class="pre">index</span> <span class="pre">the</span> <span class="pre">table.</span> <span class="pre">Values</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">unique.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'method':</span> <span class="pre">{'default':</span> <span class="pre">'Create',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'',</span> <span class="pre">'enumeration':</span> <span class="pre">('Create',</span> <span class="pre">'Read',</span> <span class="pre">'Save',</span> <span class="pre">'Save</span> <span class="pre">as',</span> <span class="pre">'Print',</span> <span class="pre">'Print</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">row</span> <span class="pre">of',</span> <span class="pre">'Append</span> <span class="pre">a</span> <span class="pre">row</span> <span class="pre">to',</span> <span class="pre">'Go</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">next</span> <span class="pre">row</span> <span class="pre">of',</span> <span class="pre">'Add</span> <span class="pre">columns</span> <span class="pre">to',</span> <span class="pre">'Set</span> <span class="pre">element</span> <span class="pre">of',</span> <span class="pre">'Get</span> <span class="pre">element</span> <span class="pre">of'),</span> <span class="pre">'format_string':</span> <span class="pre">'s',</span> <span class="pre">'help_text':</span> <span class="pre">'What</span> <span class="pre">to</span> <span class="pre">do</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">tables',</span> <span class="pre">'kind':</span> <span class="pre">'enumeration'},</span> <span class="pre">'row':</span> <span class="pre">{'default':</span> <span class="pre">'current',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Row:',</span> <span class="pre">'enumeration':</span> <span class="pre">('c',</span> <span class="pre">'u',</span> <span class="pre">'r',</span> <span class="pre">'r',</span> <span class="pre">'e',</span> <span class="pre">'n',</span> <span class="pre">'t'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">row</span> <span class="pre">to</span> <span class="pre">access',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'table</span> <span class="pre">name':</span> <span class="pre">{'default':</span> <span class="pre">'table1',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'</span> <span class="pre">table</span> <span class="pre">',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'value':</span> <span class="pre">{'default':</span> <span class="pre">'',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Value:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">value</span> <span class="pre">to</span> <span class="pre">put</span> <span class="pre">into</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'variable</span> <span class="pre">name':</span> <span class="pre">{'default':</span> <span class="pre">'',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Variable</span> <span class="pre">name:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">variable</span> <span class="pre">for</span> <span class="pre">storing</span> <span class="pre">the</span> <span class="pre">value</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'string'}}</span></em><a class="headerlink" href="#table_step.table_parameters.TableParameters.parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">parameters</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'column':</span> <span class="pre">{'default':</span> <span class="pre">'current',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Column:',</span> <span class="pre">'enumeration':</span> <span class="pre">('c',</span> <span class="pre">'u',</span> <span class="pre">'r',</span> <span class="pre">'r',</span> <span class="pre">'e',</span> <span class="pre">'n',</span> <span class="pre">'t'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">column</span> <span class="pre">to</span> <span class="pre">access',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'columns':</span> <span class="pre">{'default':</span> <span class="pre">[],</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'columns',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">column</span> <span class="pre">definitions.',</span> <span class="pre">'kind':</span> <span class="pre">'list'},</span> <span class="pre">'file</span> <span class="pre">type':</span> <span class="pre">{'default':</span> <span class="pre">'from</span> <span class="pre">extension',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'File</span> <span class="pre">type:',</span> <span class="pre">'enumeration':</span> <span class="pre">('from</span> <span class="pre">extension',</span> <span class="pre">'.csv',</span> <span class="pre">'.json',</span> <span class="pre">'.xlsx',</span> <span class="pre">'.txt'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">type</span> <span class="pre">of</span> <span class="pre">file</span> <span class="pre">to</span> <span class="pre">read/write.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'filename':</span> <span class="pre">{'default':</span> <span class="pre">'',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'File</span> <span class="pre">name:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">file</span> <span class="pre">name</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">table,</span> <span class="pre">which</span> <span class="pre">may</span> <span class="pre">include</span> <span class="pre">a</span> <span class="pre">path.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'frequency':</span> <span class="pre">{'default':</span> <span class="pre">1,</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Frequency:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'Number</span> <span class="pre">of</span> <span class="pre">calls</span> <span class="pre">before</span> <span class="pre">saving</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'integer'},</span> <span class="pre">'index</span> <span class="pre">column':</span> <span class="pre">{'default':</span> <span class="pre">'--none--',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Index</span> <span class="pre">column:',</span> <span class="pre">'enumeration':</span> <span class="pre">('-',</span> <span class="pre">'-',</span> <span class="pre">'n',</span> <span class="pre">'o',</span> <span class="pre">'n',</span> <span class="pre">'e',</span> <span class="pre">'-',</span> <span class="pre">'-'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">column</span> <span class="pre">to</span> <span class="pre">index</span> <span class="pre">the</span> <span class="pre">table.</span> <span class="pre">Values</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">unique.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'method':</span> <span class="pre">{'default':</span> <span class="pre">'Create',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'',</span> <span class="pre">'enumeration':</span> <span class="pre">('Create',</span> <span class="pre">'Read',</span> <span class="pre">'Save',</span> <span class="pre">'Save</span> <span class="pre">as',</span> <span class="pre">'Print',</span> <span class="pre">'Print</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">row</span> <span class="pre">of',</span> <span class="pre">'Append</span> <span class="pre">a</span> <span class="pre">row</span> <span class="pre">to',</span> <span class="pre">'Go</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">next</span> <span class="pre">row</span> <span class="pre">of',</span> <span class="pre">'Add</span> <span class="pre">columns</span> <span class="pre">to',</span> <span class="pre">'Set</span> <span class="pre">element</span> <span class="pre">of',</span> <span class="pre">'Get</span> <span class="pre">element</span> <span class="pre">of'),</span> <span class="pre">'format_string':</span> <span class="pre">'s',</span> <span class="pre">'help_text':</span> <span class="pre">'What</span> <span class="pre">to</span> <span class="pre">do</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">tables',</span> <span class="pre">'kind':</span> <span class="pre">'enumeration'},</span> <span class="pre">'row':</span> <span class="pre">{'default':</span> <span class="pre">'current',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Row:',</span> <span class="pre">'enumeration':</span> <span class="pre">('c',</span> <span class="pre">'u',</span> <span class="pre">'r',</span> <span class="pre">'r',</span> <span class="pre">'e',</span> <span class="pre">'n',</span> <span class="pre">'t'),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">row</span> <span class="pre">to</span> <span class="pre">access',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'table</span> <span class="pre">name':</span> <span class="pre">{'default':</span> <span class="pre">'table1',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'</span> <span class="pre">table</span> <span class="pre">',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'value':</span> <span class="pre">{'default':</span> <span class="pre">'',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Value:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">value</span> <span class="pre">to</span> <span class="pre">put</span> <span class="pre">into</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'string'},</span> <span class="pre">'variable</span> <span class="pre">name':</span> <span class="pre">{'default':</span> <span class="pre">'',</span> <span class="pre">'default_units':</span> <span class="pre">'',</span> <span class="pre">'description':</span> <span class="pre">'Variable</span> <span class="pre">name:',</span> <span class="pre">'enumeration':</span> <span class="pre">(),</span> <span class="pre">'format_string':</span> <span class="pre">'',</span> <span class="pre">'help_text':</span> <span class="pre">'The</span> <span class="pre">name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">variable</span> <span class="pre">for</span> <span class="pre">storing</span> <span class="pre">the</span> <span class="pre">value</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">table.',</span> <span class="pre">'kind':</span> <span class="pre">'string'}}</span></em><a class="headerlink" href="#table_step.table_parameters.TableParameters.parameters" title="Link to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-table_step.table_step">
-<span id="table-step-table-step-module"></span><h2>table_step.table_step module<a class="headerlink" href="#module-table_step.table_step" title="Permalink to this heading">#</a></h2>
+<span id="table-step-table-step-module"></span><h2>table_step.table_step module<a class="headerlink" href="#module-table_step.table_step" title="Link to this heading">#</a></h2>
 <p>Helper class needed for the stevedore integration.</p>
 <p>This must provide a description() method that returns a dict containing a
 description of this node, and create_node() and create_tk_node() methods for
 creating the graphical and non-graphical nodes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="table_step.table_step.TableStep">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.table_step.</span></span><span class="sig-name descname"><span class="pre">TableStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowchart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.table_step.</span></span><span class="sig-name descname"><span class="pre">TableStep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowchart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gui</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.table_step.TableStep.create_node">
-<span class="sig-name descname"><span class="pre">create_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowchart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep.create_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep.create_node" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flowchart</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep.create_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep.create_node" title="Link to this definition">#</a></dt>
 <dd><p>Return the new node object</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.table_step.TableStep.create_tk_node">
-<span class="sig-name descname"><span class="pre">create_tk_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">canvas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep.create_tk_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep.create_tk_node" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_tk_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">canvas</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep.create_tk_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep.create_tk_node" title="Link to this definition">#</a></dt>
 <dd><p>Return the graphical Tk node object</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.table_step.TableStep.description">
-<span class="sig-name descname"><span class="pre">description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep.description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep.description" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/table_step.html#TableStep.description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.table_step.TableStep.description" title="Link to this definition">#</a></dt>
 <dd><p>Return a description of what this extension does</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="table_step.table_step.TableStep.my_description">
-<span class="sig-name descname"><span class="pre">my_description</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">'An</span> <span class="pre">interface</span> <span class="pre">for</span> <span class="pre">Pandas</span> <span class="pre">tables',</span> <span class="pre">'group':</span> <span class="pre">'Data',</span> <span class="pre">'name':</span> <span class="pre">'Table'}</span></em><a class="headerlink" href="#table_step.table_step.TableStep.my_description" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">my_description</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'description':</span> <span class="pre">'An</span> <span class="pre">interface</span> <span class="pre">for</span> <span class="pre">Pandas</span> <span class="pre">tables',</span> <span class="pre">'group':</span> <span class="pre">'Data',</span> <span class="pre">'name':</span> <span class="pre">'Table'}</span></em><a class="headerlink" href="#table_step.table_step.TableStep.my_description" title="Link to this definition">#</a></dt>
 <dd><p>The description needs three fields:</p>
 <dl class="simple">
 <dt>description:</dt><dd><p>A human-readable description of this step. It can be
@@ -612,83 +626,83 @@ not exist it will be created. Common groups are ‘Building’,
 
 </section>
 <section id="module-table_step.tk_table">
-<span id="table-step-tk-table-module"></span><h2>table_step.tk_table module<a class="headerlink" href="#module-table_step.tk_table" title="Permalink to this heading">#</a></h2>
+<span id="table-step-tk-table-module"></span><h2>table_step.tk_table module<a class="headerlink" href="#module-table_step.tk_table" title="Link to this heading">#</a></h2>
 <p>The graphical part of a Table step</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.tk_table.</span></span><span class="sig-name descname"><span class="pre">TkTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tk_flowchart=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canvas=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x=120</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y=20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w=200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h=50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_logger=&lt;Logger</span> <span class="pre">table_step.tk_table</span> <span class="pre">(WARNING)&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">table_step.tk_table.</span></span><span class="sig-name descname"><span class="pre">TkTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tk_flowchart=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">canvas=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x=120</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y=20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w=200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h=50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_logger=&lt;Logger</span> <span class="pre">table_step.tk_table</span> <span class="pre">(WARNING)&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TkNode</span></code></p>
 <p>The node_class is the class of the ‘real’ node that this
 class is the Tk graphics partner for</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.add_column">
-<span class="sig-name descname"><span class="pre">add_column</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.add_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.add_column" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_column</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.add_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.add_column" title="Link to this definition">#</a></dt>
 <dd><p>Add entries for another column in the displayed table</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.add_column_for_add_row">
-<span class="sig-name descname"><span class="pre">add_column_for_add_row</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.add_column_for_add_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.add_column_for_add_row" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">add_column_for_add_row</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.add_column_for_add_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.add_column_for_add_row" title="Link to this definition">#</a></dt>
 <dd><p>Add entries for another column in the displayed table</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.create_dialog">
-<span class="sig-name descname"><span class="pre">create_dialog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.create_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.create_dialog" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">create_dialog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.create_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.create_dialog" title="Link to this definition">#</a></dt>
 <dd><p>Create the dialog!</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.handle_dialog">
-<span class="sig-name descname"><span class="pre">handle_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.handle_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.handle_dialog" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">handle_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.handle_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.handle_dialog" title="Link to this definition">#</a></dt>
 <dd><p>Do the right thing when the dialog is closed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.layout_columns">
-<span class="sig-name descname"><span class="pre">layout_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.layout_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.layout_columns" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">layout_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.layout_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.layout_columns" title="Link to this definition">#</a></dt>
 <dd><p>Layout the table of columns for adding, editing, etc.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.layout_columns_for_add_row">
-<span class="sig-name descname"><span class="pre">layout_columns_for_add_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.layout_columns_for_add_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.layout_columns_for_add_row" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">layout_columns_for_add_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">first</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.layout_columns_for_add_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.layout_columns_for_add_row" title="Link to this definition">#</a></dt>
 <dd><p>Layout the table of columns for adding a row</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.node_class">
-<span class="sig-name descname"><span class="pre">node_class</span></span><a class="headerlink" href="#table_step.tk_table.TkTable.node_class" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">node_class</span></span><a class="headerlink" href="#table_step.tk_table.TkTable.node_class" title="Link to this definition">#</a></dt>
 <dd><p>alias of <a class="reference internal" href="#table_step.table.Table" title="table_step.table.Table"><code class="xref py py-class docutils literal notranslate"><span class="pre">Table</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.remove_column">
-<span class="sig-name descname"><span class="pre">remove_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.remove_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.remove_column" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">remove_column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.remove_column"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.remove_column" title="Link to this definition">#</a></dt>
 <dd><p>Remove a column from the list of columns</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.remove_column_for_add_row">
-<span class="sig-name descname"><span class="pre">remove_column_for_add_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.remove_column_for_add_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.remove_column_for_add_row" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">remove_column_for_add_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.remove_column_for_add_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.remove_column_for_add_row" title="Link to this definition">#</a></dt>
 <dd><p>Remove a column from the list of columns</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.reset_dialog">
-<span class="sig-name descname"><span class="pre">reset_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.reset_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.reset_dialog" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reset_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.reset_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.reset_dialog" title="Link to this definition">#</a></dt>
 <dd><p>Layout the dialog based on the current values</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.right_click">
-<span class="sig-name descname"><span class="pre">right_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.right_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.right_click" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">right_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.right_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.right_click" title="Link to this definition">#</a></dt>
 <dd><p>Probably need to add our dialog…</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="table_step.tk_table.TkTable.save_column_data">
-<span class="sig-name descname"><span class="pre">save_column_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.save_column_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.save_column_data" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">save_column_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/table_step/tk_table.html#TkTable.save_column_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#table_step.tk_table.TkTable.save_column_data" title="Link to this definition">#</a></dt>
 <dd><p>Get the data from the widgets when the table information is
 changed in the GUI.</p>
 </dd></dl>
@@ -697,7 +711,7 @@ changed in the GUI.</p>
 
 </section>
 <section id="module-table_step">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-table_step" title="Permalink to this heading">#</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-table_step" title="Link to this heading">#</a></h2>
 <p>table_step
 A step for data tables in a SEAMM flowchart</p>
 </section>
@@ -708,11 +722,10 @@ A step for data tables in a SEAMM flowchart</p>
               
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="modules.html"
@@ -732,10 +745,7 @@ A step for data tables in a SEAMM flowchart</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -821,8 +831,8 @@ A step for data tables in a SEAMM flowchart</p>
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
@@ -869,10 +879,11 @@ A step for data tables in a SEAMM flowchart</p>
     </div>
   
   
+  
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.14.2.
 </p></div>
       
     </div>
