@@ -1,6 +1,8 @@
 =======
 History
 =======
+2023.11.10 -- Bugfix: title of edit dialog was wrong
+
 2023.10.30 -- Cleaned up output
     * Nothing large, just made the output properly indented, etc.
 
