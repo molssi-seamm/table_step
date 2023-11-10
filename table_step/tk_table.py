@@ -53,7 +53,7 @@ class TkTable(seamm.TkNode):
 
     def create_dialog(self):
         """Create the dialog!"""
-        frame = super().create_dialog(title="Edit Loop Step")
+        frame = super().create_dialog(title="Edit Table Step")
 
         # Create the widgets and grid them in
         P = self.node.parameters
