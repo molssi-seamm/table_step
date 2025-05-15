@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Control parameters for loops
-"""
+"""Control parameters for tables"""
 
 import logging
 import seamm
