@@ -3,8 +3,7 @@
 """Non-graphical part of the Table step in SEAMM"""
 
 import logging
-import os.path
-from pathlib import PurePath
+from pathlib import Path, PurePath
 
 import numpy as np
 import pandas
@@ -208,6 +207,9 @@ class Table(seamm.Node):
         )
         tablename = P["table name"]
 
+        # Pathnames are relative to current working directory
+        wd = Path(self.directory).parent
+
         # Print out header to the main output
         printer.important(self.description_text(P))
         printer.important("")
@@ -330,16 +332,21 @@ class Table(seamm.Node):
                 file_type = P["file type"]
                 table_handle = self.get_variable(tablename)
                 table = table_handle["table"]
+
                 if P["method"] == "Save as":
-                    filename = P["filename"]
+                    filename = P["filename"].strip()
+                    if filename.startswith("/"):
+                        filename = str(
+                            Path(self.flowchart.root_directory) / filename[1:]
+                        )
+                    else:
+                        filename = str(wd / filename)
                     table_handle["filename"] = filename
                 else:
                     if "filename" not in table_handle:
                         if file_type == "from extension":
                             file_type = ".csv"
-                        table_handle["filename"] = os.path.join(
-                            self.flowchart.root_directory, tablename + file_type
-                        )
+                        table_handle["filename"] = str(wd / tablename) + file_type
                     filename = table_handle["filename"]
 
                 index = table_handle["index column"]

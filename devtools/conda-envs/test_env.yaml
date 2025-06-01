@@ -31,6 +31,7 @@ dependencies:
     # Integration testing
     - custom-step
     - loop-step
+    - seamm-exec
     # Documentation
     - sphinx-copybutton
     - sphinxnotes-strike
