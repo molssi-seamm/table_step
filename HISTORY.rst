@@ -1,6 +1,11 @@
 =======
 History
 =======
+2025.6.1 -- Enhancement to allow paths with directories.
+    * As in reading/writing structures, paths beginning with '/' are relative to the
+      root of the job, and relative paths are relative to the directory where the table
+      step is invoked.
+
 2023.11.10 -- Bugfix: title of edit dialog was wrong
 
 2023.10.30 -- Cleaned up output
