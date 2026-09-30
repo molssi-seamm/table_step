@@ -15,6 +15,37 @@ from seamm_util import ureg, Q_, units_class  # noqa: F401
 import table_step
 
 logger = logging.getLogger(__name__)
+
+
+def column_type(dtype):
+    """The table step's type for a column, given its pandas dtype.
+
+    Text columns are "object" in pandas 2 but a string dtype in pandas 3, so test
+    the kind of dtype rather than its name.
+
+    Parameters
+    ----------
+    dtype : pandas or numpy dtype
+        The dtype of the column.
+
+    Returns
+    -------
+    str or None
+        "boolean", "integer", "float" or "string"; None for any other dtype.
+    """
+    if pandas.api.types.is_bool_dtype(dtype):
+        return "boolean"
+    if pandas.api.types.is_integer_dtype(dtype):
+        return "integer"
+    if pandas.api.types.is_float_dtype(dtype):
+        return "float"
+    if pandas.api.types.is_string_dtype(dtype) or pandas.api.types.is_object_dtype(
+        dtype
+    ):
+        return "string"
+    return None
+
+
 job = printing.getPrinter()
 printer = printing.getPrinter("table")
 
@@ -431,34 +462,34 @@ class Table(seamm.Node):
             else:
                 defaults = {}
             table = table_handle["table"]
-            column_types = {}
-            for column_name, column_type in zip(table.columns, table.dtypes):
-                if column_type == "object":
-                    column_types[column_name] = "string"
-                elif column_type == "bool":
-                    column_types[column_name] = "boolean"
-                elif column_type == "int64":
-                    column_types[column_name] = "integer"
-                elif column_type == "float64":
-                    column_types[column_name] = "float"
+            column_types = {
+                name: column_type(dtype)
+                for name, dtype in zip(table.columns, table.dtypes)
+            }
 
             new_row = {}
 
             for d in self.parameters["columns"].value:
                 column_name = self.get_value(d["name"])
                 value = self.get_value(d["value"])
-                column_type = column_types[column_name]
+                if column_name not in column_types:
+                    columns = ", ".join(str(c) for c in table.columns)
+                    raise RuntimeError(
+                        f"Table append a row: table '{tablename}' has no column "
+                        f"'{column_name}'. The columns are: {columns}"
+                    )
+                type_ = column_types[column_name]
                 if value == "default":
                     if column_name in defaults:
                         value = defaults[column_name]
                     else:
-                        if column_type == "boolean":
+                        if type_ == "boolean":
                             value = False
-                        elif column_type == "integer":
+                        elif type_ == "integer":
                             value = 0
-                        elif column_type == "float":
+                        elif type_ == "float":
                             value = np.nan
-                        elif column_type == "string":
+                        elif type_ == "string":
                             value = ""
                 new_row[column_name] = [value]
             new_row = pandas.DataFrame.from_dict(new_row)
