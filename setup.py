@@ -36,6 +36,10 @@ setup(
     include_package_data=True,
     setup_requires=[] + pytest_runner,
     install_requires=requirements,
+    extras_require={
+        # For the integration tests, which run flowcharts
+        'test': ['custom-step', 'loop-step', 'seamm-exec'],
+    },
     test_suite='tests',
     platforms=['Linux',
                'Mac OS-X',

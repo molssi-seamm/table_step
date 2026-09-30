@@ -1,6 +1,18 @@
 =======
 History
 =======
+2026.9.30 -- Bugfix: appending rows to tables with text columns failed with pandas 3
+    * 'Append a row to' failed with an error naming the column (e.g. 'SMILES') whenever
+      the table had a text column, because pandas 3 describes text columns differently
+      from pandas 2. A loop over SMILES strings that appended a row each time therefore
+      added no rows. It now works with both pandas 2 and 3, and appending to a column
+      that the table does not have gives a clear error listing the table's columns.
+    * The 'Index column', 'Row' and 'Column' dropdowns in the dialog offered single
+      letters ('c', 'u', 'r', ...) instead of '--none--' or 'current'. Fixed.
+    * Internal: the tests now check the rows appended in a loop, and the CI installs
+      the package with uv from its declared requirements rather than a conda
+      environment.
+
 2025.6.1 -- Enhancement to allow paths with directories.
     * As in reading/writing structures, paths beginning with '/' are relative to the
       root of the job, and relative paths are relative to the directory where the table
