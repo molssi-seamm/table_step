@@ -1,0 +1,514 @@
+#!/usr/bin/env run_flowchart
+!MolSSI flowchart 2.0
+#metadata
+{
+    "title": "Append rows with text columns",
+    "description": "Regression test: 'Append a row to' with a text column (pandas 3).",
+    "keywords": [],
+    "creators": [
+        {
+            "name": "Saxe, Paul",
+            "orcid": "0000-0002-8641-9448",
+            "affiliation": "The Molecular Sciences Software Institute (MolSSI)"
+        }
+    ],
+    "grants": [
+        "10.13039/100000001::2136142"
+    ],
+    "sha256": "31c75fe4704129a41714042627aced1a8182b13d7c5d4c2dafd1c3b9b91fc7b8",
+    "sha256_strict": "1a54c515e0ab5a3b953080b9f36795ff930c9908cac47a4891a56d3ab2aa8a6b"
+}
+#flowchart
+{
+    "item": "object",
+    "module": "seamm.flowchart",
+    "class": "Flowchart",
+    "extension": null,
+    "nodes": [
+        {
+            "item": "object",
+            "module": "seamm.start_node",
+            "class": "StartNode",
+            "version": "2026.9.29+4.ga226bc1",
+            "extension": null,
+            "attributes": {
+                "_tables": [],
+                "_title": "Start",
+                "_uuid": 1,
+                "extension": null,
+                "citation_level": 2,
+                "_method": null,
+                "parameters": null,
+                "x": 150,
+                "y": 35,
+                "w": 200,
+                "h": 50
+            }
+        },
+        {
+            "item": "object",
+            "module": "table_step.table",
+            "class": "Table",
+            "version": "2025.6.1",
+            "extension": "Table",
+            "attributes": {
+                "_tables": [],
+                "_title": "Table",
+                "_uuid": 211820728464685726848948887164224486743,
+                "extension": "Table",
+                "citation_level": 2,
+                "_method": null,
+                "parameters": {
+                    "__class__": "TableParameters",
+                    "__module__": "table_step.table_parameters",
+                    "method": {
+                        "value": "Create",
+                        "units": null
+                    },
+                    "table name": {
+                        "value": "table1",
+                        "units": null
+                    },
+                    "columns": {
+                        "value": [
+                            {
+                                "name": "SMILES",
+                                "type": "string",
+                                "default": ""
+                            },
+                            {
+                                "name": "n",
+                                "type": "integer",
+                                "default": ""
+                            },
+                            {
+                                "name": "note",
+                                "type": "string",
+                                "default": "none"
+                            }
+                        ],
+                        "units": null
+                    },
+                    "filename": {
+                        "value": "",
+                        "units": null
+                    },
+                    "file type": {
+                        "value": "from extension",
+                        "units": null
+                    },
+                    "frequency": {
+                        "value": 1,
+                        "units": null
+                    },
+                    "index column": {
+                        "value": "--none--",
+                        "units": null
+                    },
+                    "row": {
+                        "value": "current",
+                        "units": null
+                    },
+                    "column": {
+                        "value": "current",
+                        "units": null
+                    },
+                    "value": {
+                        "value": "",
+                        "units": null
+                    },
+                    "variable name": {
+                        "value": "",
+                        "units": null
+                    }
+                },
+                "x": 150,
+                "y": 105,
+                "w": 200,
+                "h": 50,
+                "calls": 0
+            }
+        },
+        {
+            "item": "object",
+            "module": "seamm.join_node",
+            "class": "Join",
+            "version": "2026.9.29+4.ga226bc1",
+            "extension": "Join",
+            "attributes": {
+                "_tables": [],
+                "_title": "Join",
+                "_uuid": 279019794407148923523985847414065778225,
+                "extension": "Join",
+                "citation_level": 2,
+                "_method": null,
+                "parameters": null,
+                "x": 150,
+                "y": 175,
+                "w": 200,
+                "h": 50
+            }
+        },
+        {
+            "item": "object",
+            "module": "loop_step.loop",
+            "class": "Loop",
+            "version": "2026.9.18",
+            "extension": "Loop",
+            "attributes": {
+                "table_handle": null,
+                "table": null,
+                "_tables": [],
+                "_title": "Loop",
+                "_uuid": 244786618483507844062972183684152313152,
+                "extension": "Loop",
+                "citation_level": 2,
+                "_method": null,
+                "parameters": {
+                    "__class__": "LoopParameters",
+                    "__module__": "loop_step.loop_parameters",
+                    "type": {
+                        "value": "Foreach",
+                        "units": null
+                    },
+                    "variable": {
+                        "value": "SMILES",
+                        "units": null
+                    },
+                    "start": {
+                        "value": "1",
+                        "units": null
+                    },
+                    "end": {
+                        "value": "10",
+                        "units": null
+                    },
+                    "step": {
+                        "value": "1",
+                        "units": null
+                    },
+                    "values": {
+                        "value": "C CC CCC",
+                        "units": null
+                    },
+                    "table": {
+                        "value": "table1",
+                        "units": null
+                    },
+                    "where": {
+                        "value": "Use all rows",
+                        "units": null
+                    },
+                    "query-column": {
+                        "value": "",
+                        "units": null
+                    },
+                    "query-op": {
+                        "value": "==",
+                        "units": null
+                    },
+                    "query-value": {
+                        "value": "",
+                        "units": null
+                    },
+                    "query-value2": {
+                        "value": "",
+                        "units": null
+                    },
+                    "as variables": {
+                        "value": "yes",
+                        "units": null
+                    },
+                    "source systems": {
+                        "value": "all",
+                        "units": null
+                    },
+                    "source system name": {
+                        "value": "",
+                        "units": null
+                    },
+                    "source configurations": {
+                        "value": "last",
+                        "units": null
+                    },
+                    "source configuration name": {
+                        "value": "",
+                        "units": null
+                    },
+                    "directory name": {
+                        "value": "loop iteration",
+                        "units": null
+                    },
+                    "errors": {
+                        "value": "continue to next iteration",
+                        "units": null
+                    }
+                },
+                "x": 150,
+                "y": 245,
+                "w": 200,
+                "h": 50
+            }
+        },
+        {
+            "item": "object",
+            "module": "table_step.table",
+            "class": "Table",
+            "version": "2025.6.1",
+            "extension": "Table",
+            "attributes": {
+                "_tables": [],
+                "_title": "Table",
+                "_uuid": 161385226059277828063899746681324790449,
+                "extension": "Table",
+                "citation_level": 2,
+                "_method": null,
+                "parameters": {
+                    "__class__": "TableParameters",
+                    "__module__": "table_step.table_parameters",
+                    "method": {
+                        "value": "Append a row to",
+                        "units": null
+                    },
+                    "table name": {
+                        "value": "table1",
+                        "units": null
+                    },
+                    "columns": {
+                        "value": [
+                            {
+                                "name": "SMILES",
+                                "value": "$SMILES"
+                            },
+                            {
+                                "name": "n",
+                                "value": "=len(SMILES)"
+                            },
+                            {
+                                "name": "note",
+                                "value": "default"
+                            }
+                        ],
+                        "units": null
+                    },
+                    "filename": {
+                        "value": "",
+                        "units": null
+                    },
+                    "file type": {
+                        "value": "from extension",
+                        "units": null
+                    },
+                    "frequency": {
+                        "value": 1,
+                        "units": null
+                    },
+                    "index column": {
+                        "value": "--none--",
+                        "units": null
+                    },
+                    "row": {
+                        "value": "current",
+                        "units": null
+                    },
+                    "column": {
+                        "value": "current",
+                        "units": null
+                    },
+                    "value": {
+                        "value": "",
+                        "units": null
+                    },
+                    "variable name": {
+                        "value": "",
+                        "units": null
+                    }
+                },
+                "x": 450,
+                "y": 245,
+                "w": 200,
+                "h": 50,
+                "calls": 0
+            }
+        },
+        {
+            "item": "object",
+            "module": "table_step.table",
+            "class": "Table",
+            "version": "2025.6.1",
+            "extension": "Table",
+            "attributes": {
+                "_tables": [],
+                "_title": "Table",
+                "_uuid": 155420291903719738515682029844247110585,
+                "extension": "Table",
+                "citation_level": 2,
+                "_method": null,
+                "parameters": {
+                    "__class__": "TableParameters",
+                    "__module__": "table_step.table_parameters",
+                    "method": {
+                        "value": "Save as",
+                        "units": null
+                    },
+                    "table name": {
+                        "value": "table1",
+                        "units": null
+                    },
+                    "columns": {
+                        "value": [],
+                        "units": null
+                    },
+                    "filename": {
+                        "value": "rows.csv",
+                        "units": null
+                    },
+                    "file type": {
+                        "value": "from extension",
+                        "units": null
+                    },
+                    "frequency": {
+                        "value": 1,
+                        "units": null
+                    },
+                    "index column": {
+                        "value": "--none--",
+                        "units": null
+                    },
+                    "row": {
+                        "value": "current",
+                        "units": null
+                    },
+                    "column": {
+                        "value": "current",
+                        "units": null
+                    },
+                    "value": {
+                        "value": "",
+                        "units": null
+                    },
+                    "variable name": {
+                        "value": "",
+                        "units": null
+                    }
+                },
+                "x": 150,
+                "y": 315,
+                "w": 200,
+                "h": 50,
+                "calls": 0
+            }
+        }
+    ],
+    "edges": [
+        {
+            "item": "edge",
+            "node1": 1,
+            "node2": 211820728464685726848948887164224486743,
+            "edge_type": "execution",
+            "edge_subtype": "next",
+            "attributes": {
+                "anchor1": "s",
+                "anchor2": "n",
+                "coords": [
+                    150,
+                    60,
+                    150,
+                    80
+                ]
+            }
+        },
+        {
+            "item": "edge",
+            "node1": 211820728464685726848948887164224486743,
+            "node2": 279019794407148923523985847414065778225,
+            "edge_type": "execution",
+            "edge_subtype": "next",
+            "attributes": {
+                "anchor1": "s",
+                "anchor2": "n",
+                "coords": [
+                    150,
+                    130,
+                    150,
+                    150
+                ]
+            }
+        },
+        {
+            "item": "edge",
+            "node1": 279019794407148923523985847414065778225,
+            "node2": 244786618483507844062972183684152313152,
+            "edge_type": "execution",
+            "edge_subtype": "next",
+            "attributes": {
+                "anchor1": "s",
+                "anchor2": "n",
+                "coords": [
+                    150,
+                    200,
+                    150,
+                    220
+                ]
+            }
+        },
+        {
+            "item": "edge",
+            "node1": 244786618483507844062972183684152313152,
+            "node2": 161385226059277828063899746681324790449,
+            "edge_type": "execution",
+            "edge_subtype": "loop",
+            "attributes": {
+                "anchor1": "e",
+                "anchor2": "w",
+                "coords": [
+                    250,
+                    245,
+                    350,
+                    245
+                ]
+            }
+        },
+        {
+            "item": "edge",
+            "node1": 161385226059277828063899746681324790449,
+            "node2": 279019794407148923523985847414065778225,
+            "edge_type": "execution",
+            "edge_subtype": "next",
+            "attributes": {
+                "anchor1": "s",
+                "anchor2": "e",
+                "coords": [
+                    450,
+                    270,
+                    450,
+                    280,
+                    590,
+                    280,
+                    590,
+                    175,
+                    250,
+                    175
+                ]
+            }
+        },
+        {
+            "item": "edge",
+            "node1": 244786618483507844062972183684152313152,
+            "node2": 155420291903719738515682029844247110585,
+            "edge_type": "execution",
+            "edge_subtype": "exit",
+            "attributes": {
+                "anchor1": "s",
+                "anchor2": "n",
+                "coords": [
+                    150,
+                    270,
+                    150,
+                    290
+                ]
+            }
+        }
+    ]
+}
+#end
