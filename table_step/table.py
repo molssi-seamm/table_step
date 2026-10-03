@@ -245,57 +245,25 @@ class Table(seamm.Node):
         printer.important(self.description_text(P))
         printer.important("")
 
+        system_db = self.get_variable("_system_db")
+
         if P["method"] == "Create":
-            table = pandas.DataFrame()
-            defaults = {}
+            columns = []
             for d in self.parameters["columns"].value:
                 column_name = self.get_value(d["name"])
-                if column_name not in table.columns:
-                    if d["type"] == "boolean":
-                        if d["default"] == "":
-                            default = False
-                        else:
-                            default = bool(d["default"])
-                    elif d["type"] == "integer":
-                        if d["default"] == "":
-                            default = 0
-                        else:
-                            default = int(d["default"])
-                    elif d["type"] == "float":
-                        if d["default"] == "":
-                            default = np.nan
-                        else:
-                            default = float(d["default"])
-                    elif d["type"] == "string":
-                        default = d["default"]
-
-                    table[column_name] = default
-                    defaults[column_name] = default
+                if any(column_name == c[0] for c in columns):
+                    continue
+                columns.append((column_name, d["type"], self._default(d)))
 
             self.logger.info(f"Creating table '{tablename}'")
 
             index = P["index column"]
             if index == "" or index == "--none--":
                 index = None
-            else:
-                if index not in table.columns:
-                    columns = ", ".join(table.columns)
-                    raise ValueError(
-                        f"The index column '{index}' is not in the table: columns = "
-                        f"{columns}"
-                    )
-                table.set_index(index, inplace=True)
-            self.set_variable(
-                tablename,
-                {
-                    "type": "pandas",
-                    "table": table,
-                    "defaults": defaults,
-                    "index column": index,
-                    "loop index": False,
-                    "current index": 0,
-                },
+            table = seamm.Table.create(
+                system_db, tablename, columns=columns, index_column=index
             )
+            self.set_variable(tablename, table)
         elif P["method"] == "Read":
             filename = P["filename"]
 
@@ -311,46 +279,13 @@ class Table(seamm.Node):
                         f"table '{tablename}'.\nKnown types: '{types}'"
                     )
 
-            if file_type == ".csv":
-                table = pandas.read_csv(filename, index_col=False)
-            elif file_type == ".json":
-                table = pandas.read_json(filename)
-            elif file_type == ".xlsx":
-                table = pandas.read_excel(filename, index_col=False)
-            elif file_type == ".txt":
-                table = pandas.read_fwf(filename, index_col=False)
-            else:
-                types = "', '".join(self.parameters["file type"].enumeration)
-                raise RuntimeError(
-                    f"Table save: cannot handle format '{file_type}' for file "
-                    f"'{filename}'\nKnown types: '{types}'"
-                )
-
             index = P["index column"]
             if index == "" or index == "--none--":
                 index = None
-            else:
-                if index not in table.columns:
-                    columns = ", ".join(table.columns)
-                    raise ValueError(
-                        f"The index column '{index}' is not in the table: columns = "
-                        f"{columns}"
-                    )
-                table.set_index(index, inplace=True)
-
-            self.logger.debug("  setting up dict in {}".format(tablename))
-            self.set_variable(
-                tablename,
-                {
-                    "type": "pandas",
-                    "filename": filename,
-                    "table": table,
-                    "defaults": {},
-                    "index column": index,
-                    "loop index": False,
-                    "current index": 0,
-                },
+            table = seamm.Table.read(
+                system_db, tablename, filename, file_type=file_type, index_column=index
             )
+            self.set_variable(tablename, table)
 
             self.logger.info("Successfully read table from {}".format(filename))
         elif P["method"] == "Save" or P["method"] == "Save as":
@@ -361,8 +296,7 @@ class Table(seamm.Node):
                         "Table save: table '{}' does not exist.".format(tablename)
                     )
                 file_type = P["file type"]
-                table_handle = self.get_variable(tablename)
-                table = table_handle["table"]
+                table = self.get_table(tablename, create=False)
 
                 if P["method"] == "Save as":
                     filename = P["filename"].strip()
@@ -372,15 +306,12 @@ class Table(seamm.Node):
                         )
                     else:
                         filename = str(wd / filename)
-                    table_handle["filename"] = filename
                 else:
-                    if "filename" not in table_handle:
+                    filename = table.filename
+                    if filename is None:
                         if file_type == "from extension":
                             file_type = ".csv"
-                        table_handle["filename"] = str(wd / tablename) + file_type
-                    filename = table_handle["filename"]
-
-                index = table_handle["index column"]
+                        filename = str(wd / tablename) + file_type
 
                 if file_type == "from extension":
                     file_type = PurePath(filename).suffix
@@ -390,57 +321,30 @@ class Table(seamm.Node):
                             f"Cannot handle files of type '{file_type}' when writing "
                             f"table '{tablename}'.\nKnown types: '{types}'"
                         )
-                if file_type == ".csv":
-                    if index is None:
-                        table.to_csv(filename, index=False)
-                    else:
-                        table.to_csv(filename, index=True, header=True)
-                elif file_type == ".json":
-                    if index is None:
-                        table.to_json(filename, indent=4, orient="table", index=False)
-                    else:
-                        table.to_json(filename, indent=4, orient="table", index=True)
-                elif file_type == ".xlsx":
-                    if index is None:
-                        table.to_excel(filename, index=False)
-                    else:
-                        table.to_excel(filename, index=True)
-                elif file_type == ".txt":
-                    with open(filename, "w") as fd:
-                        if index is None:
-                            fd.write(table.to_string(header=True, index=False))
-                        else:
-                            fd.write(table.to_string(header=True, index=True))
-                else:
+                if file_type not in seamm.table.file_types:
                     types = "', '".join(self.parameters["file type"].enumeration)
                     raise RuntimeError(
                         f"Table save: cannot handle format '{file_type}' for file "
                         f"'{filename}'\nKnown types: '{types}'"
                     )
+                table.export(filename, file_type)
         elif P["method"] == "Print":
-            table_handle = self.get_variable(tablename)
-            table = table_handle["table"]
-            index = table_handle["index column"]
-            if index is None:
-                text = table.to_string(header=True, index=False)
-            else:
-                text = table.to_string(header=True, index=True)
-
-            for line in text.splitlines():
+            table = self.get_table(tablename, create=False)
+            for line in table.to_string().splitlines():
                 printer.normal(4 * " " + line)
             printer.normal("")
 
         elif P["method"] == "Print the current row of":
-            table_handle = self.get_variable(tablename)
-            table = table_handle["table"]
-            index = table_handle["current index"]
-            self.logger.debug("index = {}".format(index))
-            index = table.index.get_loc(index)
+            table = self.get_table(tablename, create=False)
+            row = table.current_row
+            if row is None:
+                raise RuntimeError(
+                    f"Table print current row: table '{tablename}' is past its last "
+                    "row."
+                )
+            index = table._table.position(row)
             self.logger.debug("  --> {}".format(index))
-            if index is None:
-                lines = table.to_string(header=True, index=False)
-            else:
-                lines = table.to_string(header=True, index=True)
+            lines = table.to_dataframe().to_string(header=True, index=True)
 
             self.logger.debug(lines)
             self.logger.debug("-----")
@@ -456,85 +360,39 @@ class Table(seamm.Node):
                 raise RuntimeError(
                     "Table save: table '{}' does not exist.".format(tablename)
                 )
-            table_handle = self.get_variable(tablename)
-            if "defaults" in table_handle:
-                defaults = table_handle["defaults"]
-            else:
-                defaults = {}
-            table = table_handle["table"]
-            column_types = {
-                name: column_type(dtype)
-                for name, dtype in zip(table.columns, table.dtypes)
-            }
+            table = self.get_table(tablename, create=False)
+            columns = table.columns
 
             new_row = {}
-
             for d in self.parameters["columns"].value:
                 column_name = self.get_value(d["name"])
                 value = self.get_value(d["value"])
-                if column_name not in column_types:
-                    columns = ", ".join(str(c) for c in table.columns)
+                if column_name not in columns:
                     raise RuntimeError(
                         f"Table append a row: table '{tablename}' has no column "
-                        f"'{column_name}'. The columns are: {columns}"
+                        f"'{column_name}'. The columns are: {', '.join(columns)}"
                     )
-                type_ = column_types[column_name]
                 if value == "default":
-                    if column_name in defaults:
-                        value = defaults[column_name]
-                    else:
-                        if type_ == "boolean":
-                            value = False
-                        elif type_ == "integer":
-                            value = 0
-                        elif type_ == "float":
-                            value = np.nan
-                        elif type_ == "string":
-                            value = ""
-                new_row[column_name] = [value]
-            new_row = pandas.DataFrame.from_dict(new_row)
-            table = pandas.concat([table, new_row], ignore_index=True)
-            seamm.flowchart_variables[tablename]["table"] = table
-            seamm.flowchart_variables[tablename]["current index"] = table.shape[0] - 1
+                    continue
+                new_row[column_name] = self._typed(table, column_name, value)
+            table.append_row(**new_row)
         elif P["method"] == "Go to the next row of":
             if not self.variable_exists(tablename):
                 raise RuntimeError(
                     "Table save: table '{}' does not exist.".format(tablename)
                 )
-            table_handle = self.get_variable(tablename)
-            table_handle["current index"] += 1
+            self.get_table(tablename, create=False).next_row()
 
         elif P["method"] == "Add columns to":
             if not self.variable_exists(tablename):
                 raise RuntimeError(
                     "Table save: table '{}' does not exist.".format(tablename)
                 )
-            table_handle = self.get_variable(tablename)
-            table = table_handle["table"]
+            table = self.get_table(tablename, create=False)
             for d in self.parameters["columns"].value:
                 column_name = self.get_value(d["name"])
-                if column_name in table.columns:
-                    # Need to check if this is an error
-                    pass
-                else:
-                    if d["type"] == "boolean":
-                        if d["default"] == "":
-                            default = False
-                        else:
-                            default = bool(d["default"])
-                    elif d["type"] == "integer":
-                        if d["default"] == "":
-                            default = 0
-                        else:
-                            default = int(d["default"])
-                    elif d["type"] == "float":
-                        if d["default"] == "":
-                            default = np.nan
-                        else:
-                            default = float(d["default"])
-                    elif d["type"] == "string":
-                        default = d["default"]
-                    table[d["name"]] = default
+                # An existing column is left as it is.
+                table.add_column(column_name, d["type"], self._default(d))
         elif P["method"] == "Get element of":
             if not self.variable_exists(tablename):
                 raise RuntimeError(
@@ -553,25 +411,11 @@ class Table(seamm.Node):
                 )
             variable_name = self.get_value(P["variable name"])
 
-            table_handle = self.get_variable(tablename)
-            index = table_handle["index column"]
-            table = table_handle["table"]
+            table = self.get_table(tablename, create=False)
+            row = self._row(table, row)
+            column = self._column(table, column)
 
-            if row == "current":
-                row = table_handle["current index"]
-            else:
-                if index is None:
-                    row = int(row)
-                else:
-                    if table.index.dtype.kind == "i":
-                        row = int(row)
-                    row = table.index.get_loc(int(row))
-            try:
-                column = int(column)
-            except Exception:
-                column = table.columns.get_loc(column)
-
-            value = table.iat[row, column]
+            value = table.get_cell(column, row)
             self.set_variable(variable_name, value)
         elif P["method"] == "Set element of":
             if not self.variable_exists(tablename):
@@ -588,25 +432,11 @@ class Table(seamm.Node):
                 raise RuntimeError("Table set element: the value must be given")
             value = self.get_value(P["value"])
 
-            table_handle = self.get_variable(tablename)
-            index = table_handle["index column"]
-            table = table_handle["table"]
+            table = self.get_table(tablename, create=False)
+            row = self._row(table, row)
+            column = self._column(table, column)
 
-            if row == "current":
-                row = table_handle["current index"]
-            else:
-                if index is None:
-                    row = int(row)
-                else:
-                    if table.index.dtype.kind == "i":
-                        row = int(row)
-                    row = table.index.get_loc(row)
-            try:
-                column = int(column)
-            except Exception:
-                column = table.columns.get_loc(column)
-
-            table.iat[row, column] = value
+            table.set_cell(column, self._typed(table, column, value), row)
         else:
             methods = ", ".join(table_step.methods)
             raise RuntimeError(
@@ -614,3 +444,56 @@ class Table(seamm.Node):
             )
 
         return next_node
+
+    def _default(self, d):
+        """The default value of a column defined in the dialog."""
+        if d["type"] == "boolean":
+            if d["default"] == "":
+                return False
+            return bool(d["default"])
+        if d["type"] == "integer":
+            if d["default"] == "":
+                return 0
+            return int(d["default"])
+        if d["type"] == "float":
+            if d["default"] == "":
+                return np.nan
+            return float(d["default"])
+        return d["default"]
+
+    def _typed(self, table, column, value):
+        """Text from the dialog converted to the column's type, if it can be."""
+        if isinstance(value, str) and table.column_type(column) in (
+            "boolean",
+            "integer",
+            "float",
+        ):
+            try:
+                return table.convert(column, value)
+            except ValueError:
+                pass
+        return value
+
+    def _row(self, table, row):
+        """The table row for 'current', a position, or an index-column value."""
+        if row == "current":
+            row = table.current_row
+            if row is None:
+                raise RuntimeError(
+                    f"Table '{table.name}' has no current row: it is past the last row."
+                )
+            return row
+        if table.index_column is None:
+            return table.locate(position=int(row))
+        return table.locate(key=table.convert(table.index_column, row))
+
+    def _column(self, table, column):
+        """A column given by name or by number (not counting the index column)."""
+        try:
+            number = int(column)
+        except Exception:
+            if column not in table.columns:
+                raise RuntimeError(f"Table '{table.name}' has no column '{column}'.")
+            return column
+        columns = [c for c in table.columns if c != table.index_column]
+        return columns[number]
