@@ -1,6 +1,20 @@
 =======
 History
 =======
+2026.10.3 -- Tables are stored in the job's database
+    * Tables are now kept in the job's database (with seamm 2026.10.3), so a job's
+      tables are saved with it even if they are never written to a file.
+    * "Append a row to" works for tables with an index column; new rows get the
+      columns' defaults (not empty values), and integer and boolean columns keep their
+      types.
+    * "Get element of" and "Set element of" work by index value for tables whose index
+      column holds text, and "Set element of" the current row after going past the
+      end of the table adds the row.
+    * "Add columns to" uses the column name after substituting variables, and records
+      the default.
+    * "Go to the next row of" past the end of a table does nothing more, so it can be
+      used at either end of a loop.
+    * Values read with "Get element of" are plain Python numbers, not numpy ones.
 2026.9.30 -- Bugfix: appending rows to tables with text columns failed with pandas 3
     * 'Append a row to' failed with an error naming the column (e.g. 'SMILES') whenever
       the table had a text column, because pandas 3 describes text columns differently
