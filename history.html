@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>History &#8212; SEAMM Table Plug-in 2026.9.30 documentation</title>
+    <title>History &#8212; SEAMM Table Plug-in 2026.10.3 documentation</title>
   
   
   
@@ -48,7 +48,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PQXXTJ2');</script>
 <!-- End Google Tag Manager -->
 
-    <script src="_static/documentation_options.js?v=a68592d0"></script>
+    <script src="_static/documentation_options.js?v=f64fa391"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -62,7 +62,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="prev" title="Development Team" href="authors.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="2026.9.30" />
+  <meta name="docsearch:version" content="2026.10.3" />
   
     
     <script src="_static/searchtools.js"></script>
@@ -505,6 +505,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <section id="history">
 <h1>History<a class="headerlink" href="#history" title="Link to this heading">#</a></h1>
 <dl class="simple">
+<dt>2026.10.3 – Tables are stored in the job’s database</dt><dd><ul class="simple">
+<li><p>Tables are now kept in the job’s database (with seamm 2026.10.3), so a job’s
+tables are saved with it even if they are never written to a file.</p></li>
+<li><p>“Append a row to” works for tables with an index column; new rows get the
+columns’ defaults (not empty values), and integer and boolean columns keep their
+types.</p></li>
+<li><p>“Get element of” and “Set element of” work by index value for tables whose index
+column holds text, and “Set element of” the current row after going past the
+end of the table adds the row.</p></li>
+<li><p>“Add columns to” uses the column name after substituting variables, and records
+the default.</p></li>
+<li><p>“Go to the next row of” past the end of a table does nothing more, so it can be
+used at either end of a loop.</p></li>
+<li><p>Values read with “Get element of” are plain Python numbers, not numpy ones.</p></li>
+</ul>
+</dd>
 <dt>2026.9.30 – Bugfix: appending rows to tables with text columns failed with pandas 3</dt><dd><ul class="simple">
 <li><p>‘Append a row to’ failed with an error naming the column (e.g. ‘SMILES’) whenever
 the table had a text column, because pandas 3 describes text columns differently

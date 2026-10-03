@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>table_step.table &#8212; SEAMM Table Plug-in 2026.9.30 documentation</title>
+    <title>table_step.table &#8212; SEAMM Table Plug-in 2026.10.3 documentation</title>
   
   
   
@@ -47,7 +47,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-PQXXTJ2');</script>
 <!-- End Google Tag Manager -->
 
-    <script src="../../_static/documentation_options.js?v=a68592d0"></script>
+    <script src="../../_static/documentation_options.js?v=f64fa391"></script>
     <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -60,7 +60,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="2026.9.30" />
+  <meta name="docsearch:version" content="2026.10.3" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -742,57 +742,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <span class="n">printer</span><span class="o">.</span><span class="n">important</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">description_text</span><span class="p">(</span><span class="n">P</span><span class="p">))</span>
         <span class="n">printer</span><span class="o">.</span><span class="n">important</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
 
+        <span class="n">system_db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s2">"_system_db"</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Create"</span><span class="p">:</span>
-            <span class="n">table</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-            <span class="n">defaults</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">"columns"</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
                 <span class="n">column_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
-                <span class="k">if</span> <span class="n">column_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"boolean"</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="kc">False</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
-                    <span class="k">elif</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"integer"</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
-                    <span class="k">elif</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"float"</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
-                    <span class="k">elif</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"string"</span><span class="p">:</span>
-                        <span class="n">default</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
-
-                    <span class="n">table</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
-                    <span class="n">defaults</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
+                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">column_name</span> <span class="o">==</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">column_name</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default</span><span class="p">(</span><span class="n">d</span><span class="p">)))</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Creating table '</span><span class="si">{</span><span class="n">tablename</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
 
             <span class="n">index</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"index column"</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="s2">""</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">==</span> <span class="s2">"--none--"</span><span class="p">:</span>
                 <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-                    <span class="n">columns</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">"The index column '</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">' is not in the table: columns = "</span>
-                        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2">"</span>
-                    <span class="p">)</span>
-                <span class="n">table</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_variable</span><span class="p">(</span>
-                <span class="n">tablename</span><span class="p">,</span>
-                <span class="p">{</span>
-                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"pandas"</span><span class="p">,</span>
-                    <span class="s2">"table"</span><span class="p">:</span> <span class="n">table</span><span class="p">,</span>
-                    <span class="s2">"defaults"</span><span class="p">:</span> <span class="n">defaults</span><span class="p">,</span>
-                    <span class="s2">"index column"</span><span class="p">:</span> <span class="n">index</span><span class="p">,</span>
-                    <span class="s2">"loop index"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">"current index"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="p">},</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="n">seamm</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">system_db</span><span class="p">,</span> <span class="n">tablename</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">index_column</span><span class="o">=</span><span class="n">index</span>
             <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_variable</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Read"</span><span class="p">:</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"filename"</span><span class="p">]</span>
 
@@ -808,46 +776,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <span class="sa">f</span><span class="s2">"table '</span><span class="si">{</span><span class="n">tablename</span><span class="si">}</span><span class="s2">'.</span><span class="se">\n</span><span class="s2">Known types: '</span><span class="si">{</span><span class="n">types</span><span class="si">}</span><span class="s2">'"</span>
                     <span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">".csv"</span><span class="p">:</span>
-                <span class="n">table</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">".json"</span><span class="p">:</span>
-                <span class="n">table</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">".xlsx"</span><span class="p">:</span>
-                <span class="n">table</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">".txt"</span><span class="p">:</span>
-                <span class="n">table</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_fwf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">types</span> <span class="o">=</span> <span class="s2">"', '"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">"file type"</span><span class="p">]</span><span class="o">.</span><span class="n">enumeration</span><span class="p">)</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">"Table save: cannot handle format '</span><span class="si">{</span><span class="n">file_type</span><span class="si">}</span><span class="s2">' for file "</span>
-                    <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">'</span><span class="se">\n</span><span class="s2">Known types: '</span><span class="si">{</span><span class="n">types</span><span class="si">}</span><span class="s2">'"</span>
-                <span class="p">)</span>
-
             <span class="n">index</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"index column"</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="s2">""</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">==</span> <span class="s2">"--none--"</span><span class="p">:</span>
                 <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-                    <span class="n">columns</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">"The index column '</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s2">' is not in the table: columns = "</span>
-                        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2">"</span>
-                    <span class="p">)</span>
-                <span class="n">table</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"  setting up dict in </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_variable</span><span class="p">(</span>
-                <span class="n">tablename</span><span class="p">,</span>
-                <span class="p">{</span>
-                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"pandas"</span><span class="p">,</span>
-                    <span class="s2">"filename"</span><span class="p">:</span> <span class="n">filename</span><span class="p">,</span>
-                    <span class="s2">"table"</span><span class="p">:</span> <span class="n">table</span><span class="p">,</span>
-                    <span class="s2">"defaults"</span><span class="p">:</span> <span class="p">{},</span>
-                    <span class="s2">"index column"</span><span class="p">:</span> <span class="n">index</span><span class="p">,</span>
-                    <span class="s2">"loop index"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="s2">"current index"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="p">},</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="n">seamm</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
+                <span class="n">system_db</span><span class="p">,</span> <span class="n">tablename</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">file_type</span><span class="o">=</span><span class="n">file_type</span><span class="p">,</span> <span class="n">index_column</span><span class="o">=</span><span class="n">index</span>
             <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_variable</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Successfully read table from </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Save"</span> <span class="ow">or</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Save as"</span><span class="p">:</span>
@@ -858,8 +793,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <span class="s2">"Table save: table '</span><span class="si">{}</span><span class="s2">' does not exist."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
                     <span class="p">)</span>
                 <span class="n">file_type</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"file type"</span><span class="p">]</span>
-                <span class="n">table_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
-                <span class="n">table</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span>
+                <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Save as"</span><span class="p">:</span>
                     <span class="n">filename</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="s2">"filename"</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
@@ -869,15 +803,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">wd</span> <span class="o">/</span> <span class="n">filename</span><span class="p">)</span>
-                    <span class="n">table_handle</span><span class="p">[</span><span class="s2">"filename"</span><span class="p">]</span> <span class="o">=</span> <span class="n">filename</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="s2">"filename"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">table_handle</span><span class="p">:</span>
+                    <span class="n">filename</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">filename</span>
+                    <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">"from extension"</span><span class="p">:</span>
                             <span class="n">file_type</span> <span class="o">=</span> <span class="s2">".csv"</span>
-                        <span class="n">table_handle</span><span class="p">[</span><span class="s2">"filename"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">wd</span> <span class="o">/</span> <span class="n">tablename</span><span class="p">)</span> <span class="o">+</span> <span class="n">file_type</span>
-                    <span class="n">filename</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"filename"</span><span class="p">]</span>
-
-                <span class="n">index</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"index column"</span><span class="p">]</span>
+                        <span class="n">filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">wd</span> <span class="o">/</span> <span class="n">tablename</span><span class="p">)</span> <span class="o">+</span> <span class="n">file_type</span>
 
                 <span class="k">if</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">"from extension"</span><span class="p">:</span>
                     <span class="n">file_type</span> <span class="o">=</span> <span class="n">PurePath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">suffix</span>
@@ -887,57 +818,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                             <span class="sa">f</span><span class="s2">"Cannot handle files of type '</span><span class="si">{</span><span class="n">file_type</span><span class="si">}</span><span class="s2">' when writing "</span>
                             <span class="sa">f</span><span class="s2">"table '</span><span class="si">{</span><span class="n">tablename</span><span class="si">}</span><span class="s2">'.</span><span class="se">\n</span><span class="s2">Known types: '</span><span class="si">{</span><span class="n">types</span><span class="si">}</span><span class="s2">'"</span>
                         <span class="p">)</span>
-                <span class="k">if</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">".csv"</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">table</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">table</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">".json"</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">table</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">"table"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">table</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s2">"table"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">".xlsx"</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">table</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">table</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">file_type</span> <span class="o">==</span> <span class="s2">".txt"</span><span class="p">:</span>
-                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                            <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">fd</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-                <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">file_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seamm</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">file_types</span><span class="p">:</span>
                     <span class="n">types</span> <span class="o">=</span> <span class="s2">"', '"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">"file type"</span><span class="p">]</span><span class="o">.</span><span class="n">enumeration</span><span class="p">)</span>
                     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s2">"Table save: cannot handle format '</span><span class="si">{</span><span class="n">file_type</span><span class="si">}</span><span class="s2">' for file "</span>
                         <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">'</span><span class="se">\n</span><span class="s2">Known types: '</span><span class="si">{</span><span class="n">types</span><span class="si">}</span><span class="s2">'"</span>
                     <span class="p">)</span>
+                <span class="n">table</span><span class="o">.</span><span class="n">export</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">file_type</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Print"</span><span class="p">:</span>
-            <span class="n">table_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
-            <span class="n">table</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"index column"</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">text</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">text</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
                 <span class="n">printer</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="s2">" "</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
             <span class="n">printer</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Print the current row of"</span><span class="p">:</span>
-            <span class="n">table_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
-            <span class="n">table</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"current index"</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"index = </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">current_row</span>
+            <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Table print current row: table '</span><span class="si">{</span><span class="n">tablename</span><span class="si">}</span><span class="s2">' is past its last "</span>
+                    <span class="s2">"row."</span>
+                <span class="p">)</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"  --&gt; </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">lines</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">lines</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"-----"</span><span class="p">)</span>
@@ -953,85 +857,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                     <span class="s2">"Table save: table '</span><span class="si">{}</span><span class="s2">' does not exist."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
                 <span class="p">)</span>
-            <span class="n">table_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
-            <span class="k">if</span> <span class="s2">"defaults"</span> <span class="ow">in</span> <span class="n">table_handle</span><span class="p">:</span>
-                <span class="n">defaults</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"defaults"</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">defaults</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="n">table</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span>
-            <span class="n">column_types</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="n">name</span><span class="p">:</span> <span class="n">column_type</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">table</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
-            <span class="p">}</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span>
 
             <span class="n">new_row</span> <span class="o">=</span> <span class="p">{}</span>
-
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">"columns"</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
                 <span class="n">column_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"value"</span><span class="p">])</span>
-                <span class="k">if</span> <span class="n">column_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">column_types</span><span class="p">:</span>
-                    <span class="n">columns</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">column_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
                     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                         <span class="sa">f</span><span class="s2">"Table append a row: table '</span><span class="si">{</span><span class="n">tablename</span><span class="si">}</span><span class="s2">' has no column "</span>
-                        <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">column_name</span><span class="si">}</span><span class="s2">'. The columns are: </span><span class="si">{</span><span class="n">columns</span><span class="si">}</span><span class="s2">"</span>
+                        <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">column_name</span><span class="si">}</span><span class="s2">'. The columns are: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
                     <span class="p">)</span>
-                <span class="n">type_</span> <span class="o">=</span> <span class="n">column_types</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">"default"</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="n">defaults</span><span class="p">:</span>
-                        <span class="n">value</span> <span class="o">=</span> <span class="n">defaults</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">type_</span> <span class="o">==</span> <span class="s2">"boolean"</span><span class="p">:</span>
-                            <span class="n">value</span> <span class="o">=</span> <span class="kc">False</span>
-                        <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s2">"integer"</span><span class="p">:</span>
-                            <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
-                        <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s2">"float"</span><span class="p">:</span>
-                            <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-                        <span class="k">elif</span> <span class="n">type_</span> <span class="o">==</span> <span class="s2">"string"</span><span class="p">:</span>
-                            <span class="n">value</span> <span class="o">=</span> <span class="s2">""</span>
-                <span class="n">new_row</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span>
-            <span class="n">new_row</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">new_row</span><span class="p">)</span>
-            <span class="n">table</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">table</span><span class="p">,</span> <span class="n">new_row</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">seamm</span><span class="o">.</span><span class="n">flowchart_variables</span><span class="p">[</span><span class="n">tablename</span><span class="p">][</span><span class="s2">"table"</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span>
-            <span class="n">seamm</span><span class="o">.</span><span class="n">flowchart_variables</span><span class="p">[</span><span class="n">tablename</span><span class="p">][</span><span class="s2">"current index"</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+                <span class="n">new_row</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">column_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">table</span><span class="o">.</span><span class="n">append_row</span><span class="p">(</span><span class="o">**</span><span class="n">new_row</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Go to the next row of"</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_exists</span><span class="p">(</span><span class="n">tablename</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                     <span class="s2">"Table save: table '</span><span class="si">{}</span><span class="s2">' does not exist."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
                 <span class="p">)</span>
-            <span class="n">table_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
-            <span class="n">table_handle</span><span class="p">[</span><span class="s2">"current index"</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">next_row</span><span class="p">()</span>
 
         <span class="k">elif</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Add columns to"</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_exists</span><span class="p">(</span><span class="n">tablename</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
                     <span class="s2">"Table save: table '</span><span class="si">{}</span><span class="s2">' does not exist."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
                 <span class="p">)</span>
-            <span class="n">table_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
-            <span class="n">table</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">"columns"</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
                 <span class="n">column_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
-                <span class="k">if</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-                    <span class="c1"># Need to check if this is an error</span>
-                    <span class="k">pass</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"boolean"</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="kc">False</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
-                    <span class="k">elif</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"integer"</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
-                    <span class="k">elif</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"float"</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">default</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
-                    <span class="k">elif</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"string"</span><span class="p">:</span>
-                        <span class="n">default</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
-                    <span class="n">table</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]]</span> <span class="o">=</span> <span class="n">default</span>
+                <span class="c1"># An existing column is left as it is.</span>
+                <span class="n">table</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">column_name</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Get element of"</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_exists</span><span class="p">(</span><span class="n">tablename</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
@@ -1050,25 +908,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <span class="p">)</span>
             <span class="n">variable_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="s2">"variable name"</span><span class="p">])</span>
 
-            <span class="n">table_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"index column"</span><span class="p">]</span>
-            <span class="n">table</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_row</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+            <span class="n">column</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_column</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">row</span> <span class="o">==</span> <span class="s2">"current"</span><span class="p">:</span>
-                <span class="n">row</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"current index"</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">table</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">"i"</span><span class="p">:</span>
-                        <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-                    <span class="n">row</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">column</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="n">column</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
-
-            <span class="n">value</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">]</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">get_cell</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_variable</span><span class="p">(</span><span class="n">variable_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">P</span><span class="p">[</span><span class="s2">"method"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"Set element of"</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">variable_exists</span><span class="p">(</span><span class="n">tablename</span><span class="p">):</span>
@@ -1085,25 +929,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Table set element: the value must be given"</span><span class="p">)</span>
             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="s2">"value"</span><span class="p">])</span>
 
-            <span class="n">table_handle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="n">tablename</span><span class="p">)</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"index column"</span><span class="p">]</span>
-            <span class="n">table</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"table"</span><span class="p">]</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">tablename</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="c1"># Writing to the current row past the end of the table appends it.</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_row</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">write</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">column</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_column</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">column</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">row</span> <span class="o">==</span> <span class="s2">"current"</span><span class="p">:</span>
-                <span class="n">row</span> <span class="o">=</span> <span class="n">table_handle</span><span class="p">[</span><span class="s2">"current index"</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">table</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">"i"</span><span class="p">:</span>
-                        <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-                    <span class="n">row</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">column</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                <span class="n">column</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
-
-            <span class="n">table</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">table</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_typed</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="p">),</span> <span class="n">row</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">methods</span> <span class="o">=</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">table_step</span><span class="o">.</span><span class="n">methods</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
@@ -1111,7 +942,63 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">next_node</span></div>
-</div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""The default value of a column defined in the dialog."""</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"boolean"</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"integer"</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"float"</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">""</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="s2">"default"</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_typed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Text from the dialog converted to the column's type, if it can be."""</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">table</span><span class="o">.</span><span class="n">column_type</span><span class="p">(</span><span class="n">column</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span>
+            <span class="s2">"boolean"</span><span class="p">,</span>
+            <span class="s2">"integer"</span><span class="p">,</span>
+            <span class="s2">"float"</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">table</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">write</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""The table row for 'current', a position, or an index-column value.</span>
+
+<span class="sd">        For a write, 'current' past the last row is None: the write appends a row.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">row</span> <span class="o">==</span> <span class="s2">"current"</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">current_row</span>
+            <span class="k">if</span> <span class="n">row</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">write</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">"Table '</span><span class="si">{</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' has no current row: it is past the last row."</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">row</span>
+        <span class="k">if</span> <span class="n">table</span><span class="o">.</span><span class="n">index_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">table</span><span class="o">.</span><span class="n">locate</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">table</span><span class="o">.</span><span class="n">locate</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">table</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">index_column</span><span class="p">,</span> <span class="n">row</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""A column given by name or by number (not counting the index column)."""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">column</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Table '</span><span class="si">{</span><span class="n">table</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">' has no column '</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">'."</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">column</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span> <span class="o">!=</span> <span class="n">table</span><span class="o">.</span><span class="n">index_column</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">columns</span><span class="p">[</span><span class="n">number</span><span class="p">]</span></div>
 
 </pre></div>
 
