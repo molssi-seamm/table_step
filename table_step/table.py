@@ -433,7 +433,8 @@ class Table(seamm.Node):
             value = self.get_value(P["value"])
 
             table = self.get_table(tablename, create=False)
-            row = self._row(table, row)
+            # Writing to the current row past the end of the table appends it.
+            row = self._row(table, row, write=True)
             column = self._column(table, column)
 
             table.set_cell(column, self._typed(table, column, value), row)
@@ -474,11 +475,14 @@ class Table(seamm.Node):
                 pass
         return value
 
-    def _row(self, table, row):
-        """The table row for 'current', a position, or an index-column value."""
+    def _row(self, table, row, write=False):
+        """The table row for 'current', a position, or an index-column value.
+
+        For a write, 'current' past the last row is None: the write appends a row.
+        """
         if row == "current":
             row = table.current_row
-            if row is None:
+            if row is None and not write:
                 raise RuntimeError(
                     f"Table '{table.name}' has no current row: it is past the last row."
                 )
