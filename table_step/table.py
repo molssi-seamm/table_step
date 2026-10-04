@@ -301,9 +301,7 @@ class Table(seamm.Node):
                 if P["method"] == "Save as":
                     filename = P["filename"].strip()
                     if filename.startswith("/"):
-                        filename = str(
-                            Path(self.flowchart.root_directory) / filename[1:]
-                        )
+                        filename = str(self.job_path / filename[1:])
                     else:
                         filename = str(wd / filename)
                 else:
