@@ -1,5 +1,5 @@
 numpy
 openpyxl
 pandas
-seamm>=2026.10.3
+seamm>=2026.10.5
 tabulate
